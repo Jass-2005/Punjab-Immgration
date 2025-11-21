@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations | Punjab Immigration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--light); 
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-accent-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            font-weight: 600;
+            padding: 12px 28px;
+        }
+        .btn-accent-outline:hover {
+            background: var(--white);
+            color: var(--accent);
+        }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- PAGE HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- DESTINATIONS GRID --- */
+        .destinations-section {
+            padding-top: 20vh; /* Account for hero overlap */
+        }
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .destination-card {
+            position: relative;
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #333;
+        }
+        .destination-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+        .destination-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .destination-card .card-title {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            z-index: 3;
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: 700;
+            transition: 0.4s ease-out;
+        }
+        .destination-card .card-content {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            z-index: 2;
+            color: var(--white);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.4s ease-out;
+        }
+        .destination-card .card-content p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        /* Hover Effects */
+        .destination-card:hover .destination-card-img {
+            transform: scale(1.05);
+        }
+        .destination-card:hover .card-title {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        .destination-card:hover .card-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* --- STATS --- */
+        .stats-section { 
+            background: var(--primary); 
+            color: #333; 
+            padding: 120px 0; 
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+        }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            text-align: center; 
+            gap: 30px; 
+        }
+        .stat-item h2 { 
+            font-size: 3rem; 
+            color: var(--accent); 
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        .stat-item p { 
+            font-size: 1.1rem; 
+            opacity: 0.8; 
+            font-weight: 300;
+        }
+
+        /* --- ANIMATED MAP SECTION --- */
+        .map-section {
+            padding-top: 100px;
+            padding-bottom: 100px;
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            margin-top: -10vh; /* Pull up */
+        }
+        .map-section .section-title {
+            position: relative;
+            z-index: 2;
+        }
+        .map-svg-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; 
+            max-width: 1600px;
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .map-svg-container svg {
+            width: 100%;
+            height: auto;
+        }
+        .map-svg-container svg path {
+            fill: var(--primary); 
+            stroke: var(--white);
+            stroke-width: 0.5px; 
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(19, 59, 235, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 20px rgba(19, 59, 235, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(19, 59, 235, 0); }
+        }
+        .map-hotspot {
+            position: absolute;
+            z-index: 2;
+            width: 15px;
+            height: 15px;
+            background: var(--accent); 
+            border-radius: 50%;
+            cursor: none;
+            animation: pulse 2s infinite;
+        }
+        .map-hotspot::after {
+            content: attr(data-country);
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary); 
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Poppins';
+            white-space: nowrap;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        .map-hotspot:hover::after {
+            opacity: 1;
+            bottom: 30px;
+        }
+        .spot-canada { top: 32%; left: 22%; }
+        .spot-uk { top: 30%; left: 47%; }
+        .spot-aus { top: 68%; left: 80%; }
+        
+        /* --- FOOTER --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            .map-hotspot::after, .map-hotspot:hover::after {
+                display: none; 
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .destinations-section {
+                padding-top: 15vh;
+            }
+            
+            /* --- Mobile Grids --- */
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-section {
+                clip-path: none; 
+                margin: 0;
+            }
+            .stats-grid { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 40px 20px;
+            }
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer {
+                margin-top: 0;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .map-svg-container {
+                width: 200%; 
+                opacity: 0.1;
+            }
+            .spot-canada { top: 30%; left: 15%; }
+            .spot-uk { top: 33%; left: 40%; }
+            .spot-aus { top: 70%; left: 75%; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="Visa-Services.html">Visa services</a>
+               
+                <a href="destinations.html" class="active">Destinations</a>
+                <a href="happy-customers.html">Success Stories</a>
+                 <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Explore <span>Your Future</span></h1>
+            <p>Find the perfect destination for your study, work, or settlement goals.</p>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS GRID -->
+    <section class="section-padding destinations-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>OUR TOP COUNTRIES</h5>
+                <h2>Choose Your Destination</h2>
+            </div>
+            <div class="destinations-grid">
+                <!-- Card 1: Canada -->
+                <div class="destination-card reveal">
+                    <img src="https://placehold.co/600x450/fab00d/333?text=CANADA" alt="Canada" class="destination-card-img">
+                    <h3 class="card-title">Canada</h3>
+                    <div class="card-content">
+                        <p>With world-class universities, high quality of life, and clear pathways to PR, Canada is a top choice for students and professionals.</p>
+                        <a href="canada.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Australia -->
+                <div class="destination-card reveal delay-1">
+                    <img src="https://placehold.co/600x450/133beb/white?text=AUSTRALIA" alt="Australia" class="destination-card-img">
+                    <h3 class="card-title">Australia</h3>
+                    <div class="card-content">
+                        <p>Known for its vibrant cities, beautiful beaches, and strong economy. A popular destination for skilled workers and students alike.</p>
+                        <a href="australia.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: UK -->
+                <div class="destination-card reveal delay-2">
+                    <img src="https://placehold.co/600x450/333/white?text=UK" alt="UK" class="destination-card-img">
+                    <h3 class="card-title">United Kingdom</h3>
+                    <div class="card-content">
+                        <p>Home to historic universities and a diverse culture. The new Graduate Route offers exciting opportunities for students to stay and work.</p>
+                        <a href="uk.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: USA -->
+                <div class="destination-card reveal delay-3">
+                    <img src="httpsGallery.co/600x450/fab00d/333?text=USA" alt="USA" class="destination-card-img">
+                    <h3 class="card-title">USA</h3>
+                    <div class="card-content">
+                        <p>Explore the land of opportunity, from Silicon Valley to New York. We specialize in F1 student visas and B1/B2 visitor visas.</p>
+                        <a href="us.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS (Copied from other pages for consistency) -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <h2 data-target="10">0</h2>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item reveal delay-1">
+                    <h2 data-target="2500">0</h2>
+                    <p>Visas Granted</p>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <h2 data-target="15">0</h2>
+                    <p>Countries</p>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <h2 data-target="98">0</h2>
+                    <p>% Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GLOBAL OPPORTUNITIES (MAP) -->
+    <section class="map-section section-padding">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>AND MANY MORE...</h5>
+                <h2>We're Always Expanding</h2>
+            </div>
+            <div class="map-hotspot spot-canada" data-country="Canada"></div>
+            <div class="map-hotspot spot-uk" data-country="United Kingdom"></div>
+            <div class="map-hotspot spot-aus" data-country="Australia"></div>
+        </div>
+        <div class="map-svg-container">
+            <!-- This is a real world map SVG path -->
+            <svg version="1.1" id="world-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 1000 563.3" style="enable-background:new 0 0 1000 563.3;" xml:space="preserve">
+            <path d="M998.7,288.3l-0.1-0.2c-0.2-0.5-0.5-0.9-0.8-1.3l-1-1.3l-0.8-0.8l0,0l-0.6-0.6l-0.3-0.2l-0.1-0.1l-1.3-1l-0.6-0.4
+                c-0.2-0.1-0.4-0.3-0.6-0.4l-0.8-0.5l-1-0.6c-0.3-0.2-0.6-0.3-0.9-0.5l-1.3-0.6c-0.3-0.1-0.5-0.2-0.8-0.3l-1-0.4l-1.3-0.5l-1-0.3
+                l-1.3-0.4l-0.8-0.2l-1.2-0.3l-0.6-0.1l-1.5-0.3l-0.6-0.1l-1.3-0.2l-0.2,0l-0.6,0l-1-0.1l-0.8-0.1l-1.2-0.1l-0.7-0.1h-1l-1.1-0.1
+                l-0.6,0h-1l-1,0h-0.8l-1.1,0h-0.8l-0.9,0h-1l-0.9,0h-0.8l-1.1,0h-0.7l-1,0h-0.8l-1,0h-0.6l-1.1,0h-0.7l-1,0h-0.8l-0.9,0h-0.7l-1,0
+                h-0.6l-0.9,0h-0.7l-0.9,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0l-0.3,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.7,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.3,0l-0.6,0
+                l-0.3,0l-0.6,0l-0.3,0l-0.6,0l-0.Z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="pi bgn.png"Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL REVEAL ANIMATION ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            // --- NUMBER COUNTER ANIMATION ---
+            const counters = document.querySelectorAll('.stat-item h2');
+            const statsSection = document.querySelector('.stats-section');
+            let countersStarted = false;
+
+            const startCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    let count = 0;
+                    const updateCount = () => {
+                        const inc = target / 100; 
+                        if (count < target) {
+                            count = Math.ceil(count + inc);
+                            if(count > target) count = target;
+                            counter.innerText = count;
+                            setTimeout(updateCount, 20);
+                        } else {
+                            if (target === 98) {
+                                counter.innerText = target + "%";
+                            } else {
+                                counter.innerText = target + "+";
+                            }
+                        }
+                    };
+                    updateCount();
+                });
+            };
+            
+            if (statsSection && typeof IntersectionObserver !== 'undefined') {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !countersStarted) {
+                            startCounters();
+                            countersStarted = true;
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                observer.observe(statsSection);
+            } else if (statsSection) {
+                startCounters();
+            }
+
+        });
+    </script>
+</body>
+</html>

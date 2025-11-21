@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories | Punjab Immigration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--light); 
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-primary { 
+            background: var(--primary); 
+            color: #333; 
+        }
+        .btn-primary::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            transition: 0.4s; 
+            z-index: -1; 
+        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { color: var(--white); }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- ABOUT HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- VIDEO TESTIMONIALS --- */
+        .video-section {
+            padding-top: 20vh; /* Account for hero overlap */
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .video-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: 0.4s ease-out;
+        }
+        .video-thumbnail {
+            position: relative;
+            height: 220px;
+        }
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+        @keyframes pulse-play {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: pulse-play 2s infinite;
+            transition: 0.3s;
+        }
+        .video-card-info {
+            padding: 25px;
+            text-align: center;
+        }
+        .video-card-info h4 {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        .video-card-info span {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -15px rgba(19, 59, 235, 0.3);
+        }
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        .video-card:hover .play-button {
+            background: var(--accent);
+            color: var(--white);
+            animation-play-state: paused;
+        }
+        
+        /* --- MASONRY GALLERY --- */
+        .gallery-section {
+            background: var(--white);
+        }
+        .masonry-gallery {
+            column-count: 3;
+            column-gap: 20px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .gallery-item-content {
+            padding: 20px;
+        }
+        .gallery-item-content p {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .gallery-item-content h5 {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        /* --- TESTIMONIALS SLIDER --- */
+        .testimonial-section {
+            position: relative;
+            background: var(--light);
+            overflow: hidden;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            margin-top: -10vh;
+            padding-top: 20vh;
+        }
+        .testimonial-bg-icon {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            font-size: 30rem;
+            color: var(--white);
+            z-index: 1;
+            opacity: 0.8;
+            line-height: 1;
+        }
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .testimonial-slide {
+            display: none; 
+            padding: 40px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .testimonial-slide.active {
+            display: block; 
+        }
+        .testimonial-slide img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--accent); 
+        }
+        .testimonial-slide p {
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .testimonial-slide h4 {
+            font-size: 1.2rem;
+            color: var(--primary); 
+        }
+        .testimonial-slide span {
+            font-size: 0.9rem;
+            color: var(--accent); 
+            font-weight: 600;
+        }
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: none;
+            transition: 0.3s;
+        }
+        .slider-dot.active, .slider-dot:hover {
+            background: var(--primary); 
+            transform: scale(1.2);
+        }
+        
+        /* --- FOOTER --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            .masonry-gallery {
+                column-count: 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .video-section {
+                padding-top: 15vh;
+            }
+            
+            /* --- Mobile Grids --- */
+            .masonry-gallery {
+                column-count: 1;
+            }
+            .testimonial-section {
+                clip-path: none; 
+                margin: 0;
+                padding-top: 80px;
+            }
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer {
+                margin-top: 0;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="Visa-Services.html">Visa services</a>
+               
+                <a href="destinations.html">Destinations</a>
+                <a href="happy-customers.html" class="active">Success Stories</a>
+                 <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Our <span>Happy Clients</span></h1>
+            <p>Real stories from students, families, and professionals we've helped.</p>
+        </div>
+    </section>
+
+    <!-- VIDEO TESTIMONIALS -->
+    <section class="section-padding video-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>VIDEO TESTIMONIALS</h5>
+                <h2>Watch Their Stories</h2>
+            </div>
+            <div class="video-grid">
+                <a href="#" class="video-card reveal">
+                    <div class="video-thumbnail">
+                        <img src="https://placehold.co/600x400/fab00d/333?text=Manpreet's+Story" alt="Manpreet Singh">
+                        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="video-card-info">
+                        <h4>Manpreet Singh</h4>
+                        <span>Study Visa (Canada)</span>
+                    </div>
+                </a>
+                <a href="#" class="video-card reveal delay-1">
+                    <div class="video-thumbnail">
+                        <img src="https://placehold.co/600x400/133beb/white?text=Priya's+Story" alt="Priya Sharma">
+                        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="video-card-info">
+                        <h4>Priya Sharma</h4>
+                        <span>Spouse Visa (UK)</span>
+                    </div>
+                </a>
+                <a href="#" class="video-card reveal delay-2">
+                    <div class="video-thumbnail">
+                        <img src="https://placehold.co/600x400/333/white?text=Amit's+Story" alt="Amit Verma">
+                        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="video-card-info">
+                        <h4>Amit Verma</h4>
+                        <span>PR Visa (Australia)</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASONRY GALLERY -->
+    <section class="section-padding gallery-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>WALL OF SUCCESS</h5>
+                <h2>Visa Approvals Gallery</h2>
+            </div>
+            <div class="masonry-gallery">
+                <div class="gallery-item reveal">
+                    <img src="https://placehold.co/600x400/133beb/white?text=Visa+Success" alt="Visa Approval">
+                    <div class="gallery-item-content">
+                        <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
+                        <h5>Gurpreet Singh</h5>
+                    </div>
+                </div>
+                <div class="gallery-item reveal delay-1">
+                    <img src="https://placehold.co/600x800/fab00d/333?text=Visa+Success" alt="Visa Approval">
+                    <div class="gallery-item-content">
+                        <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
+                        <h5>Neha Sharma</h5>
+                    </div>
+                </div>
+                <div class="gallery-item reveal delay-2">
+                    <img src="https://placehold.co/600x600/133beb/white?text=Visa+Success" alt="Visa Approval">
+                    <div class="gallery-item-content">
+                        <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
+                        <h5>Amit Verma</h5>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://placehold.co/600x500/fab00d/333?text=Visa+Success" alt="Visa Approval">
+                    <div class="gallery-item-content">
+                        <p>"Thank you Punjab Immigration for helping me get my US Visitor Visa. My interview preparation was perfect."</p>
+                        <h5>Sunita Rani</h5>
+                    </div>
+                </div>
+                <div class="gallery-item reveal delay-1">
+                    <img src="https://placehold.co/600x700/133beb/white?text=Visa+Success" alt="Visa Approval">
+                    <div class="gallery-item-content">
+                        <p>"My dream of working in the UK is complete. Got my Skilled Worker visa thanks to their expert team."</p>
+                        <h5>Hardeep Singh</h5>
+                    </div>
+                </div>
+                <div class="gallery-item reveal delay-2">
+                    <img src="https://placehold.co/600x450/fab00d/333?text=Visa+Success" alt="Visa Approval">
+                    <div class="gallery-item-content">
+                        <p>"Australia PR was a long process, but they made it easy. 100% recommended."</p>
+                        <h5>Jaskaran S.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SLIDER -->
+    <section class="section-padding testimonial-section">
+        <i class="fa-solid fa-quote-left testimonial-bg-icon"></i>
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>FEATURED STORIES</h5>
+                <h2 style="color: #333">Don't Just Take Our Word</h2>
+            </div>
+            <div class="testimonial-slider reveal">
+                <div class="testimonial-slide active">
+                    <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
+                    <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
+                    <h4>Manpreet Singh</h4>
+                    <span>Study Visa (Canada)</span>
+                </div>
+                <div class="testimonial-slide">
+                    <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
+                    <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
+                    <h4>Priya Sharma</h4>
+                    <span>Spouse Open Work Permit (UK)</span>
+                </div>
+                <div class="testimonial-slide">
+                    <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
+                    <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
+                    <h4>Amit Verma</h4>
+                    <span>PR Visa (Australia)</span>
+                </div>
+            </div>
+            <div class="slider-nav reveal">
+                <div class="slider-dot active" data-slide="0"></div>
+                <div class="slider-dot" data-slide="1"></div>
+                <div class="slider-dot" data-slide="2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .video-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL REVEAL ANIMATION ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            // --- TESTIMONIAL SLIDER ---
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                if (slides.length === 0) return;
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                if(slides[index] && dots[index]) {
+                    slides[index].classList.add('active');
+                    dots[index].classList.add('active');
+                    currentSlide = index;
+                }
+            }
+            function startSlideShow() {
+                if (slides.length === 0) return;
+                slideInterval = setInterval(() => {
+                    let nextSlide = (currentSlide + 1) % slides.length;
+                    showSlide(nextSlide);
+                }, 5000); 
+            }
+            function stopSlideShow() {
+                clearInterval(slideInterval);
+            }
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    showSlide(parseInt(dot.getAttribute('data-slide')));
+                    stopSlideShow();
+                    startSlideShow();
+                });
+            });
+            
+            if (slides.length > 0 && dots.length > 0) {
+                showSlide(0); 
+                startSlideShow();
+            }
+
+        });
+    </script>
+</body>
+</html>

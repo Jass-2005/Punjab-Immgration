@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Punjab Immigration</title>
+    <!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--light); 
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-primary { 
+            background: var(--primary); 
+            color: #333; 
+        }
+        .btn-primary::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            transition: 0.4s; 
+            z-index: -1; 
+        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { color: var(--white); }
+        .btn-accent {
+            background: var(--accent);
+            color: var(--white);
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn-accent:hover {
+            background: var(--primary);
+            color: #333;
+        }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- PAGE HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- NEW CONTACT SECTION LAYOUT --- */
+        .contact-section {
+            padding-top: 20vh; /* Account for hero overlap */
+            padding-bottom: 0;
+        }
+        .contact-split-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .contact-info-side {
+            background: linear-gradient(180deg, var(--accent) 0%, #0a2d9c 100%);
+            padding: 50px;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-info-side::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: url('https://www.transparenttextures.com/patterns/clean-textile.png'); /* Subtle pattern */
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .contact-info-side h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-info-side p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 400px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-bubbles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-bubble {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: none;
+            flex-basis: calc(50% - 10px); /* Two columns on larger screens */
+            max-width: 250px;
+        }
+        .contact-bubble i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .contact-bubble h5 {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .contact-bubble span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--white);
+        }
+        .contact-bubble:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .contact-bubble:hover i {
+            transform: translateY(-5px);
+            color: var(--white);
+        }
+
+        .contact-form-side {
+            background: var(--white);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        .contact-form-side h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 25px; /* Adjust spacing for floating labels */
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            background: var(--light);
+            transition: 0.3s;
+            color: var(--text);
+        }
+        .form-group select {
+             -webkit-appearance: none;
+             -moz-appearance: none;
+             appearance: none;
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23${encodeURIComponent('333333')}' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+             background-repeat: no-repeat;
+             background-position: right 15px center;
+             background-size: 15px;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            padding-top: 25px; /* For floating label */
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(250, 176, 13, 0.1);
+        }
+        /* Floating label specific styles */
+        .form-group label {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            color: #999;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            background: transparent;
+            padding: 0 3px;
+            z-index: 5;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label,
+        .form-group select:focus + label,
+        .form-group select:not(:invalid) + label /* For selects, use :not(:invalid) if first option is placeholder */
+        {
+            top: -10px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: var(--white);
+        }
+        .form-group select + label { /* Adjust label for select */
+            top: 15px;
+        }
+        .form-group select:focus + label,
+        .form-group select:not(:invalid) + label {
+            top: -10px;
+        }
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: transparent; /* Hide default placeholder */
+        }
+        
+        /* NEW: Form Status Message Box */
+        #form-status {
+            display: none; /* Hidden by default */
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        #form-status.success {
+            display: block;
+            background: #e6f7ec;
+            color: #008a38;
+            border: 1px solid #b8e6c9;
+        }
+        #form-status.error {
+            display: block;
+            background: #fdecea;
+            color: #d93025;
+            border: 1px solid #f9c6c2;
+        }
+
+        /* --- MAP SECTION --- */
+        .map-section {
+            padding: 0;
+            margin-top: -50px; /* Overlap bottom of contact section */
+            position: relative;
+            z-index: -1;
+        }
+        .map-container {
+            width: 100%;
+            height: 450px;
+            background: #eee;
+            border-radius: 0 0 20px 20px;
+            overflow: hidden;
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #999;
+            font-family: 'Poppins';
+            font-size: 1.2rem;
+            background: #e9ecef;
+        }
+        
+        /* --- WHATSAPP BUTTON --- */
+        @keyframes pulse-wa {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+            animation: pulse-wa 2s infinite;
+        }
+        
+        /* --- FOOTER (Added padding-top for map overlap) --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .contact-split-wrapper {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .contact-info-side {
+                padding: 40px 20px;
+            }
+            .contact-form-side {
+                padding: 40px 20px;
+            }
+            .contact-bubbles {
+                flex-direction: column;
+                flex-wrap: nowrap;
+                gap: 15px;
+            }
+            .contact-bubble {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .contact-section {
+                padding-top: 15vh;
+            }
+            
+            /* --- Mobile Grids --- */
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .map-section {
+                margin-top: 0;
+            }
+            .map-container {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="Visa-Services.html">Visa services</a>
+                
+                <a href="destinations.html">Destinations</a>
+                <a href="happy-customers.html">Success Stories</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="active">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Let's <span>Connect</span></h1>
+            <p>Your journey to a new country starts with a conversation.</p>
+        </div>
+    </section>
+
+    <section class="section-padding contact-section">
+        <div class="container">
+            <div class="contact-split-wrapper reveal">
+                <div class="contact-info-side">
+                    <h2>Get In Touch</h2>
+                    <p>We're passionate about helping you achieve your global aspirations. Reach out to our team today for expert guidance.</p>
+                    <div class="contact-bubbles">
+                        <a href="tel:+919876543210" class="contact-bubble">
+                            <i class="fa-solid fa-phone"></i>
+                            <h5>Call Us</h5>
+                            <span>+91 98765 43210</span>
+                        </a>
+                        <a href="mailto:info@punjabimm.com" class="contact-bubble">
+                            <i class="fa-solid fa-envelope"></i>
+                            <h5>Email Us</h5>
+                            <span>info@punjabimm.com</span>
+                        </a>
+                        <a href="https://maps.app.goo.gl/YourGoogleMapsLink" target="_blank" class="contact-bubble">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <h5>Visit Us</h5>
+                            <span>SCO 12, Ranjit Avenue, Amritsar</span>
+                        </a>
+                        <a href="https://wa.me/919876543210" target="_blank" class="contact-bubble">
+                            <i class="fab fa-whatsapp"></i>
+                            <h5>WhatsApp</h5>
+                            <span>Chat Now!</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form-side">
+                    <h2>Send Us a Message</h2>
+                    <!-- UPDATED: Added id="contactForm" to the form -->
+                    <form id="contactForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Your Name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="Your Email" required>
+                                <label for="email">Your Email</label>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <input type="tel" id="phone" placeholder="Your Phone Number (Optional)">
+                            <label for="phone">Your Phone Number (Optional)</label>
+                        </div>
+                        <div class="form-group full-width">
+                            <!-- UPDATED: Added a required, disabled, selected placeholder option -->
+                            <select id="service" required>
+                                <option value="" disabled selected>Select a Service*</option>
+                                <option value="study">Study Visa</option>
+                                <option value="work">Work Visa</option>
+                                <option value="pr">PR Visa</option>
+                                <option value="visitor">Visitor Visa</option>
+                                <option value="other">Other Enquiry</option>
+                            </select>
+                            <label for="service">Interested Service</label>
+                        </div>
+                        <div class="form-group full-width">
+                            <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn btn-accent" id="submit-button">Send Message</button>
+                        </div>
+                        <!-- NEW: Form status message box -->
+                        <div id="form-status"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section" style="padding-top: 100px;">
+        <div class="container">
+            <div class="map-container reveal">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3413.793739504561!2d74.83854837542672!3d31.63665517417978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39197cad345d36e7%3A0xb3f545a909678174!2sRanjit%20Avenue%2C%20Amritsar%2C%20Punjab%20143001!5e0!3m2!1sen!2sin!4v1707986064971!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer style="padding-top: 150px;">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .whatsapp-float, .contact-bubble');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL REVEAL ANIMATION ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            // --- FORM FLOATING LABEL ---
+            const formInputs = document.querySelectorAll('.form-group input, .form-group textarea, .form-group select');
+            
+            // Helper function to check value and apply styles
+            const checkValue = (input, label) => {
+                const hasValue = (input.tagName === 'SELECT' && input.value !== "") || (input.tagName !== 'SELECT' && input.value);
+                const isFocused = input.matches(':focus');
+
+                if (hasValue || isFocused) {
+                    label.style.top = '-10px';
+                    label.style.fontSize = '0.75rem';
+                    label.style.background = 'var(--white)';
+                    label.style.padding = '0 5px';
+                    label.style.color = 'var(--accent)';
+                } else {
+                    label.style.top = '15px';
+                    label.style.fontSize = '0.9rem';
+                    label.style.background = 'transparent';
+                    label.style.padding = '0';
+                    label.style.color = '#999';
+                }
+            };
+            
+            formInputs.forEach(input => {
+                const label = input.nextElementSibling;
+                if (!label || label.tagName !== 'LABEL') return;
+                
+                checkValue(input, label); // Initial check
+                input.addEventListener('focus', () => checkValue(input, label));
+                input.addEventListener('blur', () => checkValue(input, label));
+                input.addEventListener('input', () => checkValue(input, label));
+                if (input.tagName === 'SELECT') {
+                    input.addEventListener('change', () => checkValue(input, label));
+                }
+            });
+
+            // --- FORM SUBMISSION SCRIPT ---
+            const contactForm = document.getElementById('contactForm');
+            const statusBox = document.getElementById('form-status');
+            const submitButton = document.getElementById('submit-button');
+            
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const originalButtonText = submitButton.innerHTML;
+        submitButton.innerHTML = 'Sending...';
+        submitButton.disabled = true;
+
+        try {
+            const payload = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+                service: document.getElementById("service").value,
+                message: document.getElementById("message").value,
+                _token: "Punjab@53"
+            };
+
+            const res = await fetch("https://script.google.com/macros/s/AKfycbziIXLUVf85013qj8-vKz9agWwuoo1KmTiLwG-xAHjmCB0-lKyg5FXFLjmCoe7qYtRijw/exec", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                statusBox.className = 'success';
+                statusBox.innerText = data.message || 'Form submitted successfully!';
+                contactForm.reset();
+
+                setTimeout(() => {
+                    formInputs.forEach(input => {
+                        const label = input.nextElementSibling;
+                        if (label && label.tagName === 'LABEL') {
+                            checkValue(input, label);
+                        }
+                    });
+                }, 10);
+            } else {
+                throw new Error(data.message || 'Server error');
+            }
+
+        } catch (err) {
+            statusBox.className = 'error';
+            statusBox.innerText = "Something went wrong. Please try again later.";
+            console.error("Form submit error:", err);
+        } finally {
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
+        }
+    });
+  }
+
+});     // <-- ADD THIS LINE
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Destination | Punjab Immigration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--light); 
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-primary { 
+            background: var(--primary); 
+            color: #333; 
+        }
+        .btn-primary::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            transition: 0.4s; 
+            z-index: -1; 
+        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { color: var(--white); }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- PAGE HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- WHY UK SECTION --- */
+        .why-section {
+            padding-top: 20vh; /* Account for hero overlap */
+            background: var(--light);
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .why-content .section-title {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .why-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .why-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .why-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+        .why-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.03);
+            box-shadow: var(--shadow);
+        }
+        .why-card i {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+        .why-card h4 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            color: var(--accent); 
+        }
+        .why-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* --- "PATHWAYS" SECTION --- */
+        .process-section {
+            background: var(--white);
+        }
+        .process-timeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 30px;
+            position: relative;
+        }
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50px; 
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: #ccc;
+            border-style: dashed;
+            z-index: 1;
+        }
+        .process-step {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            z-index: 2;
+            position: relative;
+            border-top: 4px solid var(--accent); 
+            transition: 0.3s;
+        }
+        .process-step:hover {
+            transform: translateY(-10px);
+        }
+        .process-step-number {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--primary); 
+            color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Poppins';
+            border: 4px solid var(--white);
+        }
+        .process-step h4 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--accent); 
+        }
+        .process-step p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #666;
+            text-align: center;
+        }
+        
+        /* --- STATS --- */
+        .stats-section { 
+            background: var(--primary); 
+            color: #333; 
+            padding: 120px 0; 
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+        }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            text-align: center; 
+            gap: 30px; 
+        }
+        .stat-item h2 { 
+            font-size: 3rem; 
+            color: var(--accent); 
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        .stat-item p { 
+            font-size: 1.1rem; 
+            opacity: 0.8; 
+            font-weight: 300;
+        }
+        
+        /* --- FOOTER --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+            margin-top: -10vh; /* Pull up */
+            position: relative;
+            z-index: 1;
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-timeline {
+                grid-template-columns: 1fr 1fr;
+            }
+            .process-timeline::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .why-section {
+                padding-top: 15vh;
+            }
+            .why-grid {
+                gap: 40px;
+            }
+            
+            /* --- Mobile Grids --- */
+            .process-timeline {
+                grid-template-columns: 1fr;
+            }
+            .stats-section {
+                clip-path: none; 
+                margin: 0;
+            }
+            .stats-grid { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 40px 20px;
+            }
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer {
+                margin-top: 0;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="Visa-Services.html">Visa services</a>
+               
+                <a href="destinations.html" class="active">Destinations</a>
+                <a href="happy-customers.html">Success Stories</a>
+                 <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Destination: <span>United Kingdom</span></h1>
+            <p>Home of History, Culture, and World-Class Education.</p>
+        </div>
+    </section>
+
+    <!-- WHY UK SECTION -->
+    <section class="section-padding why-section">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-content reveal">
+                    <div class="section-title">
+                        <h5>WHY CHOOSE THE UK?</h5>
+                        <h2>A Tradition of Excellence</h2>
+                    </div>
+                    <p>The United Kingdom offers a unique blend of rich history and modern innovation. Its universities are legendary, and its cities are global hubs for finance, tech, and the creative arts.</p>
+                    <p>With the new Graduate Route visa, international students can now stay and work (or look for work) for up to two years after completing their degree, making it one of the most attractive destinations today.</p>
+                </div>
+                <div class="why-cards">
+                    <div class="why-card reveal delay-1">
+                        <i class="fa-solid fa-landmark"></i>
+                        <div>
+                            <h4>World-Class Education</h4>
+                            <p>Study at prestigious universities like Oxford, Cambridge, and LSE.</p>
+                        </div>
+                    </div>
+                    <div class="why-card reveal delay-2">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <div>
+                            <h4>Graduate Route (PSW)</h4>
+                            <p>Stay and work in the UK for 2 years post-graduation (3 years for PhD).</p>
+                        </div>
+                    </div>
+                    <div class="why-card reveal delay-3">
+                        <i class="fa-solid fa-globe"></i>
+                        <div>
+                            <h4>Historic Culture</h4>
+                            <p>Live and work in a country with a rich, globally-influential history.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- "PATHWAYS" SECTION -->
+    <section class="section-padding process-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>YOUR OPTIONS</h5>
+                <h2>Pathways to the UK</h2>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step reveal">
+                    <div class="process-step-number"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h4>Student Visa</h4>
+                    <p>For students who have an offer (CAS) from a licensed UK university or institution.</p>
+                </div>
+                <div class="process-step reveal delay-1">
+                    <div class="process-step-number"><i class="fa-solid fa-briefcase"></i></div>
+                    <h4>Skilled Worker Visa</h4>
+                    <p>For those who have a job offer from a UK employer with a sponsorship licence.</p>
+                </div>
+                <div class="process-step reveal delay-2">
+                    <div class="process-step-number"><i class="fa-solid fa-plane"></i></div>
+                    <h4>Visitor Visa</h4>
+                    <p>For tourism, visiting family, or short-term business meetings and conferences.</p>
+                </div>
+                <div class="process-step reveal delay-3">
+                    <div class="process-step-number"><i class="fa-solid fa-heart"></i></div>
+                    <h4>Family & Spouse Visa</h4>
+                    <p>Join your partner or family members who are settled in the United Kingdom.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <h2 data-target="10">0</h2>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item reveal delay-1">
+                    <h2 data-target="2500">0</h2>
+                    <p>Visas Granted</p>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <h2 data-target="15">0</h2>
+                    <p>Countries</p>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <h2 data-target="98">0</h2>
+                    <p>% Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL REVEAL ANIMATION ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            // --- NUMBER COUNTER ANIMATION ---
+            const counters = document.querySelectorAll('.stat-item h2');
+            const statsSection = document.querySelector('.stats-section');
+            let countersStarted = false;
+
+            const startCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    let count = 0;
+                    const updateCount = () => {
+                        const inc = target / 100; 
+                        if (count < target) {
+                            count = Math.ceil(count + inc);
+                            if(count > target) count = target;
+                            counter.innerText = count;
+                            setTimeout(updateCount, 20);
+                        } else {
+                            if (target === 98) {
+                                counter.innerText = target + "%";
+                            } else {
+                                counter.innerText = target + "+";
+                            }
+                        }
+                    };
+                    updateCount();
+                });
+            };
+            
+            if (statsSection && typeof IntersectionObserver !== 'undefined') {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !countersStarted) {
+                            startCounters();
+                            countersStarted = true;
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                observer.observe(statsSection);
+            } else if (statsSection) {
+                startCounters();
+            }
+
+        });
+    </script>
+</body>
+</html>

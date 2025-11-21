@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR Visa | Punjab Immigration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--light); 
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-primary { 
+            background: var(--primary); 
+            color: #333; 
+        }
+        .btn-primary::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            transition: 0.4s; 
+            z-index: -1; 
+        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { color: var(--white); }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- PAGE HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- WHY PR SECTION (Asymmetrical) --- */
+        .why-section {
+            padding-top: 20vh; /* Account for hero overlap */
+            background: var(--light);
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .why-content .section-title {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .why-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .why-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .why-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+        .why-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.03);
+            box-shadow: var(--shadow);
+        }
+        .why-card i {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+        .why-card h4 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            color: var(--accent); 
+        }
+        .why-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .why-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- "PR PATHWAYS" TIMELINE SECTION --- */
+        .timeline-section {
+            background: var(--white);
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            padding-top: 15vh;
+            margin-top: -10vh;
+            padding-bottom: 15vh;
+            margin-bottom: -10vh;
+            position: relative;
+            z-index: 2;
+        }
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #ddd;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 1;
+        }
+        #timeline-path {
+            position: absolute;
+            width: 4px;
+            background-color: var(--accent);
+            top: 0;
+            height: 0; /* Animated by JS */
+            left: 50%;
+            margin-left: -2px;
+            z-index: 2;
+            transition: height 0.3s linear;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s 0.2s, transform 0.6s 0.2s;
+        }
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 70px;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 70px;
+            text-align: left;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--white);
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 3;
+            transition: 0.3s;
+        }
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        .timeline-item.active::after {
+            background-color: var(--primary);
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            background: var(--light); 
+        }
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .timeline-content p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* --- FAQ ACCORDION SECTION --- */
+        .faq-section {
+             background: var(--light);
+        }
+        .faq-accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            cursor: none;
+            position: relative;
+            z-index: 2;
+        }
+        .faq-header h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .faq-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
+                        padding 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            padding: 0 30px;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .faq-item.active .faq-content {
+            max-height: 200px; /* Adjust as needed */
+            padding: 0 30px 25px 30px;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        /* --- FOOTER --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .why-image {
+                grid-row: 1; /* Move image to top */
+            }
+            .process-timeline {
+                grid-template-columns: 1fr 1fr;
+            }
+            .process-timeline::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .why-section {
+                padding-top: 15vh;
+            }
+            .why-grid {
+                gap: 40px;
+            }
+            .why-image {
+                height: 300px;
+            }
+            
+            /* --- Mobile Timeline --- */
+            .timeline-section {
+                clip-path: none;
+                margin: 0;
+                padding: 80px 0;
+            }
+            .timeline-container::after, #timeline-path {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                left: 0 !important; /* Override inline style */
+                padding-left: 60px;
+                padding-right: 20px;
+                text-align: left !important;
+            }
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after {
+                left: -12px;
+            }
+
+            /* --- Mobile Grids --- */
+            .process-timeline {
+                grid-template-columns: 1fr;
+            }
+            .stats-section {
+                clip-path: none; 
+                margin: 0;
+            }
+            .stats-grid { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 40px 20px;
+            }
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer {
+                margin-top: 0;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="visa-services.html" class="active">Visa Services</a>
+               
+                
+                <a href="destinations.html">Destinations</a>
+                <a href="happy-customers.html">Success Stories</a>
+               <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Permanent <span>Residency</span></h1>
+            <p>Your Pathway to a New Life and Secure Future.</p>
+        </div>
+    </section>
+
+    <!-- WHY PR SECTION (Asymmetrical) -->
+    <section class="section-padding why-section">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-content reveal">
+                    <div class="section-title">
+                        <h5>WHY SEEK PR?</h5>
+                        <h2>Build Your New Home</h2>
+                    </div>
+                    <p>Permanent Residency is more than just a visa; it's your key to a secure future. It grants you the freedom to live, work, and study indefinitely in your new country, along with access to social benefits like healthcare and education for your family.</p>
+                    <p>Our experts specialize in navigating the complex points systems and application streams to maximize your chances of success.</p>
+                </div>
+                <div class="why-cards">
+                    <div class="why-card reveal delay-1">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <h4>Live & Work Freely</h4>
+                            <p>Work for any employer, in any city, and enjoy social security benefits.</p>
+                        </div>
+                    </div>
+                    <div class="why-card reveal delay-2">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <div>
+                            <h4>Access to Healthcare</h4>
+                            <p>Gain access to world-class public healthcare systems for you and your family.</p>
+                        </div>
+                    </div>
+                    <div class="why-card reveal delay-3">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <div>
+                            <h4>Affordable Education</h4>
+                            <p>Your children can attend public schools for free, and you pay domestic university fees.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- "PR PATHWAYS" TIMELINE SECTION -->
+    <section class="section-padding timeline-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>OUR PROCESS</h5>
+                <h2>Your Pathway to PR</h2>
+            </div>
+            <div class="timeline-container">
+                <div id="timeline-path"></div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>1. Profile Assessment</h3>
+                        <p>We analyze your age, education, experience, and language skills to calculate your points (e.g., CRS score).</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>2. Enter the Pool</h3>
+                        <p>We create your official profile (e.g., Express Entry, EOI) and submit it to the government pool.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>3. Invitation to Apply (ITA)</h3>
+                        <p>Once your score is high enough, you'll receive an official Invitation to Apply for Permanent Residency.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>4. Final Application</h3>
+                        <p>We meticulously prepare and submit your final, detailed application and all supporting documents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: FAQ ACCORDION SECTION -->
+    <section class="section-padding faq-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>HAVE QUESTIONS?</h5>
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-accordion reveal">
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h4>What is the "Points System" (CRS)?</h4>
+                        <i class="fa-solid fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p>The Comprehensive Ranking System (CRS) is used by Canada to rank Express Entry candidates. You get points for your age, education, work experience, and language skills. We help you find every possible way to maximize your score.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h4>What is a Provincial Nominee Program (PNP)?</h4>
+                        <i class="fa-solid fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p>Canadian provinces can "nominate" candidates from the Express Entry pool (or their own streams) who have the specific skills they need. A nomination gives you a massive 600-point boost, virtually guaranteeing an Invitation to Apply.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <h4>How long does the PR process take?</h4>
+                        <i class="fa-solid fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p>This varies greatly. After receiving an ITA, the standard processing time is often 6-8 months. However, waiting in the pool for an ITA can take anywhere from a few weeks to a few years, depending on your score and the draw cut-offs.</p>
+                    </div>
+                </div>
+                 <div class="faq-item">
+                    <div class="faq-header">
+                        <h4>Can I bring my family with me on a PR visa?</h4>
+                        <i class="fa-solid fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <p>Yes. When you apply for Permanent Residency, you must include your spouse or common-law partner and any dependent children. They will all receive PR status at the same time as you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="visa-services.html">All Visa Services</a></li>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .why-card, .faq-header');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL ANIMATIONS ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelinePath = document.getElementById('timeline-path');
+            const timelineContainer = document.querySelector('.timeline-container');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                
+                // General Reveal
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+
+                // Timeline Reveal
+                let timelineActive = false;
+                timelineItems.forEach(item => {
+                    if (item.getBoundingClientRect) {
+                        const itemTop = item.getBoundingClientRect().top;
+                        if (itemTop < windowHeight - 200) {
+                            item.classList.add('active');
+                            timelineActive = true;
+                        }
+                    }
+                });
+
+                // Timeline Path Animation
+                if (timelineContainer && timelinePath && timelineActive) {
+                    const containerRect = timelineContainer.getBoundingClientRect();
+                    
+                    // Check if elements exist before getting rect
+                    if (timelineItems.length > 0) {
+                        const firstItem = timelineItems[0];
+                        const lastItem = timelineItems[timelineItems.length - 1];
+                        const firstItemRect = firstItem.getBoundingClientRect();
+                        const lastItemRect = lastItem.getBoundingClientRect();
+
+                        const startY = firstItemRect.top - containerRect.top + 25; // 25px = half of dot
+                        const endY = lastItemRect.top - containerRect.top + 25;
+                        let pathHeight = endY - startY;
+                        
+                        const scrollPercent = (windowHeight - containerRect.top) / (containerRect.height + windowHeight);
+                        let currentHeight = scrollPercent * pathHeight;
+
+                        if (currentHeight < 0) currentHeight = 0;
+                        if (currentHeight > pathHeight) currentHeight = pathHeight;
+                        
+                        timelinePath.style.height = `${currentHeight}px`;
+                        
+                        if (!timelinePath.style.top) {
+                             timelinePath.style.top = `${startY}px`;
+                        }
+                    }
+                }
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            // --- FAQ ACCORDION ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const header = item.querySelector('.faq-header');
+                header.addEventListener('click', () => {
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

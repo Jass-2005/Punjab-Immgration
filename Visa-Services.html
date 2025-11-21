@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Services | Punjab Immigration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--white); /* Changed to white for this layout */
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-primary { 
+            background: var(--primary); 
+            color: #333; 
+        }
+        .btn-primary::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            transition: 0.4s; 
+            z-index: -1; 
+        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { color: var(--white); }
+        .btn-accent {
+            background: var(--accent);
+            color: var(--white);
+        }
+        .btn-accent:hover {
+            background: var(--primary);
+            color: #333;
+        }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- PAGE HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- NEW: STICKY SCROLLING SERVICES --- */
+        .services-layout-wrapper {
+             padding-top: 20vh; /* Account for hero overlap */
+        }
+        .services-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: flex-start;
+        }
+        .services-sticky-visual {
+            position: sticky;
+            top: 120px; /* 90px nav + 30px padding */
+            height: 70vh;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .visual-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.6s ease-in-out;
+            opacity: 0;
+        }
+        .visual-img.active {
+            opacity: 1;
+        }
+        
+        .services-scrolling-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding-bottom: 20vh; /* Ensure last item can trigger */
+        }
+        .service-trigger-box {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            /* Each box needs min-height to ensure it fills viewport on scroll */
+            min-height: 40vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .service-trigger-box:hover {
+            box-shadow: var(--shadow);
+            transform: scale(1.02);
+        }
+        .service-trigger-box i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .service-trigger-box h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .service-trigger-box p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+        .service-trigger-box .btn {
+            background: var(--accent);
+            color: var(--white);
+            padding: 10px 25px;
+            align-self: flex-start; /* Don't stretch button */
+        }
+        .service-trigger-box .btn:hover {
+            background: var(--primary);
+            color: #333;
+        }
+
+        
+        /* --- FOOTER --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+            position: relative;
+            z-index: 5; /* Ensure footer is on top */
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            .services-layout {
+                grid-template-columns: 1fr; /* Stack on tablet */
+            }
+            .services-sticky-visual {
+                position: relative;
+                top: 0;
+                height: 300px; /* Make it a header image */
+            }
+            .services-scrolling-content {
+                padding-bottom: 0;
+            }
+            .service-trigger-box {
+                min-height: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .services-layout-wrapper {
+                padding-top: 15vh;
+            }
+            
+            /* --- Mobile Grids --- */
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer {
+                margin-top: 0;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+              
+                <!-- NEW LINK -->
+                <a href="visa-services.html" class="active">Visa Services</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="happy-customers.html">Success Stories</a>
+                  <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Our <span>Visa Services</span></h1>
+            <p>Explore our expert guidance for every immigration pathway.</p>
+        </div>
+    </section>
+
+    <!-- NEW: STICKY SCROLLING SERVICES -->
+    <section class="section-padding services-layout-wrapper">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>OUR EXPERTISE</h5>
+                <h2>Explore Our Visa Services</h2>
+            </div>
+            <div class="services-layout">
+                <div class="services-sticky-visual">
+                    <img src="https://placehold.co/600x800/fab00d/333?text=Study+Abroad" alt="Study Visa" class="visual-img active" id="img-study">
+                    <img src="https://placehold.co/600x800/133beb/white?text=Work+Abroad" alt="Work Visa" class="visual-img" id="img-work">
+                    <img src="https://placehold.co/600x800/333/white?text=Settle+Abroad" alt="PR Visa" class="visual-img" id="img-pr">
+                    <img src="https://placehold.co/600x800/fab00d/333?text=Visit+Abroad" alt="Visitor Visa" class="visual-img" id="img-visitor">
+                </div>
+                <div class="services-scrolling-content">
+                    <div class="service-trigger-box reveal" data-image="img-study">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <h3>Study Visa</h3>
+                        <p>Guidance for students aspiring to study in Canada, UK, Australia, and New Zealand. We handle everything from applications to SOPs.</p>
+                        <a href="study-visa.html" class="btn">Learn More &rarr;</a>
+                    </div>
+                    <div class="service-trigger-box reveal" data-image="img-work">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <h3>Work Visa</h3>
+                        <p>Secure your global career with our comprehensive work permit assistance, including LMIA, Spousal Permits, and Post-Study options.</p>
+                        <a href="work-visa.html" class="btn">Learn More &rarr;</a>
+                    </div>
+                    <div class="service-trigger-box reveal" data-image="img-pr">
+                        <i class="fa-solid fa-passport"></i>
+                        <h3>PR Visa</h3>
+                        <p>Permanent Residency pathways simplified. We are experts in Express Entry, PNP, and family sponsorship streams.</p>
+                        <a href="pr-visa.html" class="btn">Learn More &rarr;</a>
+                    </div>
+                    <div class="service-trigger-box reveal" data-image="img-visitor">
+                        <i class="fa-solid fa-plane"></i>
+                        <h3>Visitor Visa</h3>
+                        <p>High success rate for tourist, family, and business visitor visas. We prepare your file to show strong ties and purpose of visit.</p>
+                        <a href="visitor-visa.html" class="btn">Learn More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <!-- NEW LINK -->
+                        <li><a href="visa-services.html">All Visa Services</a></li>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .service-trigger-box');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL REVEAL ANIMATION ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+            // --- NEW: STICKY IMAGE SCROLL ---
+            const triggers = document.querySelectorAll('.service-trigger-box');
+            const images = document.querySelectorAll('.visual-img');
+
+            if (window.innerWidth > 992) { // Only run on desktop
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const imageId = entry.target.dataset.image;
+                            
+                            images.forEach(img => {
+                                img.classList.remove('active');
+                            });
+                            
+                            const activeImage = document.getElementById(imageId);
+                            if (activeImage) {
+                                activeImage.classList.add('active');
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 }); // Trigger when 60% of the box is visible
+
+                triggers.forEach(trigger => {
+                    observer.observe(trigger);
+                });
+            } else {
+                // On mobile, just show the first image
+                const firstImage = document.getElementById('img-study');
+                if (firstImage) {
+                    firstImage.classList.add('active');
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

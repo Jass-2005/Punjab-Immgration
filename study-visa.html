@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Visa | Punjab Immigration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #fab00d; /* Main Orange/Yellow */
+            --accent: #133beb; /* Secondary Blue */
+            --text: #333333;
+            --light: #F5F7FA;
+            --white: #ffffff;
+            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--text); 
+            background: var(--light); 
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        h1, h2, h3, h4, h5 { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--primary); 
+            line-height: 1.2; 
+        }
+        a { text-decoration: none; transition: 0.3s; cursor: none; }
+        ul { list-style: none; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease-out;
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container { 
+            max-width: 1200px; 
+            width: 90%;
+            margin: 0 auto; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            overflow: hidden; 
+            z-index: 1; 
+            border: none; 
+            cursor: none; 
+            transition: 0.4s;
+        }
+        .btn-primary { 
+            background: var(--primary); 
+            color: #333; 
+        }
+        .btn-primary::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
+            background: var(--accent); 
+            transition: 0.4s; 
+            z-index: -1; 
+        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { color: var(--white); }
+        .btn-accent-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        .btn-accent-outline:hover {
+            background: var(--white);
+            color: var(--accent);
+        }
+        
+        .section-padding { padding: 100px 0; }
+        .text-center { text-align: center; }
+        .section-title {
+            margin-bottom: 60px;
+        }
+        .section-title h5 {
+            color: var(--accent); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary); 
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--white); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+        .nav-wrapper { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px; 
+            width: auto;
+            vertical-align: middle; 
+        }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-links a { 
+            color: #333; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after { 
+            content: ''; 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            position: absolute; 
+            bottom: -5px; 
+            left: 0; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- MOBILE NAVIGATION TOGGLE --- */
+        .mobile-toggle {
+            display: none; 
+            font-size: 24px;
+            color: var(--primary);
+            cursor: none;
+            z-index: 1001; 
+        }
+
+        /* --- PAGE HERO SECTION --- */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            color: white; 
+            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -15vh;
+        }
+        .page-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .page-hero h1 span {
+            color: #333;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- NEW: VERTICAL TIMELINE SECTION --- */
+        .timeline-section {
+            padding-top: 20vh;
+            position: relative;
+            background: var(--white); /* Swapped background */
+        }
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        /* The vertical line */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #ddd;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 1;
+        }
+        /* The animated fill line */
+        #timeline-path {
+            position: absolute;
+            width: 4px;
+            background-color: var(--accent);
+            top: 0;
+            height: 0; /* Will be animated by JS */
+            left: 50%;
+            margin-left: -2px;
+            z-index: 2;
+            transition: height 0.3s linear;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s 0.2s, transform 0.6s 0.2s;
+        }
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 70px;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 70px;
+            text-align: left;
+        }
+        /* The circle on the timeline */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--white);
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 3;
+            transition: 0.3s;
+        }
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        .timeline-item.active::after {
+            background-color: var(--primary);
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            background: var(--light); /* Light bg for cards */
+        }
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .timeline-content p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* --- NEW: 3D FLIP CARD SECTION --- */
+        .benefits-section {
+            background: var(--light);
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .flip-card {
+            background-color: transparent;
+            height: 350px;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+        .flip-card-front {
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+        .flip-card-front i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .flip-card-front h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        .flip-card-back {
+            background: var(--accent);
+            color: var(--white);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+        }
+        .flip-card-back h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .flip-card-back p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* --- DESTINATIONS GRID --- */
+        .destinations-section {
+            background: var(--white);
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            margin-top: -10vh;
+            padding-top: 20vh;
+        }
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .destination-card {
+            position: relative;
+            height: 350px; /* Smaller cards for this section */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .destination-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+        .destination-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .destination-card .card-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 3;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: 0.4s ease-out;
+        }
+        .destination-card .card-content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 2;
+            color: var(--white);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.4s ease-out;
+        }
+        .destination-card .card-content p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        /* Hover Effects */
+        .destination-card:hover .destination-card-img {
+            transform: scale(1.05);
+        }
+        .destination-card:hover .card-title {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        .destination-card:hover .card-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* --- FOOTER --- */
+        footer { 
+            background: #081b36; 
+            color: white; 
+            padding: 80px 0 30px; 
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 40px; 
+        }
+        .footer-col .logo {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .footer-col p {
+            color: #ccc;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 { 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: #ccc; 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--accent); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--accent);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: #777; 
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+            .process-timeline {
+                grid-template-columns: 1fr 1fr;
+            }
+            .process-timeline::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide custom cursor on mobile */
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto; 
+            }
+            a, .btn, .slider-dot, .mobile-toggle {
+                cursor: auto; 
+            }
+
+            .container {
+                width: 90%;
+            }
+            
+            /* --- Mobile Navigation --- */
+            .mobile-toggle {
+                display: block; 
+            }
+            .nav-links {
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); 
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateX(0); 
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            /* --- Mobile Hero --- */
+            .page-hero {
+                min-height: auto;
+                height: auto;
+                padding: 80px 0 100px 0;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                margin-bottom: -10vh;
+            }
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            .timeline-section, .benefits-section, .destinations-section {
+                padding-top: 15vh;
+            }
+            .why-grid {
+                gap: 40px;
+            }
+            
+            /* --- Mobile Timeline --- */
+            .timeline-container::after, #timeline-path {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                left: 0 !important; /* Override inline style */
+                padding-left: 60px;
+                padding-right: 20px;
+                text-align: left !important;
+            }
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after {
+                left: -12px;
+            }
+
+            /* --- Mobile Grids --- */
+            .process-timeline {
+                grid-template-columns: 1fr;
+            }
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            .destinations-section {
+                clip-path: none;
+                margin-top: 0;
+                padding-top: 80px;
+            }
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+            }
+            .footer {
+                margin-top: 0;
+            }
+            .footer-col .logo, .footer-col p {
+                max-width: 100%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="visa-services.html" class="active">Visa Services</a>
+ 
+              
+                <a href="destinations.html">Destinations</a>
+                <a href="happy-customers.html">Success Stories</a>
+                 <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container reveal">
+            <h1>Study <span>Visa</span></h1>
+            <p>Your First Step Towards a Global Education.</p>
+        </div>
+    </section>
+
+    <!-- NEW: "VISA PROCESS" TIMELINE SECTION -->
+    <section class="section-padding timeline-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>OUR PROCESS</h5>
+                <h2>The 4-Step Study Visa Process</h2>
+            </div>
+            <div class="timeline-container">
+                <div id="timeline-path"></div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>1. Counselling</h3>
+                        <p>We assess your academic profile and help you choose the right course and country that aligns with your career goals.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>2. Offer Letter</h3>
+                        <p>We manage your university applications to secure your admission (CAS/LOA) from the best institutions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>3. Documentation</h3>
+                        <p>Expert guidance on funding, GICs, medicals, and writing a strong Statement of Purpose (SOP).</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>4. Visa & Departure</h3>
+                        <p>We handle the final visa lodging and provide comprehensive pre-departure briefings to prepare you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- NEW: 3D FLIP CARD "BENEFITS" SECTION -->
+    <section class="section-padding benefits-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>WHY STUDY ABROAD?</h5>
+                <h2>Invest in Your Future</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid fa-university"></i>
+                            <h3>Top Universities</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>World-Class Education</h3>
+                            <p>Gain access to globally-recognized universities and colleges, setting you apart in the job market.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal delay-1">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <h3>Post-Study Work</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Valuable Experience</h3>
+                            <p>Most countries offer post-study work permits (like PGWP or Graduate Route) to help you gain valuable international experience.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal delay-2">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid fa-globe"></i>
+                            <h3>Global Career</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>A New Perspective</h3>
+                            <p>An international degree and new cultural understanding opens doors to opportunities all over the world.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS GRID -->
+    <section class="section-padding destinations-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>POPULAR DESTINATIONS</h5>
+                <h2>Where Do You Want to Study?</h2>
+            </div>
+            <div class="destinations-grid">
+                <!-- Card 1: Canada -->
+                <div class="destination-card reveal">
+                    <img src="https://placehold.co/600x450/fab00d/333?text=CANADA" alt="Canada" class="destination-card-img">
+                    <h3 class="card-title">Canada</h3>
+                    <div class="card-content">
+                        <p>High-quality, affordable education with excellent post-study work and PR opportunities.</p>
+                        <a href="canada.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Australia -->
+                <div class="destination-card reveal delay-1">
+                    <img src="https://placehold.co/600x450/133beb/white?text=AUSTRALIA" alt="Australia" class="destination-card-img">
+                    <h3 class="card-title">Australia</h3>
+                    <div class="card-content">
+                        <p>World-renowned universities, vibrant city life, and great weather. Strong post-study work rights.</p>
+                        <a href="australia.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: UK -->
+                <div class="destination-card reveal delay-2">
+                    <img src="https://placehold.co/600x450/333/white?text=UK" alt="UK" class="destination-card-img">
+                    <h3 class="card-title">United Kingdom</h3>
+                    <div class="card-content">
+                        <p>Home to historic universities. The 2-year Graduate Route visa is a major attraction.</p>
+                        <a href="uk.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: USA -->
+                <div class="destination-card reveal delay-3">
+                    <img src="https://placehold.co/600x450/fab00d/333?text=USA" alt="USA" class="destination-card-img">
+                    <h3 class="card-title">USA</h3>
+                    <div class="card-content">
+                        <p>The world's leader in tech and innovation, offering F-1 visas for top-tier academic programs.</p>
+                        <a href="usa.html" class="btn btn-accent-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    </a>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="visa-services.html">All Visa Services</a></li>
+                        <li><a href="study-visa.html">Study Visa</a></li>
+                        <li><a href="work-visa.html">Work Visa</a></li>
+                        <li><a href="pr-visa.html">PR Visa</a></li>
+                        <li><a href="visitor-visa.html">Visitor Visa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            window.addEventListener('mousemove', (e) => {
+                if (cursorDot && cursorOutline) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: 'forwards' });
+                }
+            });
+
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .destination-card, .flip-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
+                });
+            });
+
+            // --- MOBILE NAVIGATION TOGGLE ---
+            const navLinks = document.getElementById('nav-links');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            
+            if (mobileToggle) {
+                const hamburgerIcon = mobileToggle.querySelector('i');
+                mobileToggle.addEventListener('click', () => {
+                    const isActive = navLinks.classList.toggle('active');
+                    if (isActive) {
+                        hamburgerIcon.classList.remove('fa-bars');
+                        hamburgerIcon.classList.add('fa-times');
+                    } else {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- SCROLL ANIMATIONS ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelinePath = document.getElementById('timeline-path');
+            const timelineContainer = document.querySelector('.timeline-container');
+            
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                
+                // General Reveal
+                revealElements.forEach(el => {
+                    if (el.getBoundingClientRect) {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - 100) {
+                            el.classList.add('active');
+                        }
+                    }
+                });
+
+                // Timeline Reveal
+                let timelineActive = false;
+                timelineItems.forEach(item => {
+                    if (item.getBoundingClientRect) {
+                        const itemTop = item.getBoundingClientRect().top;
+                        if (itemTop < windowHeight - 200) {
+                            item.classList.add('active');
+                            timelineActive = true;
+                        }
+                    }
+                });
+
+                // Timeline Path Animation
+                if (timelineContainer && timelinePath && timelineActive) {
+                    const containerRect = timelineContainer.getBoundingClientRect();
+                    const firstItem = timelineItems[0];
+                    const lastItem = timelineItems[timelineItems.length - 1];
+                    
+                    const firstItemRect = firstItem.getBoundingClientRect();
+                    const lastItemRect = lastItem.getBoundingClientRect();
+
+                    // Start path at the first dot
+                    const startY = firstItemRect.top - containerRect.top + 25; // 25px = half of dot
+                    // End path at the last dot
+                    const endY = lastItemRect.top - containerRect.top + 25;
+
+                    let pathHeight = endY - startY;
+                    
+                    // Calculate how much of the timeline is in view
+                    const scrollPercent = (windowHeight - containerRect.top) / (containerRect.height + windowHeight);
+                    let currentHeight = scrollPercent * pathHeight;
+
+                    // Clamp values
+                    if (currentHeight < 0) currentHeight = 0;
+                    if (currentHeight > pathHeight) currentHeight = pathHeight;
+                    
+                    timelinePath.style.height = `${currentHeight}px`;
+                    
+                    // Set top position only once
+                    if (!timelinePath.style.top) {
+                         timelinePath.style.top = `${startY}px`;
+                    }
+                }
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
+
+        });
+    </script>
+</body>
+</html>
