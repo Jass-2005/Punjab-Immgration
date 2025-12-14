@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Punjab Immigration | Unlock Your Global Future</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
+    <link rel="icon" type="image/png" href="logowhite.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="preload" as="image" href="uk 6.webp">
+    <link rel="preload" as="image" href="UK STUDY VISA - 3.png">
+    <link rel="preload" as="image" href="uk study visa 1.png">
+
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
@@ -18,6 +22,8 @@
             --light: #F5F7FA;
             --white: #ffffff;
             --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+            --hero-dim: 0.45;         /* background brightness */
+            --hero-overlay-color: rgba(6,18,46,0.22);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -36,7 +42,7 @@
         a { text-decoration: none; transition: 0.3s; cursor: none; }
         ul { list-style: none; }
 
-        /* --- NEW: CUSTOM CURSOR --- */
+        /* --- CUSTOM CURSOR --- */
         .cursor-dot {
             width: 8px;
             height: 8px;
@@ -202,26 +208,67 @@
         }
 
         /* --- HERO SECTION --- */
-        .hero { 
-            min-height: 90vh; 
-            display: flex; 
-            align-items: center; 
-            position: relative; 
-            overflow: hidden; 
-            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
-            color: white; 
+        .hero {
+            position: relative;
+            z-index: 2;                /* base for hero */
+            min-height: 90vh;
+            overflow: hidden;
             padding: 100px 0;
+            color: white;
+            /* keep the warm fallback if you want behind images */
+            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%);
+            margin-bottom: -10vh;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            margin-bottom: -10vh; 
         }
+
+        /* slideshow always under hero content */
+        .hero-slideshow {
+            position: absolute;
+            inset: 0;
+            z-index: 0;                /* MUST be below hero content */
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* dim + overlay sits above slides but below content */
+        .hero-slideshow::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.34) 60%),
+                var(--hero-overlay-color);
+            pointer-events: none;
+        }
+
+        /* slides: simple fade; avoid transforms that create extra stacking contexts */
+        .hero-slideshow .hs-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            filter: brightness(var(--hero-dim)) contrast(0.98) saturate(0.95);
+            z-index: 0;
+        }
+        .hero-slideshow .hs-slide.active { opacity: 1; }
+
+        /* ensure our grid content sits on top */
         .hero-container {
+            position: relative;
+            z-index: 3;                /* above slideshow & overlay */
             display: grid;
             grid-template-columns: 1fr 1fr;
-            align-items: center;
             gap: 40px;
-            position: relative;
-            z-index: 2;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
         .hero-content { 
             max-width: 600px; 
         }
@@ -231,7 +278,7 @@
             color: var(--white); 
             font-weight: 700;
         }
-        .hero h1 span { color: #333; } 
+        .hero h1 span { color: #fab00d; } 
         .hero p { 
             font-size: 1.1rem; 
             margin-bottom: 40px; 
@@ -261,39 +308,58 @@
             border-color: var(--white);
         }
         
-        /* --- 3D HERO VISUAL --- */
+        /* --- HERO VISUAL (SHUFFLE) --- */
         .hero-visual {
             position: relative;
+            z-index: 4;                /* above slideshow and overlay */
+            pointer-events: auto;
+            min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 400px;
-            perspective: 1000px; 
+            perspective: 1000px;
         }
         .hero-card {
             width: 250px;
             height: 350px;
             border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
             position: absolute;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
-                        z-index 0.5s 0.5s ease-out;
             padding: 20px;
-            font-family: 'Poppins';
-            font-weight: 600;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            transition: transform 0.9s cubic-bezier(.22,1,.36,1);
+            overflow: hidden;
+            z-index: 5;                 /* guaranteed above slideshow */
+            transform: translateZ(0);   /* promote to own layer for crisp rendering */
+            background: rgba(255,255,255,0.06); /* subtle tint */
+            /* ensure no inherited filters/backdrop affect the card */
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            filter: none !important;
         }
-        
+        /* faux-frosted layer that blurs only slides (not children) */
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1; /* behind content */
+            background: inherit;
+            border-radius: inherit;
+            /* the only blur: applied to this pseudo element — will blur underlying layers visually but not child content */
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            pointer-events: none;
+        }
+
+        /* force card contents above the pseudo-layer */
+        .hero-card > * { position: relative; z-index: 6; }
+
         .hero-card-content {
             transition: opacity 0.5s ease-in-out;
-            opacity: 0; /* Hidden by default, JS fades in */
+            opacity: 0; 
             display: flex;
             flex-direction: column;
             height: 100%;
         }
-        /* NEW: Text content wrapper with border */
         .card-text-content {
             border-bottom: 2px solid var(--white);
             padding-bottom: 10px;
@@ -302,21 +368,25 @@
         .hero-card .card-country {
             font-size: 1.5rem;
             color: var(--white);
-            /* Removed border */
         }
         .hero-card .card-status {
             font-size: 1.2rem;
             color: var(--accent); 
         }
-        /* NEW: Photo placeholder */
         .card-photo {
             width: 100%;
-            flex-grow: 1; /* Take remaining space */
-            min-height: 150px; /* Min height */
+            height: auto;
             object-fit: cover;
+            filter: none !important;
+            -webkit-filter: none !important;
+            image-rendering: auto;
             border-radius: 8px;
-            background: rgba(255,255,255,0.1); /* Placeholder bg */
+            position: relative;
+            z-index: 7;
+            flex-grow: 1;
         }
+        .card-drawer { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; filter: none !important; }
+
         
         /* --- "OUR PROCESS" SECTION --- */
         .process-section {
@@ -386,72 +456,120 @@
             text-align: center;
         }
 
-        /* --- HORIZONTAL SCROLLING SERVICES --- */
-        .services-pin-container {
-            height: 400vh; 
-            position: relative;
-        }
-        .services-sticky-container {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow: hidden;
+        /* --- SERVICES GRID (IMPROVED) --- */
+        .services-section {
             background: var(--white);
+            padding-bottom: 100px;
         }
-        .services-track {
-            display: flex;
-            height: 100%;
-            width: max-content; 
-            align-items: center;
-            padding-left: 10vw; 
-            position: relative;
-            z-index: 1; /* Keep track behind title */
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 30px; 
         }
-        .horizontal-service-card {
-            width: 350px;
-            height: 450px;
-            background: var(--light);
-            margin-right: 50px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            padding: 40px;
+        .service-card { 
+            height: 350px;
+            border-radius: 20px; 
+            box-shadow: var(--shadow); 
+            transition: 0.5s ease; 
+            position: relative; 
+            overflow: hidden; 
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             border: 1px solid #eee;
         }
-        .horizontal-service-card i {
-            font-size: 3rem;
-            color: var(--accent); 
+        .service-card-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1;
         }
-        .horizontal-service-card h3 {
-            font-size: 1.8rem;
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 2;
+            transition: 0.4s;
+        }
+        .card-front {
+            position: relative;
+            z-index: 3;
+            transition: 0.4s ease-out;
+        }
+        .card-front i {
+            font-size: 3.5rem; 
             color: var(--primary); 
+            margin-bottom: 20px; 
+            display: block;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        .horizontal-service-card p {
+        .card-front h3 { 
+            font-size: 2rem; 
+            color: var(--white);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .card-drawer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(19, 59, 235, 0.9); /* Translucent Blue */
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 4;
+            transform: translateY(100%);
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+        .card-drawer h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .card-drawer p {
             font-size: 0.9rem;
             line-height: 1.6;
-            color: #666;
+            margin-bottom: 20px;
+            opacity: 0.9;
         }
-        .horizontal-service-card .read-more {
-            color: var(--accent); 
-            font-weight: 600;
-            font-size: 1rem;
+        .card-drawer .btn {
+            background: var(--primary);
+            color: #333;
+            padding: 10px 25px;
         }
-        .horizontal-service-card .read-more:hover {
-            color: var(--primary);
+        .card-drawer .btn:hover {
+            background: var(--white);
+            color: var(--accent);
         }
-        
-        .services-sticky-container .section-title {
-            position: absolute;
-            top: 100px;
-            left: 5vw;
-            z-index: 10; /* Keep title on top */
-            max-width: 300px;
+        /* Hover Effect */
+        .service-card:hover .card-drawer {
+            transform: translateY(0);
+        }
+        .service-card:hover .service-card-bg {
+            transform: scale(1.1);
+        }
+        .service-card:hover .card-front {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        .service-card:hover::after {
+            background: rgba(0,0,0,0.1);
         }
 
 
-        /* --- WHY CHOOSE US (Asymmetrical) --- */
+        /* --- WHY CHOOSE US --- */
         .choose-us-section {
             background: var(--light);
             clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 100%);
@@ -544,79 +662,91 @@
             font-weight: 300;
         }
         
-        /* --- ANIMATED MAP SECTION --- */
-        .map-section {
-            padding-top: 100px;
-            padding-bottom: 100px;
-            background: var(--white);
+        /* --- NEW: CINEMATIC DESTINATIONS (Replaces Map) --- */
+        .destinations-reveal-section {
             position: relative;
-            overflow: hidden;
-            margin-top: -10vh; 
-        }
-        .map-section .section-title {
-            position: relative;
-            z-index: 2;
-        }
-        .map-svg-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120%; 
-            max-width: 1600px;
-            z-index: 1;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-        .map-svg-container svg {
-            width: 100%;
+            min-height: 100vh; /* Changed to min-height to allow growth */
             height: auto;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000; 
+            margin-top: -10vh; 
+            padding-top: 20vh; /* Increased top padding to account for margin overlap */
+            padding-bottom: 10vh;
+            clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 100%);
         }
-        .map-svg-container svg path {
-            fill: var(--primary); 
-            stroke: var(--white);
-            stroke-width: 1px;
-        }
-        @keyframes pulse {
-            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(19, 59, 235, 0.7); }
-            70% { transform: scale(1.2); box-shadow: 0 0 0 20px rgba(19, 59, 235, 0); }
-            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(19, 59, 235, 0); }
-        }
-        .map-hotspot {
+
+        /* Background Images */
+        .dest-bg {
             position: absolute;
-            z-index: 2;
-            width: 15px;
-            height: 15px;
-            background: var(--accent); 
-            border-radius: 50%;
-            cursor: none;
-            animation: pulse 2s infinite;
-        }
-        .map-hotspot::after {
-            content: attr(data-country);
-            position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary); 
-            color: #333;
-            padding: 5px 12px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            font-family: 'Poppins';
-            white-space: nowrap;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
             opacity: 0;
-            transition: 0.3s;
+            transition: opacity 0.6s ease-in-out, transform 10s linear; 
+            z-index: 0;
+            transform: scale(1);
+        }
+        .dest-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
             pointer-events: none;
         }
-        .map-hotspot:hover::after {
+        .dest-bg.active {
             opacity: 1;
-            bottom: 30px;
+            transform: scale(1.1); 
         }
-        .spot-canada { top: 30%; left: 25%; }
-        .spot-uk { top: 33%; left: 48%; }
-        .spot-aus { top: 70%; left: 80%; }
+
+        .dest-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+        }
+
+        .dest-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Increased gap to prevent overlap */
+            width: 100%;
+            padding: 0 20px; /* Padding for safety on edges */
+        }
+
+        .dest-item {
+            font-size: 6vw; 
+            font-weight: 800;
+            color: transparent; 
+            -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            cursor: none;
+            transition: all 0.4s ease;
+            position: relative;
+            letter-spacing: 2px;
+            line-height: 1.3; /* Increased line-height to handle text wrapping */
+            flex-shrink: 0; /* Prevent items from squashing */
+        }
+
+        .dest-item.active, .dest-item:hover {
+            color: var(--white);
+            -webkit-text-stroke: 0px;
+            transform: scale(1.05);
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        /* Hide non-active items when one is hovered */
+        .dest-list:hover .dest-item:not(:hover) {
+            opacity: 0.3;
+            filter: blur(2px);
+        }
 
         /* --- CTA SECTION --- */
         .cta-section {
@@ -653,13 +783,15 @@
             transform: scale(1.05);
         }
 
-        /* --- TESTIMONIALS --- */
+       /* --- TESTIMONIALS (CONTINUOUS CAROUSEL) --- */
         .testimonial-section {
             position: relative;
             background: var(--light);
             overflow: hidden;
             padding-top: 120px;
+            padding-bottom: 80px;
         }
+
         .testimonial-bg-icon {
             position: absolute;
             top: -50px;
@@ -670,65 +802,97 @@
             opacity: 0.8;
             line-height: 1;
         }
+
+        /* The Window (Mask) */
         .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            overflow: hidden; /* Hides the scrollbar */
             position: relative;
             z-index: 2;
+            padding: 20px 0;
         }
+
+        /* The Moving Train */
+        .testimonial-track {
+            display: flex;
+            width: max-content; /* Allows div to be as wide as the slides */
+            gap: 30px; /* Space between cards */
+            animation: scroll 25s linear infinite; /* Adjust '25s' to change speed */
+        }
+
+        /* Pause animation when user hovers to read */
+        .testimonial-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* The Cards */
         .testimonial-slide {
-            display: none; 
+            display: block; /* Overrides previous display:none */
+            width: 400px;   /* Fixed width for consistent loop */
             padding: 40px;
             background: var(--white);
             border-radius: 20px;
             box-shadow: var(--shadow);
             text-align: center;
+            flex-shrink: 0; /* Prevents squishing */
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
         }
-        .testimonial-slide.active {
-            display: block; 
+
+        .testimonial-slide:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
         }
+
         .testimonial-slide img {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 20px;
-            border: 4px solid var(--accent); 
+            border: 4px solid var(--accent);
         }
+
         .testimonial-slide p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-style: italic;
-            line-height: 1.7;
+            line-height: 1.6;
             color: #555;
             margin-bottom: 20px;
         }
+
         .testimonial-slide h4 {
             font-size: 1.2rem;
-            color: var(--primary); 
+            color: var(--primary);
+            margin-bottom: 5px;
         }
+
         .testimonial-slide span {
             font-size: 0.9rem;
-            color: var(--accent); 
+            color: var(--accent);
             font-weight: 600;
         }
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+
+        /* The Animation Logic */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Moves halfway because we duplicated the content. 
+                Once it reaches -50%, it snaps back to 0 seamlessly. */
+                transform: translateX(-50%);
+            }
         }
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ccc;
-            cursor: none;
-            transition: 0.3s;
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .testimonial-slide {
+                width: 300px; /* Smaller cards on mobile */
+                padding: 25px;
+            }
         }
-        .slider-dot.active, .slider-dot:hover {
-            background: var(--primary); 
-            transform: scale(1.2);
-        }
+
 
         /* --- FOOTER --- */
         footer { 
@@ -793,20 +957,11 @@
             .nav-links {
                 gap: 20px;
             }
-            .hero-container { 
-                grid-template-columns: 1fr; 
-            }
-            .hero-visual { 
-                display: none; 
-            }
             .footer-grid {
                 grid-template-columns: 1.5fr 1fr 1fr;
             }
             .choose-us-grid {
                 grid-template-columns: 1fr;
-            }
-            .map-hotspot::after, .map-hotspot:hover::after {
-                display: none; 
             }
             .process-timeline {
                 grid-template-columns: 1fr 1fr;
@@ -822,57 +977,15 @@
                 font-size: 1.8rem;
                 margin-bottom: 20px;
             }
-            /* Disable horizontal scroll on tablet, stack cards */
-            .services-pin-container {
-                height: auto;
-            }
-            .services-sticky-container {
-                position: relative;
-                height: auto;
-                padding: 100px 0;
-            }
-            .services-track {
-                flex-direction: column;
-                width: 100%;
-                padding-left: 0;
-                position: relative;
-                transform: none !important; /* Disable JS transform */
-            }
-            .horizontal-service-card {
-                width: 100%;
-                max-width: 400px;
-                margin-right: 0;
-                margin-bottom: 30px;
-            }
-            .services-sticky-container .section-title {
-                position: relative;
-                top: auto;
-                left: auto;
-                max-width: 100%;
-                text-align: center;
-            }
         }
         
         @media (max-width: 768px) {
-            /* Hide custom cursor on mobile */
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-            body {
-                cursor: auto; 
-            }
-            a, .btn, .slider-dot, .mobile-toggle {
-                cursor: auto; 
-            }
-
-            .container {
-                width: 90%;
-            }
+            .cursor-dot, .cursor-outline { display: none; }
+            body { cursor: auto; }
+            a, .btn, .slider-dot, .mobile-toggle { cursor: auto; }
+            .container { width: 90%; }
             
-            /* --- Mobile Navigation --- */
-            .mobile-toggle {
-                display: block; 
-            }
+            .mobile-toggle { display: block; }
             .nav-links {
                 position: fixed; 
                 top: 90px; 
@@ -889,15 +1002,9 @@
                 transform: translateX(100%); 
                 z-index: 999;
             }
-            .nav-links.active {
-                transform: translateX(0); 
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links a { font-size: 1.2rem; font-weight: 600; }
 
-            /* --- Mobile Hero --- */
             .hero {
                 min-height: auto;
                 height: auto;
@@ -906,106 +1013,51 @@
                 clip-path: none; 
                 margin-bottom: 0;
             }
-            .hero-content {
-                max-width: 100%;
-            }
-            .hero h1 { 
-                font-size: 2.5rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
+            .hero-content { max-width: 100%; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+            .hero-buttons { justify-content: center; }
             
-            /* --- Mobile Process Section --- */
-            .process-section {
-                padding-top: 80px; 
-            }
-            .process-timeline {
-                grid-template-columns: 1fr;
-            }
+            /* Hide slideshow on mobile */
+            .hero-slideshow { display: none; }
 
-            /* --- Mobile Grids --- */
-            .stats-section, .choose-us-section, .cta-section {
+            .process-section { padding-top: 80px; }
+            .process-timeline { grid-template-columns: 1fr; }
+
+            .stats-section, .choose-us-section, .cta-section, .map-section {
                 clip-path: none; 
                 margin: 0;
                 padding-top: 80px;
                 padding-bottom: 80px;
             }
-            .map-section {
-                margin-top: 0;
-            }
-
-            .stats-grid { 
-                grid-template-columns: 1fr 1fr; 
-                gap: 40px 20px;
-            }
-            .footer-grid { 
-                grid-template-columns: 1fr; 
-                gap: 30px;
-            }
-            .footer-col .logo, .footer-col p {
-                max-width: 100%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .footer-col h4, .footer-col ul, .footer-col .contact-item {
-                text-align: center;
-                justify-content: center;
-            }
-
-            .section-padding {
-                padding: 80px 0;
-            }
-            .section-title h2 {
-                font-size: 2rem;
-            }
             
-            .map-svg-container {
-                width: 200%; 
-                opacity: 0.1;
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer { margin-top: 0; }
+            .footer-col .logo, .footer-col p { max-width: 100%; text-align: center; margin-left: auto; margin-right: auto; }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item { text-align: center; justify-content: center; }
+
+            .section-padding { padding: 80px 0; }
+            .section-title h2 { font-size: 2rem; }
+            
+            .dest-item { font-size: 12vw; }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
             }
-            .spot-canada { top: 30%; left: 15%; }
-            .spot-uk { top: 33%; left: 40%; }
-            .spot-aus { top: 70%; left: 75%; }
         }
 
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr; 
-                gap: 40px;
-            }
-            .hero-buttons .btn {
-                width: 100%; 
-                text-align: center;
-            }
-            .btn {
-                padding: 16px 20px;
-            }
+            .stats-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-buttons .btn { width: 100%; text-align: center; }
+            .btn { padding: 16px 20px; }
         }
-        /* FIX: Prevent title from overlapping cards */
-.services-sticky-container {
-    padding-top: 200px !important;
-}
-
-.services-sticky-container .section-title {
-    position: absolute;
-    top: 20px !important;
-    left: 5vw;
-    z-index: 2000 !important;
-}
-
     </style>
 </head>
 <body>
-    <!-- NEW: Custom Cursor Elements -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- NAVIGATION -->
     <nav>
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
@@ -1013,9 +1065,10 @@
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="index.html" class="active">Home</a>
-                <a href="Visa-Services.html">Visa services</a>                
+                <a href="visa-services.html">Visa Services</a>
                 <a href="destinations.html">Destinations</a>
                 <a href="happy-customers.html">Success Stories</a>
+                
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </div>
@@ -1025,10 +1078,18 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <section class="hero" id="hero-section">
+     <div class="hero-slideshow" id="hero-slideshow" aria-hidden="true">
+        <img src="can.png" alt="Hero 1" class="hs-slide">
+        <img src="uk11.webp" alt="Hero 2" class="hs-slide">
+        <img src="hero3.webp" alt="Hero 3" class="hs-slide">
+    <!-- add more slides as needed -->
+     </div>
         <div class="container hero-container">
             <div class="hero-content reveal">
+                <!-- HERO SLIDESHOW (place this inside .hero-visual) -->
+
+
                 <h1>Fly Beyond Borders with <br><span>Confidence.</span></h1>
                 <p>Your trusted partner in Amritsar for Study, Work, and PR Visas. We navigate the complexities so you can focus on the destination.</p>
                 <div class="hero-buttons">
@@ -1037,14 +1098,13 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <!-- NEW: Three cards for shuffling -->
                 <div class="hero-card" id="hero-card-1">
                     <div class="hero-card-content">
                         <div class="card-text-content">
                             <span class="card-country">CANADA</span>
                             <span class="card-status">STUDY VISA</span>
                         </div>
-                        <img src="CANADA CARD.jpg" alt="Visa Photo" class="card-photo">
+                        <img src="uk 6.webp"  loading="eager"  alt="Visa Photo" class="card-photo">
                     </div>
                 </div>
                 <div class="hero-card" id="hero-card-2">
@@ -1053,7 +1113,7 @@
                             <span class="card-country">AUSTRALIA</span>
                             <span class="card-status">PR APPROVED</span>
                         </div>
-                        <img src="AUS.jpg" alt="Visa Photo" class="card-photo">
+                        <img src="UK STUDY VISA - 3.png"  loading="eager"  alt="Visa Photo" class="card-photo">
                     </div>
                 </div>
                 <div class="hero-card" id="hero-card-3">
@@ -1062,14 +1122,13 @@
                             <span class="card-country">UNITED KINGDOM</span>
                             <span class="card-status">WORK PERMIT</span>
                         </div>
-                        <img src="UK.jpg" alt="Visa Photo" class="card-photo">
+                        <img src="uk study visa 1.png"  loading="eager"  alt="Visa Photo" class="card-photo">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- "OUR PROCESS" SECTION -->
     <section class="process-section">
         <div class="container">
             <div class="text-center section-title reveal">
@@ -1101,60 +1160,67 @@
         </div>
     </section>
 
-    <!-- NEW: HORIZONTAL SCROLLING SERVICES -->
-   <!-- NEW: HORIZONTAL SCROLLING SERVICES -->
-<section class="services-pin-container" id="services-pin-container">
-    <div class="services-sticky-container" id="services-sticky-container">
-
-        <div class="text-center section-title">
-            <h5>OUR EXPERTISE</h5>
-            <h2>Visa Services We Offer</h2>
+    <!-- UPGRADED SERVICES GRID (HOVER REVEAL) -->
+    <section class="section-padding services-section">
+        <div class="container">
+            <div class="text-center section-title reveal">
+                <h5>OUR EXPERTISE</h5>
+                <h2>Visa Services We Offer</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <img src="study visa1.png" alt="Study Visa" class="service-card-bg">
+                    <div class="card-front">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <h3>Study Visa</h3>
+                    </div>
+                    <div class="card-drawer">
+                        <h3>Study Visa</h3>
+                        <p>Guidance for students aspiring to study in Canada, UK, Australia, and New Zealand.</p>
+                        <a href="study-visa.html" class="btn">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-1">
+                    <img src="work.png" alt="Work Visa" class="service-card-bg">
+                    <div class="card-front">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <h3>Work Visa</h3>
+                    </div>
+                    <div class="card-drawer">
+                        <h3>Work Visa</h3>
+                        <p>Secure your global career with our comprehensive work permit assistance.</p>
+                        <a href="work-visa.html" class="btn">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-2">
+                    <img src="pr.png" alt="PR Visa" class="service-card-bg">
+                    <div class="card-front">
+                        <i class="fa-solid fa-passport"></i>
+                        <h3>PR Visa</h3>
+                    </div>
+                    <div class="card-drawer">
+                        <h3>PR Visa</h3>
+                        <p>Permanent Residency pathways simplified. Express Entry, PNP, and family sponsorship.</p>
+                        <a href="pr-visa.html" class="btn">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="service-card reveal delay-3">
+                    <img src="tour.png" alt="Visitor Visa" class="service-card-bg">
+                    <div class="card-front">
+                        <i class="fa-solid fa-plane"></i>
+                        <h3>Visitor Visa</h3>
+                    </div>
+                    <div class="card-drawer">
+                        <h3>Visitor Visa</h3>
+                        <p>High success rate for tourist, family, and business visitor visas.</p>
+                        <a href="visitor-visa.html" class="btn">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="services-track" id="services-track">
-            <div class="horizontal-service-card">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <div>
-                    <h3>Study Visa</h3>
-                    <p>Guidance for students aspiring to study in Canada, UK, Australia, and New Zealand.</p>
-                </div>
-                <a href="study-visa.html" class="read-more">Read More &rarr;</a>
-            </div>
-
-            <div class="horizontal-service-card">
-                <i class="fa-solid fa-briefcase"></i>
-                <div>
-                    <h3>Work Visa</h3>
-                    <p>Secure your global career with our comprehensive work permit assistance.</p>
-                </div>
-                <a href="work-visa.html" class="read-more">Read More &rarr;</a>
-            </div>
-
-            <div class="horizontal-service-card">
-                <i class="fa-solid fa-passport"></i>
-                <div>
-                    <h3>PR Visa</h3>
-                    <p>Permanent Residency pathways simplified. Express Entry, PNP, and family sponsorship.</p>
-                </div>
-                <a href="pr-visa.html" class="read-more">Read More &rarr;</a>
-            </div>
-
-            <div class="horizontal-service-card">
-                <i class="fa-solid fa-plane"></i>
-                <div>
-                    <h3>Visitor Visa</h3>
-                    <p>High success rate for tourist, family, and business visitor visas.</p>
-                </div>
-                <a href="visitor-visa.html" class="read-more">Read More &rarr;</a>
-            </div>
-        </div>
-
-    </div>
-</section>
+    </section>
 
 
-
-    <!-- WHY CHOOSE US (Asymmetrical) -->
     <section class="section-padding choose-us-section">
         <div class="container">
             <div class="choose-us-grid">
@@ -1197,7 +1263,6 @@
         </div>
     </section>
 
-    <!-- STATS -->
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
@@ -1221,46 +1286,47 @@
         </div>
     </section>
     
-    <!-- GLOBAL OPPORTUNITIES (MAP) -->
-    <section class="map-section section-padding">
-        <div class="container">
+    <!-- CINEMATIC TYPOGRAPHY DESTINATIONS (SCROLL REVEAL) -->
+    <section class="destinations-reveal-section" id="destinations-reveal-section">
+        <!-- Backgrounds -->
+        <div class="dest-bg" id="bg-canada" style="background-image: url('canada.png'); opacity: 1;"></div>
+        <div class="dest-bg" id="bg-uk" style="background-image: url('uk.webp');"></div>
+        <div class="dest-bg" id="bg-australia" style="background-image: url('australia.webp');"></div>
+        <div class="dest-bg" id="bg-usa" style="background-image: url('usa.webp');"></div>
+        
+        <div class="dest-overlay"></div>
+
+        <div class="dest-content container">
             <div class="text-center section-title reveal">
-                <h5>GLOBAL OPPORTUNITIES</h5>
-                <h2>Your Destination Awaits</h2>
+                <h5 style="color: var(--white);">WHERE TO NEXT?</h5>
+                <h2 style="color: var(--white);">Explore Destinations</h2>
             </div>
-            <div class="map-hotspot spot-canada" data-country="Canada"></div>
-            <div class="map-hotspot spot-uk" data-country="United Kingdom"></div>
-            <div class="map-hotspot spot-aus" data-country="Australia"></div>
-        </div>
-        <div class="map-svg-container">
-            <svg version="1.1" id="world-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="0 0 1000 600" style="enable-background:new 0 0 1000 600;" xml:space="preserve">
-            <path d="M500,10C229.8,10,10,229.8,10,500s219.8,490,490,490s490-219.8,490-490S770.2,10,500,10z M863.6,500
-                c0,35.3-7,69-19.8,99.9L644.2,357.6c-21.1-33.1-51.1-57.8-86.3-71.1l-60.6-22.9c-7.6-2.9-15.6-4.4-23.8-4.4c-32.1,0-61.6,15-81.1,40.1
-                l-37.4,48.3c-11.4,14.8-26.4,26.4-43.2,33.5l-47,19.9c-14.8,6.2-28.5,14.8-40.4,25.4L105,583.1C41.8,482.4,10,361.3,10,226.4
-                c0-11.2,0.7-22.3,2-33.2l123.4,85.1c32.1,22.1,71.8,32.3,112.1,28.6l103.5-9.6c27-2.5,53-10,76.6-21.9l51.9-26.6
-                c24.6-12.6,45.4-31.1,59.8-53.4l20.4-31.1c11.3-17.2,18-37.2,18.8-58.4l1.6-44.1c0.3-7.5,1.5-14.9,3.6-22l11-37.1
-                C759.2,120.2,863.6,295.1,863.6,500z M351.9,136.4c-11.1-3.6-21.6-8.6-31.5-14.8L197.3,62.8C281.4,26.7,386.1,10,500,10
-                c116.2,0,222.9,17.4,308.2,49.2l-105.3,60c-25.1,14.4-45.7,34.8-59.7,59.2l-20.4,35.6c-11.6,20.2-27.9,37.3-47.5,49.7l-51.9,32.6
-                c-23.6,14.8-49.6,24.9-76.6,29.9l-103.5,12.1C381.7,326.1,363,229.4,351.9,136.4z M157.1,599.9l203.4-156.4
-                c11.9-9.1,25.6-15.8,40.4-20.4l47-19.9c16.8-7.1,31.8-18.7,43.2-33.5l37.4-48.3c19.5-25.1,49-40.1,81.1-40.1c8.2,0,16.2,1.5,23.8,4.4
-                l60.6,22.9c35.2,13.3,65.2,38,86.3,71.1l199.6,242.3c-28.8,31-62.5,55.9-99.9,73.1l-117.8-142.2c-20.2-24.5-48-42.5-79.6-51.1
-                l-51.9-14.3c-24.2-6.7-49.6-8-74.6-4.4l-103.5,14.8c-39.2,5.6-75.1,22.3-104.4,47.5L157.1,599.9z"/>
-            </svg>
+            <ul class="dest-list">
+                <li class="dest-item active" data-bg="bg-canada">
+                    <a href="canada.html" style="color: inherit; text-decoration: none;">CANADA <span>Explore &rarr;</span></a>
+                </li>
+                <li class="dest-item" data-bg="bg-uk">
+                    <a href="uk.html" style="color: inherit; text-decoration: none;">UNITED KINGDOM <span>Explore &rarr;</span></a>
+                </li>
+                <li class="dest-item" data-bg="bg-australia">
+                    <a href="australia.html" style="color: inherit; text-decoration: none;">AUSTRALIA <span>Explore &rarr;</span></a>
+                </li>
+                <li class="dest-item" data-bg="bg-usa">
+                    <a href="us.html" style="color: inherit; text-decoration: none;">USA <span>Explore &rarr;</span></a>
+                </li>
+            </ul>
         </div>
     </section>
 
-    <!-- CTA SECTION -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
                 <h2 class="reveal">Ready to start your journey? <br>Let's build your future together.</h2>
-                <a href="contact.html" class="btn btn-accent reveal delay-1">Book a Free Consultation</a>
+                <a href="contact.html" class="btn btn-accent reveal delay-`1">Book a Free Consultation</a>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
     <section class="section-padding testimonial-section">
         <i class="fa-solid fa-quote-left testimonial-bg-icon"></i>
         <div class="container">
@@ -1268,41 +1334,60 @@
                 <h5>SUCCESS STORIES</h5>
                 <h2 style="color: #333">What Our Clients Say</h2>
             </div>
-            <div class="testimonial-slider reveal">
-                <div class="testimonial-slide active">
-                    <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
-                    <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
-                    <h4>Manpreet Singh</h4>
-                    <span>Study Visa (Canada)</span>
+            <div class="testimonial-slider">
+                <!-- The Moving Track -->
+                <div class="testimonial-track">
+                    
+                    <!-- ORIGINAL SLIDES -->
+                    <div class="testimonial-slide">
+                        <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
+                        <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
+                        <h4>Manpreet Singh</h4>
+                        <span>Study Visa (Canada)</span>
+                    </div>
+                    <div class="testimonial-slide">
+                        <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
+                        <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
+                        <h4>Priya Sharma</h4>
+                        <span>Spouse Open Work Permit (UK)</span>
+                    </div>
+                    <div class="testimonial-slide">
+                        <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
+                        <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
+                        <h4>Amit Verma</h4>
+                        <span>PR Visa (Australia)</span>
+                    </div>
+
+                    <!-- DUPLICATED SLIDES FOR ENDLESS LOOP -->
+                    <div class="testimonial-slide">
+                        <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
+                        <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
+                        <h4>Manpreet Singh</h4>
+                        <span>Study Visa (Canada)</span>
+                    </div>
+                    <div class="testimonial-slide">
+                        <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
+                        <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
+                        <h4>Priya Sharma</h4>
+                        <span>Spouse Open Work Permit (UK)</span>
+                    </div>
+                    <div class="testimonial-slide">
+                        <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
+                        <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
+                        <h4>Amit Verma</h4>
+                        <span>PR Visa (Australia)</span>
+                    </div>
                 </div>
-                <div class="testimonial-slide">
-                    <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
-                    <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
-                    <h4>Priya Sharma</h4>
-                    <span>Spouse Open Work Permit (UK)</span>
-                </div>
-                <div class="testimonial-slide">
-                    <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
-                    <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
-                    <h4>Amit Verma</h4>
-                    <span>PR Visa (Australia)</span>
-                </div>
-            </div>
-            <div class="slider-nav reveal">
-                <div class="slider-dot active" data-slide="0"></div>
-                <div class="slider-dot" data-slide="1"></div>
-                <div class="slider-dot" data-slide="2"></div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <a href="index.html" class="logo">
-                         <img src="your-logo-white.png" alt="Punjab Immigration Logo (White)" >
+                         <img src="your-logo-white.png" alt="Punjab Immigration Logo (White)">
                     </a>
                     <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
                 </div>
@@ -1318,6 +1403,7 @@
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul>
+                        <li><a href="visa-services.html">All Visa Services</a></li>
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
@@ -1361,7 +1447,7 @@
                 }
             });
 
-            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot');
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .service-card, .dest-item');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     if(cursorOutline) cursorOutline.classList.add('cursor-hover');
@@ -1370,7 +1456,6 @@
                     if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
                 });
             });
-
 
             // --- MOBILE NAVIGATION TOGGLE ---
             const navLinks = document.getElementById('nav-links');
@@ -1390,16 +1475,11 @@
                 });
             }
 
-            // --- SCROLL-BASED FUNCTIONS ---
+            // --- SCROLL REVEAL ANIMATION ---
             const revealElements = document.querySelectorAll('.reveal');
-            const pinContainer = document.getElementById('services-pin-container');
-            const stickyContainer = document.getElementById('services-sticky-container');
-            const servicesTrack = document.getElementById('services-track');
-
-            function handleScroll() {
+            
+            const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
-                
-                // 1. Reveal Elements on Scroll
                 revealElements.forEach(el => {
                     if (el.getBoundingClientRect) {
                         const elementTop = el.getBoundingClientRect().top;
@@ -1408,38 +1488,10 @@
                         }
                     }
                 });
-
-                // 2. Horizontal Scroll
-                if (pinContainer && servicesTrack && window.innerWidth > 992) { // Only run on desktop
-                    const rect = pinContainer.getBoundingClientRect();
-                    const scrollTop = window.scrollY;
-                    const pinTop = pinContainer.offsetTop;
-                    const pinHeight = pinContainer.offsetHeight;
-                    const stickyHeight = stickyContainer.offsetHeight;
-
-                    const scrollProgress = (scrollTop - pinTop) / (pinHeight - stickyHeight);
-
-                    if (scrollProgress >= 0 && scrollProgress <= 1) {
-                        const trackWidth = servicesTrack.scrollWidth;
-                        const viewportWidth = window.innerWidth;
-                        const maxScroll = trackWidth - viewportWidth + (viewportWidth * 0.1); 
-                        
-                        const transformX = -maxScroll * scrollProgress;
-                        
-                        servicesTrack.style.transform = `translateX(${transformX}px)`;
-                    } else if (scrollProgress < 0) {
-                        servicesTrack.style.transform = `translateX(0px)`;
-                    } else if (scrollProgress > 1) {
-                        const trackWidth = servicesTrack.scrollWidth;
-                        const viewportWidth = window.innerWidth;
-                        const maxScroll = trackWidth - viewportWidth + (viewportWidth * 0.1);
-                        servicesTrack.style.transform = `translateX(${-maxScroll}px)`;
-                    }
-                }
-            }
+            };
             
-            window.addEventListener('scroll', handleScroll);
-            handleScroll(); 
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); 
 
             // --- NUMBER COUNTER ANIMATION ---
             const counters = document.querySelectorAll('.stat-item h2');
@@ -1484,48 +1536,12 @@
                 startCounters();
             }
 
-            // --- TESTIMONIAL SLIDER ---
-            const slides = document.querySelectorAll('.testimonial-slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            let currentSlide = 0;
-            let slideInterval;
-
-            function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active'));
-                if(slides[index] && dots[index]) {
-                    slides[index].classList.add('active');
-                    dots[index].classList.add('active');
-                    currentSlide = index;
-                }
-            }
-            function startSlideShow() {
-                slideInterval = setInterval(() => {
-                    let nextSlide = (currentSlide + 1) % slides.length;
-                    showSlide(nextSlide);
-                }, 5000); 
-            }
-            function stopSlideShow() {
-                clearInterval(slideInterval);
-            }
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    showSlide(parseInt(dot.getAttribute('data-slide')));
-                    stopSlideShow();
-                    startSlideShow();
-                });
-            });
-            if (slides.length > 0 && dots.length > 0) {
-                showSlide(0); 
-                startSlideShow();
-            }
-
             // --- NEW: HERO CARD SHUFFLE ANIMATION ---
             const card1 = document.getElementById('hero-card-1');
             const card2 = document.getElementById('hero-card-2');
             const card3 = document.getElementById('hero-card-3');
             
-            if (card1 && card2 && card3) { // Check if all cards exist
+            if (card1 && card2 && card3) { 
                 const card1Content = card1.querySelector('.hero-card-content');
                 const card2Content = card2.querySelector('.hero-card-content');
                 const card3Content = card3.querySelector('.hero-card-content');
@@ -1533,7 +1549,6 @@
                 let cards = [card1, card2, card3];
                 let contents = [card1Content, card2Content, card3Content];
                 
-                // Initial styles
                 function setInitialStyles() {
                     // Card 1 (Top)
                     cards[0].style.transform = 'rotate(-3deg) translateX(0px) scale(1)';
@@ -1568,7 +1583,7 @@
                     cards[0].style.transform = 'rotate(-3deg) translateX(0px) scale(1)';
                     cards[0].style.zIndex = '3';
                     // Fade in new top content
-                    setTimeout(() => { contents[0].style.opacity = '1'; }, 500); // Fade in halfway
+                    setTimeout(() => { contents[0].style.opacity = '1'; }, 500); 
                     
                     // New Middle Card (was bottom)
                     cards[1].style.transform = 'rotate(2deg) translateX(10px) scale(0.95)';
@@ -1583,7 +1598,159 @@
                 }, 3000); // Shuffle every 3 seconds
             }
 
+            // --- NEW: DESTINATION SCROLL REVEAL (Intersection Observer) ---
+            const destSection = document.getElementById('destinations-reveal-section');
+            const destItems = document.querySelectorAll('.dest-item');
+            const destBgs = document.querySelectorAll('.dest-bg');
+
+            if (destSection && destItems.length > 0) {
+                const destObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Highlight Text
+                            destItems.forEach(i => i.classList.remove('active'));
+                            entry.target.classList.add('active');
+
+                            // Change Background
+                            const bgId = entry.target.getAttribute('data-bg');
+                            destBgs.forEach(bg => bg.classList.remove('active'));
+                            const targetBg = document.getElementById(bgId);
+                            if (targetBg) targetBg.classList.add('active');
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: 0.5, // Trigger when item is 50% visible
+                    rootMargin: "-20% 0px -20% 0px" // Focus on the center of viewport
+                });
+
+                destItems.forEach(item => {
+                    destObserver.observe(item);
+                });
+            }
+
         });
+        // HERO SLIDESHOW: simple auto-fade slider
+(function initHeroSlideshow(){
+    const slides = document.querySelectorAll('.hero-slideshow .hs-slide');
+    if (!slides || slides.length === 0) return;
+
+    let current = 0;
+    const intervalMs = 3500; // change to taste
+
+    // show first slide
+    slides.forEach((s,i) => s.classList.remove('active'));
+    slides[current].classList.add('active');
+
+    // auto cycle
+    let slideTimer = setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+    }, intervalMs);
+
+    // optional: pause on mouseenter (if pointer visible)
+    const slideshowEl = document.getElementById('hero-slideshow');
+    slideshowEl.addEventListener('mouseenter', () => clearInterval(slideTimer));
+    slideshowEl.addEventListener('mouseleave', () => {
+        slideTimer = setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, intervalMs);
+    });
+})();
+/* Preload & ensure card images are ready immediately, and optionally sync with hero slides */
+(function preloadAndSyncCardImages() {
+  // List the card image URLs (same order as your card markup)
+  const cardUrls = [
+    'uk 6.webp',
+    'UK STUDY VISA - 3.png',
+    'uk study visa 1.png'
+  ];
+
+  // Find actual <img class="card-photo"> elements
+  const cardImgs = Array.from(document.querySelectorAll('.hero-card .card-photo'));
+
+  // Preload function returns a promise
+  function preload(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(url);
+    });
+  }
+
+  // Preload all card assets and then assign them (ensures no late pop-in)
+  Promise.all(cardUrls.map(u => preload(u).catch(e => null)))
+    .then(preloaded => {
+      // If preloaded[i] is an Image object, assign its src to the matching card <img>.
+      preloaded.forEach((imgObj, i) => {
+        if (!imgObj) return; // failed preload for that asset
+        if (cardImgs[i]) {
+          // Only swap if different to avoid unnecessary reflow
+          if (cardImgs[i].getAttribute('src') !== imgObj.src) {
+            cardImgs[i].src = imgObj.src;
+          }
+        }
+      });
+    });
+
+  /* OPTIONAL: If you want the card images to always match the active hero slide,
+      enable this SYNC block. It updates every time the slideshow changes. */
+  (function syncCardsToSlides() {
+    const slides = Array.from(document.querySelectorAll('.hero-slideshow .hs-slide'));
+    if (!slides.length) return;
+
+    // make sure slides are preloaded too (helps sync be instant)
+    slides.forEach(s => { const p = new Image(); p.src = s.src; });
+
+    let current = 0;
+    const intervalMs = 3500;
+
+    function setActive(index) {
+      // update slides visible state (if you use class 'active' in CSS)
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+        s.style.opacity = i === index ? '1' : '0';
+      });
+
+      // sync card images to the active slide image
+      const activeSrc = slides[index] && (slides[index].src || slides[index].getAttribute('src'));
+      if (activeSrc) {
+        cardImgs.forEach(img => {
+          // avoid rewriting if already same src
+          if (img.getAttribute('src') !== activeSrc) img.src = activeSrc;
+        });
+      }
+    }
+
+    // show first immediately if not shown already
+    setActive(current);
+
+    // auto cycle (same as your slideshow)
+    let slideTimer = setInterval(() => {
+      current = (current + 1) % slides.length;
+      setActive(current);
+    }, intervalMs);
+
+    // optional pause/resume on hover to avoid weird jumps
+    const slideshowEl = document.getElementById('hero-slideshow');
+    if (slideshowEl) {
+      slideshowEl.addEventListener('mouseenter', () => clearInterval(slideTimer));
+      slideshowEl.addEventListener('mouseleave', () => {
+        slideTimer = setInterval(() => {
+          current = (current + 1) % slides.length;
+          setActive(current);
+        }, intervalMs);
+      });
+    }
+  })();
+
+})();
+
+
     </script>
 </body>
 </html>
