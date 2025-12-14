@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+        <link rel="icon" type="image/png" href="logowhite.png">
+
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
@@ -256,6 +257,7 @@
             font-size: 2rem;
             font-weight: 700;
             transition: 0.4s ease-out;
+            pointer-events: none;
         }
         .destination-card .card-content {
             position: absolute;
@@ -284,6 +286,7 @@
         .destination-card:hover .card-content {
             opacity: 1;
             transform: translateY(0);
+            z-index: 10;
         }
         
         /* --- STATS --- */
@@ -614,7 +617,7 @@
             <div class="destinations-grid">
                 <!-- Card 1: Canada -->
                 <div class="destination-card reveal">
-                    <img src="https://placehold.co/600x450/fab00d/333?text=CANADA" alt="Canada" class="destination-card-img">
+                    <img src="dest-canada.png" alt="Canada" class="destination-card-img">
                     <h3 class="card-title">Canada</h3>
                     <div class="card-content">
                         <p>With world-class universities, high quality of life, and clear pathways to PR, Canada is a top choice for students and professionals.</p>
@@ -624,7 +627,7 @@
 
                 <!-- Card 2: Australia -->
                 <div class="destination-card reveal delay-1">
-                    <img src="https://placehold.co/600x450/133beb/white?text=AUSTRALIA" alt="Australia" class="destination-card-img">
+                    <img src="dest-aus.png" alt="Australia" class="destination-card-img">
                     <h3 class="card-title">Australia</h3>
                     <div class="card-content">
                         <p>Known for its vibrant cities, beautiful beaches, and strong economy. A popular destination for skilled workers and students alike.</p>
@@ -634,7 +637,7 @@
 
                 <!-- Card 3: UK -->
                 <div class="destination-card reveal delay-2">
-                    <img src="https://placehold.co/600x450/333/white?text=UK" alt="UK" class="destination-card-img">
+                    <img src="dest-uk.png" alt="UK" class="destination-card-img">
                     <h3 class="card-title">United Kingdom</h3>
                     <div class="card-content">
                         <p>Home to historic universities and a diverse culture. The new Graduate Route offers exciting opportunities for students to stay and work.</p>
@@ -644,7 +647,7 @@
 
                 <!-- Card 4: USA -->
                 <div class="destination-card reveal delay-3">
-                    <img src="httpsGallery.co/600x450/fab00d/333?text=USA" alt="USA" class="destination-card-img">
+                    <img src="dest-usa.png" alt="USA" class="destination-card-img">
                     <h3 class="card-title">USA</h3>
                     <div class="card-content">
                         <p>Explore the land of opportunity, from Silicon Valley to New York. We specialize in F1 student visas and B1/B2 visitor visas.</p>

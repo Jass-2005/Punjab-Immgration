@@ -192,7 +192,7 @@
             z-index: 1001; 
         }
 
-        /* --- ABOUT HERO SECTION --- */
+        /* --- PAGE HERO SECTION --- */
         .page-hero {
             min-height: 40vh;
             display: flex;
@@ -220,13 +220,13 @@
             margin-top: 10px;
         }
 
-        /* --- VIDEO TESTIMONIALS --- */
+        /* --- PORTRAIT VIDEO TESTIMONIALS --- */
         .video-section {
             padding-top: 20vh; /* Account for hero overlap */
         }
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         .video-card {
@@ -238,40 +238,20 @@
         }
         .video-thumbnail {
             position: relative;
-            height: 220px;
+            width: 100%;
+            aspect-ratio: 9 / 16; 
+            background: #000;
         }
-        .video-thumbnail img {
+        .video-thumbnail video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: 0.4s;
-        }
-        @keyframes pulse-play {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-        }
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: pulse-play 2s infinite;
-            transition: 0.3s;
+            object-fit: cover; 
+            display: block;
         }
         .video-card-info {
             padding: 25px;
             text-align: center;
+            border-top: 1px solid #eee;
         }
         .video-card-info h4 {
             font-size: 1.3rem;
@@ -287,55 +267,134 @@
             transform: translateY(-10px);
             box-shadow: 0 20px 40px -15px rgba(19, 59, 235, 0.3);
         }
-        .video-card:hover .video-thumbnail img {
-            transform: scale(1.05);
-        }
-        .video-card:hover .play-button {
-            background: var(--accent);
-            color: var(--white);
-            animation-play-state: paused;
-        }
         
-        /* --- MASONRY GALLERY --- */
+        /* --- INTERACTIVE FLIP GALLERY (CLICK TO FLIP) --- */
         .gallery-section {
             background: var(--white);
         }
-        .masonry-gallery {
-            column-count: 3;
-            column-gap: 20px;
+        /* Parent grid acts as the 3D stage */
+        .success-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            perspective: 1000px; /* Crucial for 3D effect */
+            position: relative; /* For blur overlay context if needed */
+            transition: 0.4s ease;
         }
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            background: var(--light);
+        
+        /* BLUR EFFECT: When the grid has an active card, blur non-active siblings */
+        .success-grid.has-active-card .gallery-card:not(.flipped) {
+            filter: blur(4px) grayscale(0.5);
+            opacity: 0.6;
+            transform: scale(0.95);
+            pointer-events: none; /* Prevent clicking others */
+        }
+
+        .gallery-card {
+            background-color: transparent;
+            height: 450px; /* Fixed height for flip */
+            cursor: pointer;
+            transition: 0.4s ease;
+            transform-style: preserve-3d; /* Maintain 3D for children */
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* When flipped, ensure it stays on top and sharp */
+        .gallery-card.flipped {
+            z-index: 10;
+            transform: scale(1.05) !important; /* Slight zoom on active */
+            filter: none !important;
+            opacity: 1 !important;
+        }
+
+        .gallery-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .gallery-card.flipped .gallery-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Front and Back Styles */
+        .gallery-front, .gallery-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
             box-shadow: var(--shadow);
         }
-        .gallery-item img {
+
+        /* FRONT: Just the Image */
+        .gallery-front {
+            background-color: var(--light);
+        }
+        .gallery-front img {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
         }
-        .gallery-item-content {
-            padding: 20px;
+        /* Click icon hint */
+        .click-hint {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+            pointer-events: none;
         }
-        .gallery-item-content p {
-            font-size: 0.9rem;
+        .gallery-card:hover .click-hint {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* BACK: Details */
+        .gallery-back {
+            background: var(--white);
+            color: var(--text);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border: 2px solid var(--primary);
+        }
+        .gallery-back h5 {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .gallery-back p {
+            font-size: 1rem;
+            line-height: 1.6;
             font-style: italic;
             color: #555;
-            line-height: 1.6;
-            margin-bottom: 15px;
         }
-        .gallery-item-content h5 {
-            font-size: 1rem;
-            color: var(--accent);
-            font-weight: 700;
+        .gallery-back .close-hint {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         /* --- TESTIMONIALS SLIDER --- */
@@ -483,31 +542,18 @@
             .footer-grid {
                 grid-template-columns: 1.5fr 1fr 1fr;
             }
-            .masonry-gallery {
-                column-count: 2;
+            .success-grid {
+                grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
             }
         }
         
         @media (max-width: 768px) {
-            /* Hide custom cursor on mobile */
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-            body {
-                cursor: auto; 
-            }
-            a, .btn, .slider-dot, .mobile-toggle {
-                cursor: auto; 
-            }
-
-            .container {
-                width: 90%;
-            }
+            .cursor-dot, .cursor-outline { display: none; }
+            body { cursor: auto; }
+            a, .btn, .slider-dot, .mobile-toggle { cursor: auto; }
+            .container { width: 90%; }
             
-            /* --- Mobile Navigation --- */
-            .mobile-toggle {
-                display: block; 
-            }
+            .mobile-toggle { display: block; }
             .nav-links {
                 position: fixed; 
                 top: 90px; 
@@ -524,15 +570,9 @@
                 transform: translateX(100%); 
                 z-index: 999;
             }
-            .nav-links.active {
-                transform: translateX(0); 
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links a { font-size: 1.2rem; font-weight: 600; }
 
-            /* --- Mobile Hero --- */
             .page-hero {
                 min-height: auto;
                 height: auto;
@@ -541,55 +581,30 @@
                 clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
                 margin-bottom: -10vh;
             }
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
-            .video-section {
-                padding-top: 15vh;
-            }
+            .page-hero h1 { font-size: 2.5rem; }
+            .video-section { padding-top: 15vh; }
             
-            /* --- Mobile Grids --- */
-            .masonry-gallery {
-                column-count: 1;
-            }
+            .success-grid { grid-template-columns: 1fr; } /* 1 column on mobile */
+            
             .testimonial-section {
                 clip-path: none; 
                 margin: 0;
                 padding-top: 80px;
             }
-            .footer-grid { 
-                grid-template-columns: 1fr; 
-                gap: 30px;
-            }
-            .footer {
-                margin-top: 0;
-            }
-            .footer-col .logo, .footer-col p {
-                max-width: 100%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .footer-col h4, .footer-col ul, .footer-col .contact-item {
-                text-align: center;
-                justify-content: center;
-            }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer { margin-top: 0; }
+            .footer-col .logo, .footer-col p { max-width: 100%; text-align: center; margin-left: auto; margin-right: auto; }
+            .footer-col h4, .footer-col ul, .footer-col .contact-item { text-align: center; justify-content: center; }
 
-            .section-padding {
-                padding: 80px 0;
-            }
-            .section-title h2 {
-                font-size: 2rem;
-            }
+            .section-padding { padding: 80px 0; }
+            .section-title h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- NEW: Custom Cursor Elements -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- NAVIGATION -->
     <nav>
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
@@ -597,11 +612,12 @@
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
-                <a href="Visa-Services.html">Visa services</a>
-               
+                <a href="visa-services.html">Visa services</a>
                 <a href="destinations.html">Destinations</a>
+               
                 <a href="happy-customers.html" class="active">Success Stories</a>
-                 <a href="about.html">About</a>
+                <a href="about.html">About</a>
+               
                 <a href="contact.html">Contact</a>
             </div>
             <div class="mobile-toggle" id="mobile-toggle">
@@ -610,7 +626,6 @@
         </div>
     </nav>
 
-    <!-- PAGE HERO -->
     <section class="page-hero">
         <div class="container reveal">
             <h1>Our <span>Happy Clients</span></h1>
@@ -618,7 +633,7 @@
         </div>
     </section>
 
-    <!-- VIDEO TESTIMONIALS -->
+    <!-- VIDEO TESTIMONIALS (PORTRAIT 9:16) -->
     <section class="section-padding video-section">
         <div class="container">
             <div class="text-center section-title reveal">
@@ -626,88 +641,256 @@
                 <h2>Watch Their Stories</h2>
             </div>
             <div class="video-grid">
-                <a href="#" class="video-card reveal">
+                <!-- Video 1 -->
+                <div class="video-card reveal">
                     <div class="video-thumbnail">
-                        <img src="https://placehold.co/600x400/fab00d/333?text=Manpreet's+Story" alt="Manpreet Singh">
-                        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+                        <video controls poster="manjinder-kaur.png">
+                            <source src="Manjinder kaur uk study visa Updated.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div class="video-card-info">
                         <h4>Manpreet Singh</h4>
                         <span>Study Visa (Canada)</span>
                     </div>
-                </a>
-                <a href="#" class="video-card reveal delay-1">
+                </div>
+                <!-- Video 2 -->
+                <div class="video-card reveal delay-1">
                     <div class="video-thumbnail">
-                        <img src="https://placehold.co/600x400/133beb/white?text=Priya's+Story" alt="Priya Sharma">
-                        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+                        <video controls poster="2nd reel.png">
+                            <source src="Amritpal Singh uk study visa.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="video-card-info">
                         <h4>Priya Sharma</h4>
                         <span>Spouse Visa (UK)</span>
                     </div>
-                </a>
-                <a href="#" class="video-card reveal delay-2">
+                </div>
+                <!-- Video 3 -->
+                <div class="video-card reveal delay-2">
                     <div class="video-thumbnail">
-                        <img src="https://placehold.co/600x400/333/white?text=Amit's+Story" alt="Amit Verma">
-                        <div class="play-button"><i class="fa-solid fa-play"></i></div>
+                        <video controls poster="reel image.png">
+                            <source src="reel1.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="video-card-info">
                         <h4>Amit Verma</h4>
                         <span>PR Visa (Australia)</span>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- MASONRY GALLERY -->
+    <!-- INTERACTIVE FLIP GALLERY (12 ITEMS) -->
     <section class="section-padding gallery-section">
         <div class="container">
             <div class="text-center section-title reveal">
                 <h5>WALL OF SUCCESS</h5>
                 <h2>Visa Approvals Gallery</h2>
             </div>
-            <div class="masonry-gallery">
-                <div class="gallery-item reveal">
-                    <img src="https://placehold.co/600x400/133beb/white?text=Visa+Success" alt="Visa Approval">
-                    <div class="gallery-item-content">
-                        <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
-                        <h5>Gurpreet Singh</h5>
+            <div class="success-grid" id="galleryGrid">
+                <!-- Row 1 -->
+                <div class="gallery-card reveal">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="uk study visa 1.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Gurpreet Singh</h5>
+                            <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item reveal delay-1">
-                    <img src="https://placehold.co/600x800/fab00d/333?text=Visa+Success" alt="Visa Approval">
-                    <div class="gallery-item-content">
-                        <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
-                        <h5>Neha Sharma</h5>
+                <div class="gallery-card reveal delay-1">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="UK STUDY VISA - 2.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Neha Sharma</h5>
+                            <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item reveal delay-2">
-                    <img src="https://placehold.co/600x600/133beb/white?text=Visa+Success" alt="Visa Approval">
-                    <div class="gallery-item-content">
-                        <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
-                        <h5>Amit Verma</h5>
+                <div class="gallery-card reveal delay-2">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="UK STUDY VISA - 3.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Amit Verma</h5>
+                            <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item reveal">
-                    <img src="https://placehold.co/600x500/fab00d/333?text=Visa+Success" alt="Visa Approval">
-                    <div class="gallery-item-content">
-                        <p>"Thank you Punjab Immigration for helping me get my US Visitor Visa. My interview preparation was perfect."</p>
-                        <h5>Sunita Rani</h5>
+
+                <!-- Row 2 -->
+                <div class="gallery-card reveal">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="uk study visa 4.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Sunita Rani</h5>
+                            <p>"Thank you Punjab Immigration for helping me get my US Visitor Visa. My interview preparation was perfect."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item reveal delay-1">
-                    <img src="https://placehold.co/600x700/133beb/white?text=Visa+Success" alt="Visa Approval">
-                    <div class="gallery-item-content">
-                        <p>"My dream of working in the UK is complete. Got my Skilled Worker visa thanks to their expert team."</p>
-                        <h5>Hardeep Singh</h5>
+                <div class="gallery-card reveal delay-1">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="UK STUDY VISA - 5.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Hardeep Singh</h5>
+                            <p>"My dream of working in the UK is complete. Got my Skilled Worker visa thanks to their expert team."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item reveal delay-2">
-                    <img src="https://placehold.co/600x450/fab00d/333?text=Visa+Success" alt="Visa Approval">
-                    <div class="gallery-item-content">
-                        <p>"Australia PR was a long process, but they made it easy. 100% recommended."</p>
-                        <h5>Jaskaran S.</h5>
+                <div class="gallery-card reveal delay-2">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="uk 6.webp" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Jaskaran S.</h5>
+                            <p>"Australia PR was a long process, but they made it easy. 100% recommended."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 (New Items) -->
+                <div class="gallery-card reveal">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM15.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Rohan Kumar</h5>
+                            <p>"I applied for my study visa through them and got it within a month. Very transparent process."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card reveal delay-1">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="im16.png" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Simran Kaur</h5>
+                            <p>"Great team! They helped me with my visitor visa for Canada. The staff is very polite and professional."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card reveal delay-2">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM14.jpg" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Vikram Singh</h5>
+                            <p>"Best immigration consultants in Amritsar. They guide you properly according to your profile."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4 (New Items) -->
+                <div class="gallery-card reveal">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM12.jpg" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Anjali Devi</h5>
+                            <p>"I am so happy with their service. I got my UK visa in just 10 days. Thank you Punjab Immigration!"</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card reveal delay-1">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM13.jpg" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Manish Gupta</h5>
+                            <p>"They handled my refusal case very professionally and I finally got my visa approved."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card reveal delay-2">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM11.jpg"Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Kiran Preet</h5>
+                            <p>"My family and I are very thankful for their support in our PR application."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card reveal">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM10.jpg" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Anjali Devi</h5>
+                            <p>"I am so happy with their service. I got my UK visa in just 10 days. Thank you Punjab Immigration!"</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card reveal delay-1">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM9.jpg" alt="Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Manish Gupta</h5>
+                            <p>"They handled my refusal case very professionally and I finally got my visa approved."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card reveal delay-2">
+                    <div class="gallery-card-inner">
+                        <div class="gallery-front">
+                            <img src="IM7.jpg"Visa Approval">
+                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                        <div class="gallery-back">
+                            <h5>Kiran Preet</h5>
+                            <p>"My family and I are very thankful for their support in our PR application."</p>
+                            <div class="close-hint">Click to close</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -772,6 +955,7 @@
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul>
+                        <li><a href="visa-services.html">All Visa Services</a></li>
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
@@ -813,7 +997,7 @@
                 }
             });
 
-            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .video-card');
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .video-card, .gallery-card');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     if(cursorOutline) cursorOutline.classList.add('cursor-hover');
@@ -898,6 +1082,35 @@
                 showSlide(0); 
                 startSlideShow();
             }
+            
+            // --- INTERACTIVE FLIP GALLERY LOGIC ---
+            const galleryCards = document.querySelectorAll('.gallery-card');
+            const galleryGrid = document.getElementById('galleryGrid');
+
+            galleryCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent click from bubbling to document
+                    
+                    // If already flipped, unflip it
+                    if (card.classList.contains('flipped')) {
+                        card.classList.remove('flipped');
+                        galleryGrid.classList.remove('has-active-card');
+                    } else {
+                        // Unflip any other currently flipped card
+                        galleryCards.forEach(c => c.classList.remove('flipped'));
+                        
+                        // Flip this one
+                        card.classList.add('flipped');
+                        galleryGrid.classList.add('has-active-card');
+                    }
+                });
+            });
+
+            // Click anywhere else to close active card
+            document.addEventListener('click', () => {
+                galleryCards.forEach(c => c.classList.remove('flipped'));
+                galleryGrid.classList.remove('has-active-card');
+            });
 
         });
     </script>
