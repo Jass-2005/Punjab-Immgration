@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+        <link rel="icon" type="image/png" href="logowhite.png">
+
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
@@ -262,7 +263,7 @@
             left: 50%;
             margin-left: -2px;
             z-index: 2;
-            transition: height 0.3s linear;
+            transition: height 0.1s linear; /* Faster transition for snappier feel */
         }
         .timeline-item {
             padding: 10px 40px;
@@ -793,7 +794,7 @@
             <div class="destinations-grid">
                 <!-- Card 1: Canada -->
                 <div class="destination-card reveal">
-                    <img src="https://placehold.co/600x450/fab00d/333?text=CANADA" alt="Canada" class="destination-card-img">
+                    <img src="can-study.png" alt="Canada" class="destination-card-img">
                     <h3 class="card-title">Canada</h3>
                     <div class="card-content">
                         <p>High-quality, affordable education with excellent post-study work and PR opportunities.</p>
@@ -803,7 +804,7 @@
 
                 <!-- Card 2: Australia -->
                 <div class="destination-card reveal delay-1">
-                    <img src="https://placehold.co/600x450/133beb/white?text=AUSTRALIA" alt="Australia" class="destination-card-img">
+                    <img src="aus-study.png" alt="Australia" class="destination-card-img">
                     <h3 class="card-title">Australia</h3>
                     <div class="card-content">
                         <p>World-renowned universities, vibrant city life, and great weather. Strong post-study work rights.</p>
@@ -813,7 +814,7 @@
 
                 <!-- Card 3: UK -->
                 <div class="destination-card reveal delay-2">
-                    <img src="https://placehold.co/600x450/333/white?text=UK" alt="UK" class="destination-card-img">
+                    <img src="lon-study.png" alt="UK" class="destination-card-img">
                     <h3 class="card-title">United Kingdom</h3>
                     <div class="card-content">
                         <p>Home to historic universities. The 2-year Graduate Route visa is a major attraction.</p>
@@ -823,7 +824,7 @@
 
                 <!-- Card 4: USA -->
                 <div class="destination-card reveal delay-3">
-                    <img src="https://placehold.co/600x450/fab00d/333?text=USA" alt="USA" class="destination-card-img">
+                    <img src="us-study.png" alt="USA" class="destination-card-img">
                     <h3 class="card-title">USA</h3>
                     <div class="card-content">
                         <p>The world's leader in tech and innovation, offering F-1 visas for top-tier academic programs.</p>
@@ -889,8 +890,10 @@
                 if (cursorDot && cursorOutline) {
                     const posX = e.clientX;
                     const posY = e.clientY;
+
                     cursorDot.style.left = `${posX}px`;
                     cursorDot.style.top = `${posY}px`;
+
                     cursorOutline.animate({
                         left: `${posX}px`,
                         top: `${posY}px`
@@ -957,33 +960,36 @@
                     }
                 });
 
-                // Timeline Path Animation
+                // Timeline Path Animation (UPDATED LOGIC)
                 if (timelineContainer && timelinePath && timelineActive) {
                     const containerRect = timelineContainer.getBoundingClientRect();
-                    const firstItem = timelineItems[0];
-                    const lastItem = timelineItems[timelineItems.length - 1];
+                    const firstItemRect = timelineItems[0].getBoundingClientRect();
                     
-                    const firstItemRect = firstItem.getBoundingClientRect();
-                    const lastItemRect = lastItem.getBoundingClientRect();
+                    // The line starts at the first item's dot
+                    const startY = firstItemRect.top - containerRect.top + 25; 
 
-                    // Start path at the first dot
-                    const startY = firstItemRect.top - containerRect.top + 25; // 25px = half of dot
-                    // End path at the last dot
+                    // We want the line to draw up to a specific point on the screen (55% down)
+                    // This creates a 1:1 drawing feel as you scroll past it.
+                    const drawPoint = windowHeight * 0.55; 
+
+                    // Calculate the length. 
+                    // Logic: The "pen" is at drawPoint. The start of the line is at (containerRect.top + startY).
+                    // The length is simply the distance between the two.
+                    let lineLength = drawPoint - (containerRect.top + startY);
+
+                    // Constraints: Don't draw negative, don't draw past the last item
+                    if (lineLength < 0) lineLength = 0;
+                    
+                    const lastItemRect = timelineItems[timelineItems.length - 1].getBoundingClientRect();
                     const endY = lastItemRect.top - containerRect.top + 25;
+                    const maxLen = endY - startY;
 
-                    let pathHeight = endY - startY;
-                    
-                    // Calculate how much of the timeline is in view
-                    const scrollPercent = (windowHeight - containerRect.top) / (containerRect.height + windowHeight);
-                    let currentHeight = scrollPercent * pathHeight;
+                    if (lineLength > maxLen) lineLength = maxLen;
 
-                    // Clamp values
-                    if (currentHeight < 0) currentHeight = 0;
-                    if (currentHeight > pathHeight) currentHeight = pathHeight;
+                    // Apply the height
+                    timelinePath.style.height = `${lineLength}px`;
                     
-                    timelinePath.style.height = `${currentHeight}px`;
-                    
-                    // Set top position only once
+                    // Set top position once
                     if (!timelinePath.style.top) {
                          timelinePath.style.top = `${startY}px`;
                     }
