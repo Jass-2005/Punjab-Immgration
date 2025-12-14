@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="icon" type="image/png" href="logowhite.png">
+
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
@@ -192,32 +193,45 @@
             z-index: 1001; 
         }
 
-        /* --- PAGE HERO SECTION --- */
+        /* --- PAGE HERO SECTION (UPDATED) --- */
         .page-hero {
-            min-height: 40vh;
+            min-height: 50vh; /* Increased height for better visibility */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative; 
-            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
+            
+            /* --- UPDATED BACKGROUND --- */
+            /* Linear gradient creates the dark dimming overlay */
+            /* REPLACE 'usa-bg.jpg' with your actual image file name */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('usa-bg.jpg'); 
+            
+            background-size: cover;      /* Ensures image covers the section */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat;
+            
             color: white; 
-            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            padding: 100px 0 150px 0; /* Extra padding at bottom for the clip-path angle */
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: -15vh;
         }
+        
         .page-hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem; /* Increased font size */
             color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Added text shadow for readability */
         }
         .page-hero h1 span {
-            color: #333;
+            color: var(--primary); 
         }
         .page-hero p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--white);
-            opacity: 0.9;
+            opacity: 0.95;
             margin-top: 10px;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         /* --- WHY USA SECTION --- */
