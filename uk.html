@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UK Destination | Punjab Immigration</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logowhite.png">
     
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
-            --primary: #fab00d; /* Main Orange/Yellow */
-            --accent: #133beb; /* Secondary Blue */
+            /* COLOR PALETTE - STRICT MONOCHROME BLUE */
+            --primary: #fab00d;       /* Main Orange/Yellow */
+            --dark-blue: #06122e;     /* Deep Navy Blue */
+            --accent: #06122e;        /* Accent matches Dark Blue */
+            
             --text: #333333;
             --light: #F5F7FA;
             --white: #ffffff;
-            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+            
+            /* Shadows use the dark blue RGB (6, 18, 46) */
+            --shadow: 0 15px 40px -10px rgba(6, 18, 46, 0.15);
+            
+            --footer-bg: #040c1f;     /* Slightly darker than main dark blue for contrast */
+            --footer-text: #b0b0b0;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -53,7 +62,7 @@
         .cursor-outline {
             width: 40px;
             height: 40px;
-            border: 2px solid var(--accent);
+            border: 2px solid var(--dark-blue);
             border-radius: 50%;
             position: fixed;
             top: 50%;
@@ -65,8 +74,9 @@
         }
         .cursor-hover {
             transform: translate(-50%, -50%) scale(1.5);
-            background-color: var(--accent);
+            background-color: var(--primary);
             opacity: 0.5;
+            border-color: transparent;
         }
 
         /* --- UTILITIES --- */
@@ -89,28 +99,36 @@
             transition: 0.4s;
         }
         .btn-primary { 
-            background: var(--primary); 
-            color: #333; 
+            background: var(--accent); 
+            color: var(--white); 
         }
         .btn-primary::before { 
             content: ''; 
             position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 0%; 
-            height: 100%; 
-            background: var(--accent); 
+            top: 0; left: 0; 
+            width: 0%; height: 100%; 
+            background: var(--primary); 
             transition: 0.4s; 
             z-index: -1; 
         }
         .btn-primary:hover::before { width: 100%; }
-        .btn-primary:hover { color: var(--white); }
+        .btn-primary:hover { color: var(--dark-blue); }
+        
+        .btn-accent-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            font-weight: 600;
+            padding: 12px 28px;
+        }
+        .btn-accent-outline:hover {
+            background: var(--white);
+            color: var(--accent);
+        }
         
         .section-padding { padding: 100px 0; }
         .text-center { text-align: center; }
-        .section-title {
-            margin-bottom: 60px;
-        }
+        .section-title { margin-bottom: 60px; }
         .section-title h5 {
             color: var(--accent); 
             letter-spacing: 2px;
@@ -123,7 +141,7 @@
             color: var(--primary); 
         }
 
-        /* --- ANIMATIONS (Scroll Reveal) --- */
+        /* --- ANIMATIONS --- */
         .reveal { 
             opacity: 0; 
             transform: translateY(30px); 
@@ -151,18 +169,13 @@
             justify-content: space-between; 
             align-items: center; 
         }
-        .logo { 
-            text-decoration: none;
-        }
+        .logo { text-decoration: none; }
         .logo img {
             height: 60px; 
             width: auto;
             vertical-align: middle; 
         }
-        .nav-links { 
-            display: flex; 
-            gap: 30px; 
-        }
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a { 
             color: #333; 
             font-weight: 600; 
@@ -172,18 +185,15 @@
         }
         .nav-links a::after { 
             content: ''; 
-            width: 0; 
-            height: 2px; 
+            width: 0; height: 2px; 
             background: var(--accent); 
             position: absolute; 
-            bottom: -5px; 
-            left: 0; 
+            bottom: -5px; left: 0; 
             transition: 0.3s; 
         }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .nav-links a:hover { color: var(--accent); }
 
-        /* --- MOBILE NAVIGATION TOGGLE --- */
         .mobile-toggle {
             display: none; 
             font-size: 24px;
@@ -192,50 +202,40 @@
             z-index: 1001; 
         }
 
-        /* --- PAGE HERO SECTION (UPDATED) --- */
+        /* --- PAGE HERO --- */
         .page-hero {
-            min-height: 50vh; /* Increased height slightly for better image visibility */
+            min-height: 40vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative; 
-            
-            /* --- UPDATED BACKGROUND --- */
-            /* linear-gradient creates the dark dimming overlay */
-            /* url() sets the image. REPLACE 'uk-bg.jpg' with your image name */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('uk-bg.jpg'); 
-            
-            background-size: cover;      /* Ensures image covers the whole section */
-            background-position: center; /* Centers the image */
-            background-repeat: no-repeat;
-            
+            /* Dark Blue Overlay */
+            background: linear-gradient(rgba(6, 18, 46, 0.7), rgba(6, 18, 46, 0.7)), url('uk-bg.jpg'); 
+            background-size: cover;
+            background-position: center;
             color: white; 
-            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            padding: 100px 0 150px 0; 
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: -15vh;
         }
-        
         .page-hero h1 {
-            font-size: 3.5rem; /* Made slightly larger */
+            font-size: 3rem;
             color: var(--white);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Added text shadow for readability */
         }
         .page-hero h1 span {
-            color: var(--primary); /* Keep "United Kingdom" yellow */
+            color: var(--primary); 
         }
         .page-hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--white);
-            opacity: 0.95;
+            opacity: 0.9;
             margin-top: 10px;
-            font-weight: 400;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         /* --- WHY UK SECTION --- */
         .why-section {
-            padding-top: 20vh; /* Account for hero overlap */
+            padding-top: 20vh;
             background: var(--light);
         }
         .why-grid {
@@ -289,78 +289,119 @@
             margin-bottom: 0;
         }
 
-        /* --- "PATHWAYS" SECTION --- */
-        .process-section {
-            background: var(--white);
-        }
-        .process-timeline {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 30px;
+        /* --- PATHWAYS TIMELINE SECTION (GLASSED) --- */
+        .timeline-section {
+            padding-top: 20vh;
             position: relative;
-        }
-        .process-timeline::before {
-            content: '';
-            position: absolute;
-            top: 50px; 
-            left: 5%;
-            width: 90%;
-            height: 2px;
-            background: #ccc;
-            border-style: dashed;
-            z-index: 1;
-        }
-        .process-step {
-            background: var(--light);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            z-index: 2;
-            position: relative;
-            border-top: 4px solid var(--accent); 
-            transition: 0.3s;
-        }
-        .process-step:hover {
-            transform: translateY(-10px);
-        }
-        .process-step-number {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: var(--primary); 
-            color: #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: 'Poppins';
-            border: 4px solid var(--white);
-        }
-        .process-step h4 {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            text-align: center;
-            color: var(--accent); 
-        }
-        .process-step p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #666;
-            text-align: center;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #0a2d9c 100%); /* Dark Background */
+            color: white;
+            padding-bottom: 100px;
+            margin-top: -10vh;
         }
         
-        /* --- STATS --- */
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: rgba(255,255,255,0.1);
+            top: 0; bottom: 0; left: 50%;
+            margin-left: -2px;
+            z-index: 1;
+        }
+        #timeline-path {
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary);
+            top: 0; height: 0; 
+            left: 50%; margin-left: -2px;
+            z-index: 2;
+            transition: height 0.1s linear; 
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s 0.2s, transform 0.6s 0.2s;
+        }
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-item:nth-child(odd) { left: 0; padding-right: 70px; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; padding-left: 70px; text-align: left; }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            background-color: var(--dark-blue);
+            border: 4px solid rgba(255,255,255,0.3);
+            top: 15px; border-radius: 50%;
+            z-index: 3;
+            transition: 0.3s;
+        }
+        .timeline-item:nth-child(odd)::after { right: -12px; }
+        .timeline-item:nth-child(even)::after { left: -12px; }
+        .timeline-item.active::after { 
+            background-color: var(--primary); 
+            border-color: var(--white);
+            box-shadow: 0 0 15px var(--primary);
+        }
+        
+        /* Glassmorphism Card */
+        .timeline-content {
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .timeline-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* --- STATS (UPDATED DARK THEME) --- */
         .stats-section { 
-            background: var(--primary); 
-            color: #333; 
+            background: var(--dark-blue); 
+            color: var(--white); 
             padding: 120px 0; 
             clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            margin-top: -10vh;
+            position: relative;
+            z-index: 3;
         }
         .stats-grid { 
             display: grid; 
@@ -370,7 +411,7 @@
         }
         .stat-item h2 { 
             font-size: 3rem; 
-            color: var(--accent); 
+            color: var(--primary); /* Yellow Numbers */
             margin-bottom: 10px; 
             font-weight: 700;
         }
@@ -378,133 +419,223 @@
             font-size: 1.1rem; 
             opacity: 0.8; 
             font-weight: 300;
+            color: var(--white);
         }
         
-        /* --- FOOTER --- */
-        footer { 
-            background: #081b36; 
-            color: white; 
-            padding: 80px 0 30px; 
-            margin-top: -10vh; /* Pull up */
-            position: relative;
-            z-index: 1;
+        /* --- WHATSAPP BUTTON --- */
+        @keyframes pulse-wa {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
-        .footer-grid { 
-            display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
-            gap: 40px; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 40px; 
-        }
-        .footer-col .logo {
-            margin-bottom: 20px;
-            color: white;
-        }
-        .footer-col p {
-            color: #ccc;
-            line-height: 1.7;
-            font-size: 0.9rem;
-            max-width: 300px;
-        }
-        .footer-col h4 { 
-            color: var(--accent); 
-            margin-bottom: 25px; 
-            font-size: 1.2rem; 
-            font-weight: 600;
-        }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { 
-            color: #ccc; 
-            font-size: 0.9rem; 
-            font-weight: 300;
-        }
-        .footer-col ul li a:hover { 
-            color: var(--accent); 
-            padding-left: 5px; 
-        }
-        .footer-col .contact-item {
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: var(--white);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            color: #ccc;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+            animation: pulse-wa 2s infinite;
+        }
+
+        /* --- FOOTER STYLING --- */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 80px 0 20px;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 5;
+            margin-top: -10vh; /* Pull up to overlap stats */
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 40px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -8px;
+            width: 40px; height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-about-text {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .social-icons { display: flex; gap: 15px; }
+        .social-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+        }
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark-blue);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .footer-links a::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            color: var(--primary);
+            transition: 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        .contact-item span { line-height: 1.6; flex: 1; }
+
+        .newsletter-form { position: relative; margin-top: 20px; }
+        .newsletter-input {
+            width: 100%;
+            padding: 14px 50px 14px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--white);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+        .newsletter-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .newsletter-btn {
+            position: absolute;
+            top: 0; right: 0;
+            height: 100%;
+            width: 45px;
+            background: var(--primary);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .newsletter-btn:hover { background: var(--white); }
+
+        .footer-bottom {
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
         }
-        .footer-col .contact-item i {
-            color: var(--accent);
-            width: 15px;
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: 20px;
         }
-        .copyright { 
-            text-align: center; 
-            padding-top: 30px; 
-            font-size: 0.9rem; 
-            color: #777; 
+        .footer-bottom-links a:hover { color: var(--primary); }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .footer-credit a {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
-            .nav-links {
-                gap: 20px;
-            }
-            .footer-grid {
-                grid-template-columns: 1.5fr 1fr 1fr;
-            }
-            .why-grid {
-                grid-template-columns: 1fr;
-            }
-            .process-timeline {
-                grid-template-columns: 1fr 1fr;
-            }
-            .process-timeline::before {
-                display: none;
-            }
+            .nav-links { gap: 20px; }
+            .why-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
         
         @media (max-width: 768px) {
-            /* Hide custom cursor on mobile */
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-            body {
-                cursor: auto; 
-            }
-            a, .btn, .slider-dot, .mobile-toggle {
-                cursor: auto; 
-            }
-
-            .container {
-                width: 90%;
-            }
+            .cursor-dot, .cursor-outline { display: none; }
+            body { cursor: auto; }
+            a, .btn, .slider-dot, .mobile-toggle { cursor: auto; }
+            .container { width: 90%; }
             
-            /* --- Mobile Navigation --- */
-            .mobile-toggle {
-                display: block; 
-            }
+            .mobile-toggle { display: block; }
             .nav-links {
-                position: fixed; 
-                top: 90px; 
-                left: 0;
-                width: 100%;
-                height: calc(100vh - 90px);
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 40px;
-                gap: 35px;
+                position: fixed; top: 90px; left: 0; width: 100%; height: calc(100vh - 90px);
+                background: var(--white); flex-direction: column; align-items: center;
+                justify-content: flex-start; padding-top: 40px; gap: 35px;
                 transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-                transform: translateX(100%); 
-                z-index: 999;
+                transform: translateX(100%); z-index: 999;
             }
-            .nav-links.active {
-                transform: translateX(0); 
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links a { font-size: 1.2rem; font-weight: 600; }
 
-            /* --- Mobile Hero --- */
             .page-hero {
                 min-height: auto;
                 height: auto;
@@ -513,64 +644,58 @@
                 clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
                 margin-bottom: -10vh;
             }
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
-            .why-section {
-                padding-top: 15vh;
-            }
-            .why-grid {
-                gap: 40px;
-            }
+            .page-hero h1 { font-size: 2.5rem; }
             
-            /* --- Mobile Grids --- */
-            .process-timeline {
-                grid-template-columns: 1fr;
+            .why-section { padding-top: 15vh; }
+            .timeline-section { padding-top: 15vh; }
+            .timeline-container::after, #timeline-path { left: 20px; }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 60px;
+                padding-right: 20px;
+                text-align: left !important;
             }
-            .stats-section {
-                clip-path: none; 
-                margin: 0;
-            }
-            .stats-grid { 
-                grid-template-columns: 1fr 1fr; 
-                gap: 40px 20px;
-            }
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after { left: -12px; }
+            
+            .timeline-section .section-title h5 { color: var(--primary); }
+            .timeline-section .section-title h2 { color: var(--white); }
+
+            /* Stats Mobile */
+            .stats-section { clip-path: none; margin: 0; padding: 80px 0; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
+
+            /* Mobile Footer - Updated to Grid Layout */
             .footer-grid { 
-                grid-template-columns: 1fr; 
-                gap: 30px;
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 40px 20px; 
+                text-align: left; 
             }
-            .footer {
-                margin-top: 0;
+            .footer-col:first-child { 
+                grid-column: 1 / -1; 
+                text-align: center; 
             }
-            .footer-col .logo, .footer-col p {
-                max-width: 100%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .footer-col h4, .footer-col ul, .footer-col .contact-item {
-                text-align: center;
-                justify-content: center;
-            }
+            .footer-col:first-child p { margin: 0 auto 20px; }
+            .social-icons { justify-content: center; }
+            .footer-col:last-child { grid-column: 1 / -1; }
+            
+            .footer-col h4::after { left: 0; transform: none; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links { margin-top: 10px; }
+            .footer-bottom-links a { margin: 0 10px; }
 
-            .section-padding {
-                padding: 80px 0;
-            }
-            .section-title h2 {
-                font-size: 2rem;
-            }
+            .section-padding { padding: 80px 0; }
+            .section-title h2 { font-size: 2rem; }
         }
-
+        
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr; 
-                gap: 40px;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- NEW: Custom Cursor Elements -->
+    <!-- Custom Cursor Elements -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -583,7 +708,7 @@
             <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
                 <a href="Visa-Services.html">Visa services</a>
-                <a href="destinations.html" class="active">Destinations</a>
+                 <a href="destinations.html" class="active">Destinations</a>
                 <a href="happy-customers.html">Success Stories</a>
                  <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
@@ -641,40 +766,44 @@
         </div>
     </section>
     
-    <!-- "PATHWAYS" SECTION -->
-    <section class="section-padding process-section">
+    <!-- PATHWAYS TIMELINE SECTION (GLASSED) -->
+    <section class="section-padding timeline-section">
         <div class="container">
             <div class="text-center section-title reveal">
-                <h5>YOUR OPTIONS</h5>
-                <h2>Pathways to the UK</h2>
+                <h5 style="color: var(--primary);">YOUR OPTIONS</h5>
+                <h2 style="color: white;">Pathways to the UK</h2>
             </div>
-            <div class="process-timeline">
-                <div class="process-step reveal">
-                    <div class="process-step-number"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h4>Student Visa</h4>
-                    <p>For students who have an offer (CAS) from a licensed UK university or institution.</p>
+            <div class="timeline-container">
+                <div id="timeline-path"></div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>Student Visa</h3>
+                        <p>For students who have an offer (CAS) from a licensed UK university or institution.</p>
+                    </div>
                 </div>
-                <div class="process-step reveal delay-1">
-                    <div class="process-step-number"><i class="fa-solid fa-briefcase"></i></div>
-                    <h4>Skilled Worker Visa</h4>
-                    <p>For those who have a job offer from a UK employer with a sponsorship licence.</p>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>Skilled Worker Visa</h3>
+                        <p>For those who have a job offer from a UK employer with a sponsorship licence.</p>
+                    </div>
                 </div>
-                <div class="process-step reveal delay-2">
-                    <div class="process-step-number"><i class="fa-solid fa-plane"></i></div>
-                    <h4>Visitor Visa</h4>
-                    <p>For tourism, visiting family, or short-term business meetings and conferences.</p>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>Visitor Visa</h3>
+                        <p>For tourism, visiting family, or short-term business meetings and conferences.</p>
+                    </div>
                 </div>
-                <div class="process-step reveal delay-3">
-                    <div class="process-step-number"><i class="fa-solid fa-heart"></i></div>
-                    <h4>Family & Spouse Visa</h4>
-                    <p>Join your partner or family members who are settled in the United Kingdom.</p>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <h3>Family & Spouse Visa</h3>
+                        <p>Join your partner or family members who are settled in the United Kingdom.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- STATS -->
+    <!-- STATS (Updated to Dark Blue BG) -->
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
@@ -697,46 +826,87 @@
             </div>
         </div>
     </section>
+    
+    <a href="https://wa.me/919507795077" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
+                <!-- Column 1: About -->
                 <div class="footer-col">
-                    <a href="index.html" class="logo">
-                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                    <a href="index.html" class="footer-logo">
+                         <img src="logowhite.png" alt="Punjab Immigration Logo">
                     </a>
-                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                    <p class="footer-about-text">Your trusted partner for global dreams. We provide transparent, honest, and efficient visa services for Canada, UK, Australia, and beyond.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/1Am5DtawRN/?mibextid=wwXIfr" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_punjabimmigration/" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/punjab-immigration-a37827383" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@PunjabImmigration53" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
                 </div>
+
+                <!-- Column 2: Quick Links -->
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <ul>
+                    <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="destinations.html">Destinations</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="happy-customers.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 3: Services -->
                 <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul>
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
                         <li><a href="visitor-visa.html">Visitor Visa</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 4: Contact -->
                 <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
-                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
-                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
-                    </ul>
+                    <h4>Get In Touch</h4>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>For Enquiry: 95077 95077</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>SCO 53, RANJIT AVENUE B BLOCK, AMRITSAR</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>punjabimmigration.in</span>
+                    </div>
+                    
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
                 </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 Punjab Immigration. All Rights Reserved.
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 Punjab Immigration. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+            
+            <div class="footer-credit">
+                Built by <a href="https://yenoh.space/">Yenoh</a>
             </div>
         </div>
     </footer>
@@ -761,7 +931,7 @@
                 }
             });
 
-            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot');
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .why-card');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     if(cursorOutline) cursorOutline.classList.add('cursor-hover');
@@ -789,11 +959,16 @@
                 });
             }
 
-            // --- SCROLL REVEAL ANIMATION ---
+            // --- SCROLL ANIMATIONS ---
             const revealElements = document.querySelectorAll('.reveal');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelinePath = document.getElementById('timeline-path');
+            const timelineContainer = document.querySelector('.timeline-container');
             
             const revealOnScroll = () => {
                 const windowHeight = window.innerHeight;
+                
+                // General Reveal
                 revealElements.forEach(el => {
                     if (el.getBoundingClientRect) {
                         const elementTop = el.getBoundingClientRect().top;
@@ -802,6 +977,47 @@
                         }
                     }
                 });
+
+                // Timeline Reveal
+                let timelineActive = false;
+                timelineItems.forEach(item => {
+                    if (item.getBoundingClientRect) {
+                        const itemTop = item.getBoundingClientRect().top;
+                        if (itemTop < windowHeight - 200) {
+                            item.classList.add('active');
+                            timelineActive = true;
+                        }
+                    }
+                });
+
+                // Timeline Path Animation
+                if (timelineContainer && timelinePath && timelineActive) {
+                    const containerRect = timelineContainer.getBoundingClientRect();
+                    
+                    if (timelineItems.length > 0) {
+                        const firstItem = timelineItems[0];
+                        const lastItem = timelineItems[timelineItems.length - 1];
+                        const firstItemRect = firstItem.getBoundingClientRect();
+                        const lastItemRect = lastItem.getBoundingClientRect();
+
+                        const startY = firstItemRect.top - containerRect.top + 25;
+                        const endY = lastItemRect.top - containerRect.top + 25;
+                        let pathHeight = endY - startY;
+                        
+                        const scrollPercent = (windowHeight - containerRect.top) / (containerRect.height + windowHeight);
+                        
+                        let currentHeight = (scrollPercent * 1.5) * pathHeight;
+
+                        if (currentHeight < 0) currentHeight = 0;
+                        if (currentHeight > pathHeight) currentHeight = pathHeight;
+                        
+                        timelinePath.style.height = `${currentHeight}px`;
+                        
+                        if (!timelinePath.style.top) {
+                             timelinePath.style.top = `${startY}px`;
+                        }
+                    }
+                }
             };
             
             window.addEventListener('scroll', revealOnScroll);
@@ -849,7 +1065,6 @@
             } else if (statsSection) {
                 startCounters();
             }
-
         });
     </script>
 </body>

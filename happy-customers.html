@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Success Stories | Punjab Immigration</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logowhite.png">
     
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
-            --primary: #fab00d; /* Main Orange/Yellow */
-            --accent: #133beb; /* Secondary Blue */
+            /* COLOR PALETTE - STRICT MONOCHROME BLUE */
+            --primary: #fab00d;       /* Main Orange/Yellow */
+            --dark-blue: #06122e;     /* Deep Navy Blue */
+            --accent: #06122e;        /* Accent matches Dark Blue */
+            
             --text: #333333;
             --light: #F5F7FA;
             --white: #ffffff;
-            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+            
+            /* Shadows use the dark blue RGB (6, 18, 46) */
+            --shadow: 0 15px 40px -10px rgba(6, 18, 46, 0.15);
+            
+            --footer-bg: #040c1f;     /* Slightly darker than main dark blue for contrast */
+            --footer-text: #b0b0b0;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -35,6 +44,7 @@
         }
         a { text-decoration: none; transition: 0.3s; cursor: none; }
         ul { list-style: none; }
+        img { max-width: 100%; display: block; }
 
         /* --- CUSTOM CURSOR --- */
         .cursor-dot {
@@ -53,7 +63,7 @@
         .cursor-outline {
             width: 40px;
             height: 40px;
-            border: 2px solid var(--accent);
+            border: 2px solid var(--dark-blue);
             border-radius: 50%;
             position: fixed;
             top: 50%;
@@ -65,8 +75,9 @@
         }
         .cursor-hover {
             transform: translate(-50%, -50%) scale(1.5);
-            background-color: var(--accent);
+            background-color: var(--primary);
             opacity: 0.5;
+            border-color: transparent;
         }
 
         /* --- UTILITIES --- */
@@ -75,41 +86,12 @@
             width: 90%;
             margin: 0 auto; 
         }
-        .btn { 
-            display: inline-block; 
-            padding: 14px 32px; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            letter-spacing: 0.5px; 
-            position: relative; 
-            overflow: hidden; 
-            z-index: 1; 
-            border: none; 
-            cursor: none; 
-            transition: 0.4s;
-        }
-        .btn-primary { 
-            background: var(--primary); 
-            color: #333; 
-        }
-        .btn-primary::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 0%; 
-            height: 100%; 
-            background: var(--accent); 
-            transition: 0.4s; 
-            z-index: -1; 
-        }
-        .btn-primary:hover::before { width: 100%; }
-        .btn-primary:hover { color: var(--white); }
-        
-        .section-padding { padding: 100px 0; }
         .text-center { text-align: center; }
+        .section-padding { padding: 100px 0; }
+        
         .section-title {
             margin-bottom: 60px;
+            padding: 0 10px;
         }
         .section-title h5 {
             color: var(--accent); 
@@ -117,13 +99,14 @@
             text-transform: uppercase;
             margin-bottom: 10px;
             font-weight: 600;
+            font-size: 1rem;
         }
         .section-title h2 {
             font-size: 2.5rem;
             color: var(--primary); 
         }
 
-        /* --- ANIMATIONS (Scroll Reveal) --- */
+        /* --- ANIMATIONS --- */
         .reveal { 
             opacity: 0; 
             transform: translateY(30px); 
@@ -135,7 +118,6 @@
         }
         .reveal.delay-1 { transition-delay: 0.1s; }
         .reveal.delay-2 { transition-delay: 0.2s; }
-        .reveal.delay-3 { transition-delay: 0.3s; }
 
         /* --- NAVIGATION --- */
         nav { 
@@ -151,13 +133,9 @@
             justify-content: space-between; 
             align-items: center; 
         }
-        .logo { 
-            text-decoration: none;
-        }
         .logo img {
             height: 60px; 
             width: auto;
-            vertical-align: middle; 
         }
         .nav-links { 
             display: flex; 
@@ -182,8 +160,7 @@
         }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .nav-links a:hover { color: var(--accent); }
-
-        /* --- MOBILE NAVIGATION TOGGLE --- */
+        
         .mobile-toggle {
             display: none; 
             font-size: 24px;
@@ -202,7 +179,7 @@
             position: relative; 
             background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
             color: white; 
-            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            padding: 100px 0 150px 0; 
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: -15vh;
         }
@@ -211,7 +188,7 @@
             color: var(--white);
         }
         .page-hero h1 span {
-            color: #333;
+            color: var(--dark-blue); 
         }
         .page-hero p {
             font-size: 1.1rem;
@@ -222,7 +199,7 @@
 
         /* --- PORTRAIT VIDEO TESTIMONIALS --- */
         .video-section {
-            padding-top: 20vh; /* Account for hero overlap */
+            padding-top: 20vh; 
         }
         .video-grid {
             display: grid;
@@ -265,45 +242,41 @@
         }
         .video-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px -15px rgba(19, 59, 235, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(6, 18, 46, 0.3);
         }
         
-        /* --- INTERACTIVE FLIP GALLERY (CLICK TO FLIP) --- */
+        /* --- INTERACTIVE FLIP GALLERY --- */
         .gallery-section {
             background: var(--white);
         }
-        /* Parent grid acts as the 3D stage */
         .success-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
-            perspective: 1000px; /* Crucial for 3D effect */
-            position: relative; /* For blur overlay context if needed */
+            position: relative; 
             transition: 0.4s ease;
         }
         
-        /* BLUR EFFECT: When the grid has an active card, blur non-active siblings */
+        /* BLUR EFFECT (Desktop Only) */
         .success-grid.has-active-card .gallery-card:not(.flipped) {
             filter: blur(4px) grayscale(0.5);
             opacity: 0.6;
             transform: scale(0.95);
-            pointer-events: none; /* Prevent clicking others */
+            pointer-events: none; 
         }
 
         .gallery-card {
             background-color: transparent;
-            height: 450px; /* Fixed height for flip */
+            height: 450px; 
             cursor: pointer;
             transition: 0.4s ease;
-            transform-style: preserve-3d; /* Maintain 3D for children */
             position: relative;
             z-index: 1;
         }
         
-        /* When flipped, ensure it stays on top and sharp */
         .gallery-card.flipped {
             z-index: 10;
-            transform: scale(1.05) !important; /* Slight zoom on active */
+            transform: scale(1.05) !important;
             filter: none !important;
             opacity: 1 !important;
         }
@@ -313,7 +286,7 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.6s;
             transform-style: preserve-3d;
         }
 
@@ -321,21 +294,21 @@
             transform: rotateY(180deg);
         }
 
-        /* Front and Back Styles */
         .gallery-front, .gallery-back {
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
-        /* FRONT: Just the Image */
+        /* FRONT */
         .gallery-front {
             background-color: var(--light);
+            z-index: 2;
         }
         .gallery-front img {
             width: 100%;
@@ -343,7 +316,6 @@
             object-fit: cover;
             object-position: top center;
         }
-        /* Click icon hint */
         .click-hint {
             position: absolute;
             bottom: 20px;
@@ -366,17 +338,17 @@
             transform: translateY(0);
         }
 
-        /* BACK: Details */
+        /* BACK */
         .gallery-back {
             background: var(--white);
             color: var(--text);
-            transform: rotateY(180deg);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 30px;
             border: 2px solid var(--primary);
+            transform: rotateY(180deg);
         }
         .gallery-back h5 {
             font-size: 1.4rem;
@@ -430,9 +402,7 @@
             box-shadow: var(--shadow);
             text-align: center;
         }
-        .testimonial-slide.active {
-            display: block; 
-        }
+        .testimonial-slide.active { display: block; }
         .testimonial-slide img {
             width: 80px;
             height: 80px;
@@ -476,95 +446,245 @@
             transform: scale(1.2);
         }
         
+        /* --- WHATSAPP BUTTON --- */
+        @keyframes pulse-wa {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+            animation: pulse-wa 2s infinite;
+        }
+        
         /* --- FOOTER --- */
         footer { 
-            background: #081b36; 
-            color: white; 
+            background: var(--footer-bg); 
+            color: var(--footer-text); 
             padding: 80px 0 30px; 
+            position: relative;
+            z-index: 5;
         }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05), transparent 40%);
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
         .footer-grid { 
             display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr; 
             gap: 40px; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            border-bottom: 1px solid rgba(255,255,255,0.08); 
             padding-bottom: 40px; 
+            position: relative;
+            z-index: 1;
         }
-        .footer-col .logo {
-            margin-bottom: 20px;
-            color: white;
-        }
-        .footer-col p {
-            color: #ccc;
-            line-height: 1.7;
-            font-size: 0.9rem;
+        .footer-col .logo { margin-bottom: 20px; display: block; }
+        .footer-col .logo img {
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+}
+
+        
+        .footer-col p { 
+            color: rgba(255,255,255,0.7); 
+            line-height: 1.8;
+            font-size: 0.95rem;
             max-width: 300px;
         }
         .footer-col h4 { 
-            color: var(--accent); 
+            color: var(--white); 
             margin-bottom: 25px; 
             font-size: 1.2rem; 
             font-weight: 600;
+            position: relative;
+            display: inline-block;
         }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -8px;
+            width: 40px; height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
         .footer-col ul li { margin-bottom: 12px; }
         .footer-col ul li a { 
-            color: #ccc; 
+            color: rgba(255,255,255,0.7); 
             font-size: 0.9rem; 
             font-weight: 300;
+            display: inline-flex;
+            align-items: center;
+        }
+        .footer-col ul li a::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            color: var(--primary);
+            transition: 0.3s;
         }
         .footer-col ul li a:hover { 
-            color: var(--accent); 
+            color: var(--white); 
             padding-left: 5px; 
         }
-        .footer-col .contact-item {
+        
+        .footer-col .contact-item { 
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
             margin-bottom: 12px;
-            color: #ccc;
+            color: rgba(255,255,255,0.7); 
             font-size: 0.9rem;
         }
-        .footer-col .contact-item i {
-            color: var(--accent);
-            width: 15px;
+        .footer-col .contact-item i { 
+            color: var(--primary); 
+            width: 15px; 
+            margin-top: 5px;
         }
-        .copyright { 
-            text-align: center; 
-            padding-top: 30px; 
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+        }
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark-blue);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .newsletter-form { position: relative; margin-top: 20px; }
+        .newsletter-input {
+            width: 100%;
+            padding: 14px 50px 14px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--white);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+        .newsletter-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .newsletter-btn {
+            position: absolute;
+            top: 0; right: 0;
+            height: 100%;
+            width: 45px;
+            background: var(--primary);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .newsletter-btn:hover { background: var(--white); }
+
+        .footer-bottom { 
+            padding-top: 25px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.9rem; 
-            color: #777; 
+            color: rgba(255,255,255,0.5); 
+            position: relative;
+            z-index: 1;
+        }
+        .footer-bottom-links a {
+            color: rgba(255,255,255,0.5);
+            margin-left: 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer-bottom-links a:hover { color: var(--primary); }
+        
+        .footer-credit {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .footer-credit a {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
+        
+        /* Tablet Devices */
         @media (max-width: 992px) {
-            .nav-links {
-                gap: 20px;
-            }
-            .footer-grid {
-                grid-template-columns: 1.5fr 1fr 1fr;
-            }
-            .success-grid {
-                grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
+            .nav-links { gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .success-grid { 
+                grid-template-columns: repeat(2, 1fr); 
             }
         }
         
+        /* Mobile Devices (Standard) */
         @media (max-width: 768px) {
+            /* Reset Cursor */
             .cursor-dot, .cursor-outline { display: none; }
             body { cursor: auto; }
             a, .btn, .slider-dot, .mobile-toggle { cursor: auto; }
-            .container { width: 90%; }
+
+            .container { width: 92%; }
             
+            /* Typography Scale Down */
+            .section-title h2 { font-size: 2rem; }
+            .page-hero h1 { font-size: 2.5rem; }
+
+            /* Mobile Nav */
             .mobile-toggle { display: block; }
-            .nav-links {
+            .nav-links { 
                 position: fixed; 
                 top: 90px; 
-                left: 0;
-                width: 100%;
+                left: 0; 
+                width: 100%; 
                 height: calc(100vh - 90px);
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 40px;
+                background: var(--white); 
+                flex-direction: column; 
+                align-items: center; 
+                justify-content: flex-start; 
+                padding-top: 40px; 
                 gap: 35px;
                 transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
                 transform: translateX(100%); 
@@ -573,38 +693,96 @@
             .nav-links.active { transform: translateX(0); }
             .nav-links a { font-size: 1.2rem; font-weight: 600; }
 
+            /* Hero adjustments */
             .page-hero {
                 min-height: auto;
                 height: auto;
-                padding: 80px 0 100px 0;
-                text-align: center;
-                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-                margin-bottom: -10vh;
+                padding: 100px 0 100px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+                margin-bottom: -5vh;
             }
-            .page-hero h1 { font-size: 2.5rem; }
-            .video-section { padding-top: 15vh; }
             
-            .success-grid { grid-template-columns: 1fr; } /* 1 column on mobile */
+            /* Section Padding */
+            .section-padding { padding: 60px 0; }
+            .video-section { padding-top: 10vh; }
             
-            .testimonial-section {
-                clip-path: none; 
-                margin: 0;
-                padding-top: 80px;
+            /* --- FORCE VIDEO TO 1 COLUMN ON MOBILE --- */
+            .video-grid { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
             }
-            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-            .footer { margin-top: 0; }
-            .footer-col .logo, .footer-col p { max-width: 100%; text-align: center; margin-left: auto; margin-right: auto; }
-            .footer-col h4, .footer-col ul, .footer-col .contact-item { text-align: center; justify-content: center; }
+            
+            /* --- FORCE GALLERY TO 2 COLUMNS ON MOBILE (GRID) --- */
+            .success-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 15px; /* Smaller gap for mobile grid */
+            }
+            
+            /* Disable desktop blur effect on mobile */
+            .success-grid.has-active-card .gallery-card:not(.flipped) {
+                filter: none;
+                opacity: 1;
+                transform: none;
+            }
 
-            .section-padding { padding: 80px 0; }
-            .section-title h2 { font-size: 2rem; }
+            /* Adjust Gallery Cards for Grid Layout */
+            .gallery-card { 
+                height: 300px; /* Shorter height to look proportional in grid */
+            }
+            
+            /* Adjust content inside flipped card for smaller space */
+            .gallery-back { padding: 15px; }
+            .gallery-back h5 { font-size: 1.1rem; margin-bottom: 10px; }
+            .gallery-back p { font-size: 0.8rem; line-height: 1.4; }
+            .gallery-back .close-hint { margin-top: 10px; font-size: 0.7rem; }
+
+            .click-hint { opacity: 1; transform: translateY(0); }
+
+            /* Footer stacking */
+            .footer-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 40px 20px; 
+                text-align: left; 
+            }
+            .footer-col:first-child { 
+                grid-column: 1 / -1; 
+                text-align: center; 
+            }
+            .footer-col:first-child p { margin: 0 auto 20px; }
+            .social-icons { justify-content: center; }
+            .footer-col:last-child { grid-column: 1 / -1; }
+            
+            .footer-col h4::after { left: 0; transform: none; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links { margin-top: 10px; }
+            .footer-bottom-links a { margin: 0 10px; }
+            
+            .testimonial-section { clip-path: none; padding-top: 60px; margin-top: 0; }
+        }
+
+        /* Narrow Mobile (Phones < 480px) */
+        @media (max-width: 400px) {
+            .page-hero h1 { font-size: 2rem; }
+            .page-hero p { font-size: 1rem; }
+            
+            /* Slightly shorter cards for very small screens */
+            .gallery-card { height: 280px; }
+            
+            /* Video takes full width */
+            .video-grid { grid-template-columns: 100%; }
+
+            .testimonial-slide { padding: 25px 15px; }
+            /* Fallback to 1 column footer if 2 is too tight */
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <!-- NEW: Custom Cursor Elements -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
+    <!-- NAVIGATION -->
     <nav>
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
@@ -612,12 +790,10 @@
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
-                <a href="visa-services.html">Visa services</a>
-                <a href="destinations.html">Destinations</a>
-               
+                <a href="Visa-Services.html">Visa services</a>
+                 <a href="destinations.html">Destinations</a>
                 <a href="happy-customers.html" class="active">Success Stories</a>
-                <a href="about.html">About</a>
-               
+                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </div>
             <div class="mobile-toggle" id="mobile-toggle">
@@ -633,7 +809,7 @@
         </div>
     </section>
 
-    <!-- VIDEO TESTIMONIALS (PORTRAIT 9:16) -->
+    <!-- VIDEO TESTIMONIALS (1 Column on Mobile) -->
     <section class="section-padding video-section">
         <div class="container">
             <div class="text-center section-title reveal">
@@ -682,7 +858,7 @@
         </div>
     </section>
 
-    <!-- INTERACTIVE FLIP GALLERY (12 ITEMS) -->
+    <!-- INTERACTIVE FLIP GALLERY (2 Columns on Mobile - Grid) -->
     <section class="section-padding gallery-section">
         <div class="container">
             <div class="text-center section-title reveal">
@@ -700,7 +876,7 @@
                         <div class="gallery-back">
                             <h5>Gurpreet Singh</h5>
                             <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -713,7 +889,7 @@
                         <div class="gallery-back">
                             <h5>Neha Sharma</h5>
                             <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -726,7 +902,7 @@
                         <div class="gallery-back">
                             <h5>Amit Verma</h5>
                             <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -741,7 +917,7 @@
                         <div class="gallery-back">
                             <h5>Sunita Rani</h5>
                             <p>"Thank you Punjab Immigration for helping me get my US Visitor Visa. My interview preparation was perfect."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -754,7 +930,7 @@
                         <div class="gallery-back">
                             <h5>Hardeep Singh</h5>
                             <p>"My dream of working in the UK is complete. Got my Skilled Worker visa thanks to their expert team."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -767,12 +943,12 @@
                         <div class="gallery-back">
                             <h5>Jaskaran S.</h5>
                             <p>"Australia PR was a long process, but they made it easy. 100% recommended."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Row 3 (New Items) -->
+                <!-- Row 3 -->
                 <div class="gallery-card reveal">
                     <div class="gallery-card-inner">
                         <div class="gallery-front">
@@ -782,7 +958,7 @@
                         <div class="gallery-back">
                             <h5>Rohan Kumar</h5>
                             <p>"I applied for my study visa through them and got it within a month. Very transparent process."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -795,7 +971,7 @@
                         <div class="gallery-back">
                             <h5>Simran Kaur</h5>
                             <p>"Great team! They helped me with my visitor visa for Canada. The staff is very polite and professional."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -808,12 +984,12 @@
                         <div class="gallery-back">
                             <h5>Vikram Singh</h5>
                             <p>"Best immigration consultants in Amritsar. They guide you properly according to your profile."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Row 4 (New Items) -->
+                <!-- Row 4 -->
                 <div class="gallery-card reveal">
                     <div class="gallery-card-inner">
                         <div class="gallery-front">
@@ -823,7 +999,7 @@
                         <div class="gallery-back">
                             <h5>Anjali Devi</h5>
                             <p>"I am so happy with their service. I got my UK visa in just 10 days. Thank you Punjab Immigration!"</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -836,60 +1012,20 @@
                         <div class="gallery-back">
                             <h5>Manish Gupta</h5>
                             <p>"They handled my refusal case very professionally and I finally got my visa approved."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
                 <div class="gallery-card reveal delay-2">
                     <div class="gallery-card-inner">
                         <div class="gallery-front">
-                            <img src="IM11.jpg"Visa Approval">
+                            <img src="IM11.jpg" alt="Visa Approval">
                             <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
                         </div>
                         <div class="gallery-back">
                             <h5>Kiran Preet</h5>
                             <p>"My family and I are very thankful for their support in our PR application."</p>
-                            <div class="close-hint">Click to close</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-card reveal">
-                    <div class="gallery-card-inner">
-                        <div class="gallery-front">
-                            <img src="IM10.jpg" alt="Visa Approval">
-                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
-                        </div>
-                        <div class="gallery-back">
-                            <h5>Anjali Devi</h5>
-                            <p>"I am so happy with their service. I got my UK visa in just 10 days. Thank you Punjab Immigration!"</p>
-                            <div class="close-hint">Click to close</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card reveal delay-1">
-                    <div class="gallery-card-inner">
-                        <div class="gallery-front">
-                            <img src="IM9.jpg" alt="Visa Approval">
-                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
-                        </div>
-                        <div class="gallery-back">
-                            <h5>Manish Gupta</h5>
-                            <p>"They handled my refusal case very professionally and I finally got my visa approved."</p>
-                            <div class="close-hint">Click to close</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card reveal delay-2">
-                    <div class="gallery-card-inner">
-                        <div class="gallery-front">
-                            <img src="IM7.jpg"Visa Approval">
-                            <div class="click-hint"><i class="fa-solid fa-arrow-rotate-right"></i></div>
-                        </div>
-                        <div class="gallery-back">
-                            <h5>Kiran Preet</h5>
-                            <p>"My family and I are very thankful for their support in our PR application."</p>
-                            <div class="close-hint">Click to close</div>
+                            <div class="close-hint">Tap to close</div>
                         </div>
                     </div>
                 </div>
@@ -933,46 +1069,81 @@
         </div>
     </section>
 
+    <a href="https://wa.me/919507795077" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
+                <!-- Column 1: About -->
                 <div class="footer-col">
                     <a href="index.html" class="logo">
-                         <img src="your-logo-white.svg" alt="Punjab Immigration Logo (White)" style="filter: brightness(0) invert(1)">
+                         <img src="logowhite.png" alt="Punjab Immigration Logo">
                     </a>
-                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                    <p class="footer-about-text">Your trusted partner for global dreams. We provide transparent, honest, and efficient visa services for Canada, UK, Australia, and beyond.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/1Am5DtawRN/?mibextid=wwXIfr" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_punjabimmigration/" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/punjab-immigration-a37827383" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@PunjabImmigration53" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
                 </div>
+
+                <!-- Column 2: Quick Links -->
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <ul>
+                    <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="destinations.html">Destinations</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="happy-customers.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 3: Services -->
                 <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="visa-services.html">All Visa Services</a></li>
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
                         <li><a href="visitor-visa.html">Visitor Visa</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 4: Contact -->
                 <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
-                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
-                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
-                    </ul>
+                    <h4>Get In Touch</h4>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>For Enquiry: 95077 95077</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>SCO 53, RANJIT AVENUE B BLOCK, AMRITSAR</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>punjabimmigration.in</span>
+                    </div>
                 </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 Punjab Immigration. All Rights Reserved.
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 Punjab Immigration. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+            
+            <div class="footer-credit">
+                Built by <a href="https://yenoh.space/">Yenoh</a>
             </div>
         </div>
     </footer>

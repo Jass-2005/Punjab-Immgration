@@ -13,12 +13,20 @@
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
-            --primary: #fab00d; /* Main Orange/Yellow */
-            --accent: #133beb; /* Secondary Blue */
+            /* COLOR PALETTE - STRICT MONOCHROME BLUE */
+            --primary: #fab00d;       /* Main Orange/Yellow */
+            --dark-blue: #06122e;     /* Deep Navy Blue */
+            --accent: #06122e;        /* Accent matches Dark Blue */
+            
             --text: #333333;
             --light: #F5F7FA;
             --white: #ffffff;
-            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+            
+            /* Shadows use the dark blue RGB (6, 18, 46) */
+            --shadow: 0 15px 40px -10px rgba(6, 18, 46, 0.15);
+            
+            --footer-bg: #040c1f;     /* Slightly darker than main dark blue for contrast */
+            --footer-text: #b0b0b0;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -34,6 +42,8 @@
             color: var(--primary); 
             line-height: 1.2; 
         }
+        .section-title h5 { color: var(--accent); }
+
         a { text-decoration: none; transition: 0.3s; cursor: none; }
         ul { list-style: none; }
 
@@ -54,7 +64,7 @@
         .cursor-outline {
             width: 40px;
             height: 40px;
-            border: 2px solid var(--accent);
+            border: 2px solid var(--dark-blue);
             border-radius: 50%;
             position: fixed;
             top: 50%;
@@ -66,8 +76,9 @@
         }
         .cursor-hover {
             transform: translate(-50%, -50%) scale(1.5);
-            background-color: var(--accent);
+            background-color: var(--primary);
             opacity: 0.5;
+            border-color: transparent;
         }
 
         /* --- UTILITIES --- */
@@ -90,22 +101,21 @@
             transition: 0.4s;
         }
         .btn-primary { 
-            background: var(--primary); 
-            color: #333; 
+            background: var(--accent); 
+            color: var(--white); 
         }
         .btn-primary::before { 
             content: ''; 
             position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 0%; 
-            height: 100%; 
-            background: var(--accent); 
+            top: 0; left: 0; 
+            width: 0%; height: 100%; 
+            background: var(--primary); 
             transition: 0.4s; 
             z-index: -1; 
         }
         .btn-primary:hover::before { width: 100%; }
-        .btn-primary:hover { color: var(--white); }
+        .btn-primary:hover { color: var(--dark-blue); }
+        
         .btn-accent {
             background: var(--accent);
             color: var(--white);
@@ -114,14 +124,12 @@
         }
         .btn-accent:hover {
             background: var(--primary);
-            color: #333;
+            color: var(--dark-blue);
         }
         
         .section-padding { padding: 100px 0; }
         .text-center { text-align: center; }
-        .section-title {
-            margin-bottom: 60px;
-        }
+        .section-title { margin-bottom: 60px; }
         .section-title h5 {
             color: var(--accent); 
             letter-spacing: 2px;
@@ -134,7 +142,7 @@
             color: var(--primary); 
         }
 
-        /* --- ANIMATIONS (Scroll Reveal) --- */
+        /* --- ANIMATIONS --- */
         .reveal { 
             opacity: 0; 
             transform: translateY(30px); 
@@ -162,18 +170,13 @@
             justify-content: space-between; 
             align-items: center; 
         }
-        .logo { 
-            text-decoration: none;
-        }
+        .logo { text-decoration: none; }
         .logo img {
             height: 60px; 
             width: auto;
             vertical-align: middle; 
         }
-        .nav-links { 
-            display: flex; 
-            gap: 30px; 
-        }
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a { 
             color: #333; 
             font-weight: 600; 
@@ -183,18 +186,15 @@
         }
         .nav-links a::after { 
             content: ''; 
-            width: 0; 
-            height: 2px; 
+            width: 0; height: 2px; 
             background: var(--accent); 
             position: absolute; 
-            bottom: -5px; 
-            left: 0; 
+            bottom: -5px; left: 0; 
             transition: 0.3s; 
         }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .nav-links a:hover { color: var(--accent); }
 
-        /* --- MOBILE NAVIGATION TOGGLE --- */
         .mobile-toggle {
             display: none; 
             font-size: 24px;
@@ -203,7 +203,7 @@
             z-index: 1001; 
         }
 
-        /* --- PAGE HERO SECTION --- */
+        /* --- PAGE HERO --- */
         .page-hero {
             min-height: 40vh;
             display: flex;
@@ -213,7 +213,7 @@
             position: relative; 
             background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
             color: white; 
-            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
+            padding: 100px 0 150px 0; 
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: -15vh;
         }
@@ -222,7 +222,7 @@
             color: var(--white);
         }
         .page-hero h1 span {
-            color: #333;
+            color: var(--dark-blue); 
         }
         .page-hero p {
             font-size: 1.1rem;
@@ -231,10 +231,10 @@
             margin-top: 10px;
         }
 
-        /* --- NEW CONTACT SECTION LAYOUT --- */
+        /* --- CONTACT SECTION LAYOUT --- */
         .contact-section {
-            padding-top: 20vh; /* Account for hero overlap */
-            padding-bottom: 0;
+            padding-top: 20vh;
+            padding-bottom: 50px;
         }
         .contact-split-wrapper {
             display: grid;
@@ -247,7 +247,7 @@
         }
 
         .contact-info-side {
-            background: linear-gradient(180deg, var(--accent) 0%, #0a2d9c 100%);
+            background: linear-gradient(180deg, var(--dark-blue) 0%, #0a2d9c 100%);
             padding: 50px;
             color: var(--white);
             display: flex;
@@ -261,11 +261,9 @@
         .contact-info-side::before {
             content: '';
             position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            background: url('https://www.transparenttextures.com/patterns/clean-textile.png'); /* Subtle pattern */
+            top: -10%; left: -10%;
+            width: 120%; height: 120%;
+            background: url('https://www.transparenttextures.com/patterns/clean-textile.png'); 
             opacity: 0.1;
             z-index: 0;
             pointer-events: none;
@@ -287,20 +285,22 @@
             z-index: 1;
         }
 
+        /* CONTACT BUBBLES GRID STYLE */
         .contact-bubbles {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             position: relative;
             z-index: 1;
+            width: 100%;
+            max-width: 500px; /* Limit width to keep grid tight */
         }
         .contact-bubble {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            padding: 20px 30px;
+            padding: 20px 15px; /* Slightly less padding for better fit */
             text-align: center;
             transition: all 0.3s ease;
             display: flex;
@@ -308,13 +308,14 @@
             align-items: center;
             justify-content: center;
             cursor: none;
-            flex-basis: calc(50% - 10px); /* Two columns on larger screens */
-            max-width: 250px;
+            color: var(--white);
+            text-decoration: none;
+            min-height: 120px;
         }
         .contact-bubble i {
             font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             transition: 0.3s;
         }
         .contact-bubble h5 {
@@ -323,15 +324,16 @@
             margin-bottom: 5px;
         }
         .contact-bubble span {
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Smaller font for details */
             opacity: 0.8;
             color: var(--white);
+            word-break: break-word; /* Ensure long emails don't break layout */
         }
         .contact-bubble:hover {
             transform: translateY(-8px) scale(1.02);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         .contact-bubble:hover i {
             transform: translateY(-5px);
@@ -358,7 +360,7 @@
         }
         .form-group {
             position: relative;
-            margin-bottom: 25px; /* Adjust spacing for floating labels */
+            margin-bottom: 25px; 
         }
         .form-group.full-width {
             grid-column: 1 / -1;
@@ -376,6 +378,7 @@
             background: var(--light);
             transition: 0.3s;
             color: var(--text);
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
         }
         .form-group select {
              -webkit-appearance: none;
@@ -389,16 +392,16 @@
         .form-group textarea {
             resize: vertical;
             min-height: 120px;
-            padding-top: 25px; /* For floating label */
+            padding-top: 25px;
         }
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--primary);
+            border-color: var(--accent);
             background: var(--white);
-            box-shadow: 0 0 0 3px rgba(250, 176, 13, 0.1);
+            box-shadow: 0 0 0 3px rgba(6, 18, 46, 0.1);
         }
-        /* Floating label specific styles */
+        
         .form-group label {
             position: absolute;
             left: 15px;
@@ -411,6 +414,7 @@
             padding: 0 3px;
             z-index: 5;
         }
+        /* Floating label logic */
         .form-group input:focus + label,
         .form-group input:not(:placeholder-shown) + label,
         .form-group textarea:focus + label,
@@ -423,20 +427,15 @@
             color: var(--accent);
             background: var(--white);
         }
-        .form-group select + label { /* Adjust label for select */
-            top: 15px;
-        }
+        .form-group select + label { top: 15px; }
         .form-group select:focus + label,
-        .form-group select:not(:invalid) + label {
-            top: -10px;
-        }
+        .form-group select:not(:invalid) + label { top: -10px; }
         .form-group input::placeholder, .form-group textarea::placeholder {
-            color: transparent; /* Hide default placeholder */
+            color: transparent; 
         }
         
-        /* NEW: Form Status Message Box */
         #form-status {
-            display: none; /* Hidden by default */
+            display: none; 
             padding: 15px;
             border-radius: 8px;
             font-weight: 600;
@@ -459,29 +458,23 @@
 
         /* --- MAP SECTION --- */
         .map-section {
-            padding: 0;
-            margin-top: -50px; /* Overlap bottom of contact section */
+            padding: 50px 0 100px; /* Added bottom padding to separate from footer */
             position: relative;
-            z-index: -1;
+            z-index: 1;
+            margin-top: 0; 
         }
         .map-container {
             width: 100%;
             height: 450px;
             background: #eee;
-            border-radius: 0 0 20px 20px;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
-        .map-placeholder {
+        /* FIX: Ensure iframe is responsive */
+        .map-container iframe {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #999;
-            font-family: 'Poppins';
-            font-size: 1.2rem;
-            background: #e9ecef;
         }
         
         /* --- WHATSAPP BUTTON --- */
@@ -508,189 +501,278 @@
             animation: pulse-wa 2s infinite;
         }
         
-        /* --- FOOTER (Added padding-top for map overlap) --- */
-        footer { 
-            background: #081b36; 
-            color: white; 
-            padding: 80px 0 30px; 
+        /* --- FOOTER STYLING --- */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 80px 0 20px;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 5;
         }
-        .footer-grid { 
-            display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
-            gap: 40px; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 40px; 
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            pointer-events: none;
         }
-        .footer-col .logo {
-            margin-bottom: 20px;
-            color: white;
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 40px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .footer-col p {
-            color: #ccc;
-            line-height: 1.7;
-            font-size: 0.9rem;
-            max-width: 300px;
-        }
-        .footer-col h4 { 
-            color: var(--accent); 
-            margin-bottom: 25px; 
-            font-size: 1.2rem; 
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
             font-weight: 600;
+            display: inline-block;
         }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { 
-            color: #ccc; 
-            font-size: 0.9rem; 
-            font-weight: 300;
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -8px;
+            width: 40px; height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
         }
-        .footer-col ul li a:hover { 
-            color: var(--accent); 
-            padding-left: 5px; 
+
+        .footer-logo img {
+            height: 70px;
+            margin-bottom: 20px;
         }
-        .footer-col .contact-item {
-            display: flex;
+
+        .footer-about-text {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .social-icons { display: flex; gap: 15px; }
+        .social-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+        }
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark-blue);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: 0.3s;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            color: #ccc;
+        }
+        .footer-links a::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            color: var(--primary);
+            transition: 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        .contact-item span { line-height: 1.6; flex: 1; }
+
+        .newsletter-form { position: relative; margin-top: 20px; }
+        .newsletter-input {
+            width: 100%;
+            padding: 14px 50px 14px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--white);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+        .newsletter-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .newsletter-btn {
+            position: absolute;
+            top: 0; right: 0;
+            height: 100%;
+            width: 45px;
+            background: var(--primary);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .newsletter-btn:hover { background: var(--white); }
+
+        .footer-bottom {
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
         }
-        .footer-col .contact-item i {
-            color: var(--accent);
-            width: 15px;
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: 20px;
         }
-        .copyright { 
-            text-align: center; 
-            padding-top: 30px; 
-            font-size: 0.9rem; 
-            color: #777; 
+        .footer-bottom-links a:hover { color: var(--primary); }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .footer-credit a {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
-            .nav-links {
-                gap: 20px;
-            }
+            .nav-links { gap: 20px; }
             .contact-split-wrapper {
                 grid-template-columns: 1fr;
                 min-height: auto;
             }
-            .contact-info-side {
-                padding: 40px 20px;
-            }
-            .contact-form-side {
-                padding: 40px 20px;
-            }
+            /* Adjust layout to stack */
+            .contact-info-side { padding: 40px 20px; }
+            .contact-form-side { padding: 40px 20px; }
             .contact-bubbles {
-                flex-direction: column;
-                flex-wrap: nowrap;
+                /* FORCE GRID LAYOUT ON TABLET TOO */
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 15px;
+                width: 100%;
             }
             .contact-bubble {
-                flex-basis: 100%;
-                max-width: 100%;
+                flex-basis: auto;
+                max-width: none;
+                width: auto;
             }
-            .footer-grid {
-                grid-template-columns: 1.5fr 1fr 1fr;
-            }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
         
         @media (max-width: 768px) {
-            /* Hide custom cursor on mobile */
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-            body {
-                cursor: auto; 
-            }
-            a, .btn, .slider-dot, .mobile-toggle {
-                cursor: auto; 
-            }
-            .container {
-                width: 90%;
-            }
+            .cursor-dot, .cursor-outline { display: none; }
+            body { cursor: auto; }
+            a, .btn, .slider-dot, .mobile-toggle { cursor: auto; }
+            .container { width: 90%; }
             
-            /* --- Mobile Navigation --- */
-            .mobile-toggle {
-                display: block; 
-            }
+            .mobile-toggle { display: block; }
             .nav-links {
-                position: fixed; 
-                top: 90px; 
-                left: 0;
-                width: 100%;
-                height: calc(100vh - 90px);
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 40px;
-                gap: 35px;
+                position: fixed; top: 90px; left: 0; width: 100%; height: calc(100vh - 90px);
+                background: var(--white); flex-direction: column; align-items: center;
+                justify-content: flex-start; padding-top: 40px; gap: 35px;
                 transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-                transform: translateX(100%); 
-                z-index: 999;
+                transform: translateX(100%); z-index: 999;
             }
-            .nav-links.active {
-                transform: translateX(0); 
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links a { font-size: 1.2rem; font-weight: 600; }
 
-            /* --- Mobile Hero --- */
             .page-hero {
                 min-height: auto;
                 height: auto;
-                padding: 80px 0 100px 0;
+                padding: 100px 0 100px 0;
                 text-align: center;
                 clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
                 margin-bottom: -10vh;
             }
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
-            .contact-section {
-                padding-top: 15vh;
-            }
+            .page-hero h1 { font-size: 2.5rem; }
+            .contact-section { padding-top: 15vh; }
             
-            /* --- Mobile Grids --- */
+            /* --- CONTACT BUBBLES GRID FOR MOBILE --- */
+            .contact-bubbles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                width: 100%;
+            }
+            .contact-bubble {
+                max-width: none;
+                width: 100%;
+            }
+
+            /* Mobile Footer - Updated to Grid Layout */
             .footer-grid { 
-                grid-template-columns: 1fr; 
-                gap: 30px;
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 40px 20px; 
+                text-align: left; 
             }
-            .footer-col .logo, .footer-col p {
-                max-width: 100%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
+            .footer-col:first-child { 
+                grid-column: 1 / -1; 
+                text-align: center; 
             }
-            .footer-col h4, .footer-col ul, .footer-col .contact-item {
-                text-align: center;
-                justify-content: center;
-            }
-            .section-padding {
-                padding: 80px 0;
-            }
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .map-section {
-                margin-top: 0;
-            }
-            .map-container {
-                border-radius: 0;
-            }
+            .footer-col:first-child p { margin: 0 auto 20px; }
+            .social-icons { justify-content: center; }
+            .footer-col:last-child { grid-column: 1 / -1; }
+            
+            .footer-col h4::after { left: 0; transform: none; }
+            .footer { margin-top: 0; }
+            
+            .section-padding { padding: 80px 0; }
+            .section-title h2 { font-size: 2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .map-container { border-radius: 20px; }
+            
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links { margin-top: 10px; }
+            .footer-bottom-links a { margin: 0 10px; }
+        }
+
+        @media (max-width: 400px) {
+            .page-hero h1 { font-size: 2rem; }
+            .contact-info-side h2 { font-size: 2rem; }
+            .contact-form-side h2 { font-size: 2rem; }
+            .container { width: 92%; }
+            /* Fallback to 1 column if 2 is too tight */
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor Elements -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
+    <!-- NAVIGATION -->
     <nav>
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
@@ -699,7 +781,7 @@
             <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
                 <a href="Visa-Services.html">Visa services</a>
-                <a href="destinations.html">Destinations</a>
+                 <a href="destinations.html">Destinations</a>
                 <a href="happy-customers.html">Success Stories</a>
                  <a href="about.html">About</a>
                 <a href="contact.html" class="active">Contact</a>
@@ -710,6 +792,7 @@
         </div>
     </nav>
 
+    <!-- PAGE HERO -->
     <section class="page-hero">
         <div class="container reveal">
             <h1>Let's <span>Connect</span></h1>
@@ -717,6 +800,7 @@
         </div>
     </section>
 
+    <!-- CONTACT FORM SECTION -->
     <section class="section-padding contact-section">
         <div class="container">
             <div class="contact-split-wrapper reveal">
@@ -748,7 +832,6 @@
                 </div>
                 <div class="contact-form-side">
                     <h2>Send Us a Message</h2>
-                    <!-- UPDATED: Added id="contactForm" to the form -->
                     <form id="contactForm">
                         <div class="form-grid">
                             <div class="form-group">
@@ -765,9 +848,8 @@
                             <label for="phone">Your Phone Number (Optional)</label>
                         </div>
                         <div class="form-group full-width">
-                            <!-- UPDATED: REMOVED TEXT CONTENT FROM DEFAULT OPTION TO FIX OVERLAP -->
                             <select id="service" required>
-                                <option value="" disabled selected></option> <!-- Intentionally empty for floating label -->
+                                <option value="" disabled selected></option> 
                                 <option value="study">Study Visa</option>
                                 <option value="work">Work Visa</option>
                                 <option value="pr">PR Visa</option>
@@ -783,7 +865,6 @@
                         <div class="form-group full-width">
                             <button type="submit" class="btn btn-accent" id="submit-button">Send Message</button>
                         </div>
-                        <!-- NEW: Form status message box -->
                         <div id="form-status"></div>
                     </form>
                 </div>
@@ -791,10 +872,13 @@
         </div>
     </section>
 
-    <section class="map-section" style="padding-top: 100px;">
+    <!-- MAP SECTION -->
+    <section class="map-section">
         <div class="container">
             <div class="map-container reveal">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54347.26264349099!2d74.81457177885358!3d31.64195624480876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391965d4108c61f1%3A0xd36b9fd9ffca6415!2sPunjab%20Immigration!5e0!3m2!1sen!2sin!4v1764995682615!5m2!1sen!2sin" width="1200" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            </div>
+                <!-- Inline style removed, handled by CSS for responsiveness -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54347.26264349099!2d74.81457177885358!3d31.64195624480876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391965d4108c61f1%3A0xd36b9fd9ffca6415!2sPunjab%20Immigration!5e0!3m2!1sen!2sin!4v1764995682615!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            
+            </div>
         </div>
     </section>
     
@@ -802,44 +886,77 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <footer style="padding-top: 150px;">
+    <!-- FOOTER -->
+    <footer>
         <div class="container">
             <div class="footer-grid">
+                <!-- Column 1: About -->
                 <div class="footer-col">
-                    <a href="index.html" class="logo">
-                         <img src="logowhite.png" alt="Punjab Immigration Logo (White)">
+                    <a href="index.html" class="footer-logo">
+                         <img src="logowhite.png" alt="Punjab Immigration Logo">
                     </a>
-                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                    <p class="footer-about-text">Your trusted partner for global dreams. We provide transparent, honest, and efficient visa services for Canada, UK, Australia, and beyond.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/1Am5DtawRN/?mibextid=wwXIfr" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_punjabimmigration/" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/punjab-immigration-a37827383" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@PunjabImmigration53" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
                 </div>
+
+                <!-- Column 2: Quick Links -->
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <ul>
+                    <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="destinations.html">Destinations</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="happy-customers.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 3: Services -->
                 <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul>
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
                         <li><a href="visitor-visa.html">Visitor Visa</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 4: Contact -->
                 <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 95077 95077</li>
-                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> Contact@punjabimmigration.in</li>
-                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> SCO 53, B-BLOCK RANJIT AVENUE, AMRITSAR</li>
-                    </ul>
+                    <h4>Get In Touch</h4>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>For Enquiry: 95077 95077</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>SCO 53, RANJIT AVENUE B BLOCK, AMRITSAR</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>punjabimmigration.in</span>
+                    </div>
                 </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 Punjab Immigration. All Rights Reserved.
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 Punjab Immigration. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+            
+            <div class="footer-credit">
+                Built by <a href="https://yenoh.space/">Yenoh</a>
             </div>
         </div>
     </footer>
@@ -910,10 +1027,9 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll(); 
 
-            // --- FORM FLOATING LABEL ---
+            // --- FORM FLOATING LABEL & SUBMISSION ---
             const formInputs = document.querySelectorAll('.form-group input, .form-group textarea, .form-group select');
             
-            // Helper function to check value and apply styles
             const checkValue = (input, label) => {
                 const hasValue = (input.tagName === 'SELECT' && input.value !== "") || (input.tagName !== 'SELECT' && input.value);
                 const isFocused = input.matches(':focus');
@@ -937,7 +1053,7 @@
                 const label = input.nextElementSibling;
                 if (!label || label.tagName !== 'LABEL') return;
                 
-                checkValue(input, label); // Initial check
+                checkValue(input, label); 
                 input.addEventListener('focus', () => checkValue(input, label));
                 input.addEventListener('blur', () => checkValue(input, label));
                 input.addEventListener('input', () => checkValue(input, label));
@@ -946,7 +1062,7 @@
                 }
             });
 
-            // --- FORM SUBMISSION SCRIPT ---
+            // Form Submit Logic
             const contactForm = document.getElementById('contactForm');
             const statusBox = document.getElementById('form-status');
             const submitButton = document.getElementById('submit-button');
@@ -954,7 +1070,6 @@
             if (contactForm) {
                 contactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    
                     const originalButtonText = submitButton.innerHTML;
                     submitButton.innerHTML = 'Sending...';
                     submitButton.disabled = true;
@@ -971,10 +1086,7 @@
 
                         const res = await fetch("https://formspree.io/f/xvgdygwr", {
                             method: "POST",
-                            headers: { 
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                            },
+                            headers: { "Content-Type": "application/json", "Accept": "application/json" },
                             body: JSON.stringify(payload)
                         });
 
@@ -984,13 +1096,10 @@
                             statusBox.className = 'success';
                             statusBox.innerText = data.message || 'Form submitted successfully!';
                             contactForm.reset();
-
                             setTimeout(() => {
                                 formInputs.forEach(input => {
                                     const label = input.nextElementSibling;
-                                    if (label && label.tagName === 'LABEL') {
-                                        checkValue(input, label);
-                                    }
+                                    if (label && label.tagName === 'LABEL') checkValue(input, label);
                                 });
                             }, 10);
                         } else {
@@ -1000,14 +1109,12 @@
                     } catch (err) {
                         statusBox.className = 'error';
                         statusBox.innerText = "Something went wrong. Please try again later.";
-                        console.error("Form submit error:", err);
                     } finally {
                         submitButton.innerHTML = originalButtonText;
                         submitButton.disabled = false;
                     }
                 });
             }
-
         });
     </script>
 </body>

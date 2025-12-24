@@ -5,19 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Punjab Immigration</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="icon" type="image/png" href="logowhite.png">
+
     <style>
-        /* --- RESET & VARIABLES --- */
+        /* --- RESET & VARIABLES (MATCHING PREVIOUS DESIGN) --- */
         :root {
-            --primary: #fab00d; /* Main Orange/Yellow */
-            --accent: #133beb; /* Secondary Blue */
+            --primary: #fab00d;       /* Main Orange/Yellow */
+            --dark-blue: #06122e;     /* Deep Navy Blue */
+            --accent: #06122e;        /* Accent matches Dark Blue */
             --text: #333333;
             --light: #F5F7FA;
             --white: #ffffff;
-            --shadow: 0 15px 40px -10px rgba(15, 44, 89, 0.15);
+            --shadow: 0 15px 40px -10px rgba(6, 18, 46, 0.15);
+            --footer-bg: #040c1f;
+            --footer-text: #b0b0b0;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -35,29 +39,26 @@
         }
         a { text-decoration: none; transition: 0.3s; cursor: none; }
         ul { list-style: none; }
+        img { max-width: 100%; display: block; }
 
         /* --- CUSTOM CURSOR --- */
         .cursor-dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background-color: var(--primary);
             border-radius: 50%;
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 9999;
             transition: transform 0.1s ease-out;
         }
         .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--accent);
+            width: 40px; height: 40px;
+            border: 2px solid var(--dark-blue);
             border-radius: 50%;
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 9999;
@@ -65,8 +66,9 @@
         }
         .cursor-hover {
             transform: translate(-50%, -50%) scale(1.5);
-            background-color: var(--accent);
+            background-color: var(--primary);
             opacity: 0.5;
+            border-color: transparent;
         }
 
         /* --- UTILITIES --- */
@@ -75,6 +77,9 @@
             width: 90%;
             margin: 0 auto; 
         }
+        .text-center { text-align: center; }
+        .section-padding { padding: 100px 0; }
+        
         .btn { 
             display: inline-block; 
             padding: 14px 32px; 
@@ -90,52 +95,13 @@
         }
         .btn-primary { 
             background: var(--primary); 
-            color: #333; 
+            color: var(--dark-blue); 
         }
-        .btn-primary::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 0%; 
-            height: 100%; 
-            background: var(--accent); 
-            transition: 0.4s; 
-            z-index: -1; 
-        }
-        .btn-primary:hover::before { width: 100%; }
-        .btn-primary:hover { color: var(--white); }
-        
-        .section-padding { padding: 100px 0; }
-        .text-center { text-align: center; }
-        .section-title {
-            margin-bottom: 60px;
-        }
-        .section-title h5 {
-            color: var(--accent); 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .section-title h2 {
-            font-size: 2.5rem;
+        .btn-primary:hover { 
+            background: var(--dark-blue); 
             color: var(--primary); 
+            box-shadow: 0 10px 20px rgba(6, 18, 46, 0.3);
         }
-
-        /* --- ANIMATIONS (Scroll Reveal) --- */
-        .reveal { 
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .reveal.active { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
-        .reveal.delay-1 { transition-delay: 0.1s; }
-        .reveal.delay-2 { transition-delay: 0.2s; }
-        .reveal.delay-3 { transition-delay: 0.3s; }
 
         /* --- NAVIGATION --- */
         nav { 
@@ -146,23 +112,9 @@
             z-index: 1000; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
         }
-        .nav-wrapper { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
-        .logo { 
-            text-decoration: none;
-        }
-        .logo img {
-            height: 60px; 
-            width: auto;
-            vertical-align: middle; 
-        }
-        .nav-links { 
-            display: flex; 
-            gap: 30px; 
-        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 60px; width: auto; }
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a { 
             color: #333; 
             font-weight: 600; 
@@ -171,517 +123,738 @@
             font-size: 0.95rem;
         }
         .nav-links a::after { 
-            content: ''; 
-            width: 0; 
-            height: 2px; 
-            background: var(--accent); 
-            position: absolute; 
-            bottom: -5px; 
-            left: 0; 
+            content: ''; width: 0; height: 2px; 
+            background: var(--primary); 
+            position: absolute; bottom: -5px; left: 0; 
             transition: 0.3s; 
         }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover { color: var(--primary); }
+        .mobile-toggle { display: none; font-size: 24px; color: var(--dark-blue); cursor: none; z-index: 1001; }
 
-        /* --- MOBILE NAVIGATION TOGGLE --- */
-        .mobile-toggle {
-            display: none; 
-            font-size: 24px;
-            color: var(--primary);
-            cursor: none;
-            z-index: 1001; 
+        /* --- ANIMATIONS --- */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); 
         }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-50px); transition: all 1s ease; }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(50px); transition: all 1s ease; }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
 
-        /* --- ABOUT HERO SECTION --- */
+        /* =========================================
+           ABOUT PAGE SPECIFIC STYLES
+           ========================================= */
+
+        /* --- HERO SECTION --- */
         .about-hero {
-            min-height: 40vh;
+            position: relative;
+            height: 70vh;
+            background-color: var(--dark-blue);
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative; 
-            background: linear-gradient(135deg, #fab00d 0%, #fA900d 100%); 
-            color: white; 
-            padding: 100px 0 150px 0; /* Extra padding at bottom for angle */
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-            margin-bottom: -15vh;
+            overflow: hidden;
+            margin-bottom: 50px;
         }
-        .about-hero h1 {
-            font-size: 3rem;
-            color: var(--white);
+        
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            animation: pulseMap 10s infinite alternate;
         }
-        .about-hero h1 span {
-            color: #333;
-        }
-        .about-hero p {
-            font-size: 1.1rem;
-            color: var(--white);
-            opacity: 0.9;
-            margin-top: 10px;
+        @keyframes pulseMap {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
 
-        /* --- NEW: VERTICAL TIMELINE SECTION --- */
-        .timeline-section {
-            padding-top: 20vh;
+        .hero-split-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: center;
             position: relative;
-        }
-        .timeline-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        /* The vertical line */
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: #ddd;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            z-index: 1;
-        }
-        /* The animated fill line */
-        #timeline-path {
-            position: absolute;
-            width: 4px;
-            background-color: var(--accent);
-            top: 0;
-            height: 0; /* Will be animated by JS */
-            left: 50%;
-            margin-left: -2px;
             z-index: 2;
-            transition: height 0.3s linear;
         }
-        .timeline-item {
-            padding: 10px 40px;
+
+        .hero-text h5 {
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            color: var(--white);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
             position: relative;
-            background-color: inherit;
-            width: 50%;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s 0.2s, transform 0.6s 0.2s;
+            display: inline-block;
         }
-        .timeline-item.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            padding-right: 70px;
-            text-align: right;
-        }
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            padding-left: 70px;
-            text-align: left;
-        }
-        /* The circle on the timeline */
-        .timeline-item::after {
+        
+        .hero-text h1 span::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--white);
-            border: 4px solid var(--primary);
-            top: 15px;
-            border-radius: 50%;
-            z-index: 3;
-            transition: 0.3s;
+            bottom: 10px; left: 0; width: 100%; height: 15px;
+            background: rgba(250, 176, 13, 0.2);
+            z-index: -1;
+            transform: skewX(-20deg);
         }
-        .timeline-item:nth-child(odd)::after {
-            right: -12px; /* Adjusted */
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            line-height: 1.8;
         }
-        .timeline-item:nth-child(even)::after {
-            left: -12px; /* Adjusted */
-        }
-        .timeline-item.active::after {
-            background-color: var(--primary);
-        }
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: white;
+
+        .hero-visual {
             position: relative;
-            border-radius: 10px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-circle {
+            width: 350px; height: 350px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            position: absolute;
+            animation: rotateCircle 20s linear infinite;
+        }
+        .hero-circle::before {
+            content: ''; position: absolute; top: -5px; left: 50%;
+            width: 10px; height: 10px; background: var(--primary);
+            border-radius: 50%; box-shadow: 0 0 15px var(--primary);
+        }
+        .hero-circle:nth-child(2) { width: 500px; height: 500px; border-style: dashed; animation-duration: 30s; animation-direction: reverse; }
+        @keyframes rotateCircle { 100% { transform: rotate(360deg); } }
+
+        /* --- STATS COUNTER BOARD --- */
+        .stats-section {
+            background: var(--primary);
+            transform: translateY(-50px);
+            border-radius: 20px;
+            padding: 50px;
             box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
         }
-        .timeline-content h3 {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
         }
-        .timeline-content p {
+        .stat-item h3 {
+            font-size: 3.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        .stat-item p {
+            color: var(--dark-blue);
+            font-weight: 600;
+            text-transform: uppercase;
             font-size: 0.9rem;
-            line-height: 1.6;
-            color: #666;
+            letter-spacing: 1px;
+        }
+        .stat-divider {
+            width: 1px; height: 60px;
+            background: rgba(6, 18, 46, 0.2);
+            margin: auto;
+        }
+
+        /* --- OUR STORY (ZIG ZAG) --- */
+        .story-section { padding-bottom: 50px; }
+        .story-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+        .story-row.reverse { direction: rtl; }
+        .story-row.reverse .story-content { direction: ltr; }
+
+        .story-img-wrapper { position: relative; z-index: 1; }
+        .story-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+        .story-img-wrapper:hover .story-img { filter: grayscale(0%); transform: scale(1.02); }
+        
+        .story-bg-box {
+            position: absolute;
+            top: 20px; left: 20px;
+            width: 100%; height: 100%;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            z-index: -1;
+            transition: 0.4s;
+        }
+        .story-img-wrapper:hover .story-bg-box { top: 30px; left: 30px; }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+        }
+        .story-content p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        .story-highlight {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--dark-blue);
+            font-weight: 500;
+        }
+
+        /* --- MISSION & VALUES (GRID TILES) --- */
+        .values-section {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 120px 0;
+            position: relative;
+        }
+        .values-header { text-align: center; margin-bottom: 70px; }
+        .values-header h2 { color: var(--white); font-size: 2.8rem; }
+        .values-header span { color: var(--primary); }
+
+        /* TILE GRID LAYOUT */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px; /* Tiny gap for tile effect */
+            background: rgba(255,255,255,0.1); /* Border color between tiles */
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .value-tile {
+            background: rgba(6, 18, 46, 1); /* Dark background matching section */
+            padding: 60px 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px;
+        }
+
+        /* Hover Effect for Tiles */
+        .value-tile::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 0%;
+            background: rgba(250, 176, 13, 0.1); /* Subtle yellow wash */
+            transition: 0.4s ease;
+            z-index: 0;
+        }
+        .value-tile:hover::before { height: 100%; }
+        
+        .value-tile:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .value-icon-box {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 30px;
+            transition: 0.4s;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .value-tile:hover .value-icon-box {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .value-icon-box i {
+            font-size: 2rem;
+            color: var(--primary);
+            transition: 0.4s;
+        }
+        .value-tile:hover .value-icon-box i { color: var(--dark-blue); }
+        
+        .value-tile h3 { 
+            color: var(--white); 
+            margin-bottom: 15px; 
+            font-size: 1.4rem; 
+            position: relative; z-index: 1; 
+        }
+        .value-tile p { 
+            color: rgba(255,255,255,0.6); 
+            line-height: 1.6; 
+            font-size: 0.95rem;
+            position: relative; z-index: 1; 
         }
 
         /* --- TEAM SECTION --- */
         .team-section {
-            background: var(--white);
+            padding: 100px 0;
+            background-color: var(--light);
         }
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
         }
         .team-card {
-            background: var(--light);
-            border-radius: 15px;
+            background: var(--white);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
-            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             transition: 0.4s;
-            perspective: 1000px;
-        }
-        .team-card-img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            transition: 0.4s;
-        }
-        .team-card-info {
-            padding: 25px;
             text-align: center;
         }
-        .team-card-info h4 {
-            font-size: 1.3rem;
-            color: var(--accent);
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .team-img-box {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        .team-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        .team-card:hover .team-img { transform: scale(1.05); }
+        
+        .team-info { padding: 30px; }
+        .team-name {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            font-weight: 700;
             margin-bottom: 5px;
         }
-        .team-card-info span {
-            font-size: 0.9rem;
+        .team-role {
             color: var(--primary);
             font-weight: 600;
-        }
-        /* Team hover effect */
-        .team-card:hover {
-            transform: translateY(-10px) rotateX(3deg) rotateY(-2deg);
-            box-shadow: 0 25px 40px -15px rgba(19, 59, 235, 0.3);
-        }
-        .team-card:hover .team-card-img {
-            transform: scale(1.05);
-        }
-        
-        /* --- NEW: BENTO GRID VALUES SECTION --- */
-        .bento-section {
-            background: var(--light);
-            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
-            padding-top: 15vh;
-            margin-top: -10vh;
-        }
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto auto;
-            gap: 20px;
-        }
-        .bento-item {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transition: 0.4s;
-        }
-        .bento-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -15px rgba(19, 59, 235, 0.3);
-        }
-        .bento-item h3 {
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        .bento-item p {
-            color: #555;
-            line-height: 1.7;
             font-size: 0.9rem;
-        }
-        .bento-item i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        /* Grid layout definitions */
-        .bento-item.mission {
-            grid-column: 1 / 3;
-            grid-row: 1 / 2;
-        }
-        .bento-item.vision {
-            grid-column: 3 / 4;
-            grid-row: 1 / 2;
-            background: var(--primary);
-        }
-        .bento-item.vision h3, .bento-item.vision p {
-            color: #333;
-        }
-        .bento-item.value-card h3 {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-
-        /* --- STATS --- */
-        .stats-section { 
-            background: var(--primary); 
-            color: #333; 
-            padding: 120px 0; 
-            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
-        }
-        .stats-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            text-align: center; 
-            gap: 30px; 
-        }
-        .stat-item h2 { 
-            font-size: 3rem; 
-            color: var(--accent); 
-            margin-bottom: 10px; 
-            font-weight: 700;
-        }
-        .stat-item p { 
-            font-size: 1.1rem; 
-            opacity: 0.8; 
-            font-weight: 300;
-        }
-        
-        /* --- FOOTER --- */
-        footer { 
-            background: #081b36; 
-            color: white; 
-            padding: 80px 0 30px; 
-            margin-top: -10vh; /* Pull up */
-            position: relative;
-            z-index: 1;
-        }
-        .footer-grid { 
-            display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
-            gap: 40px; 
-            border-bottom: 1px solid rgba(255,255,235,0.1); 
-            padding-bottom: 40px; 
-        }
-        .footer-col .logo {
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 20px;
-            color: white;
+            display: block;
         }
-        .footer-col p {
+        .team-socials a {
             color: #ccc;
-            line-height: 1.7;
-            font-size: 0.9rem;
-            max-width: 300px;
+            margin: 0 8px;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
-        .footer-col h4 { 
-            color: var(--accent); 
-            margin-bottom: 25px; 
-            font-size: 1.2rem; 
+        .team-socials a:hover { color: var(--primary); }
+
+        /* --- FOUNDER QUOTE --- */
+        .quote-section {
+            padding: 100px 0;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+        }
+        .quote-box {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .quote-icon {
+            font-size: 4rem;
+            color: rgba(250, 176, 13, 0.2);
+            position: absolute;
+            top: -30px; left: 50%;
+            transform: translateX(-50%);
+        }
+        .quote-text {
+            font-size: 1.8rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-blue);
             font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
         }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { 
-            color: #ccc; 
-            font-size: 0.9rem; 
-            font-weight: 300;
+        .quoter-info h4 { color: var(--primary); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
+        .quoter-info span { font-size: 0.9rem; color: #777; }
+
+        /* --- WHATSAPP BUTTON --- */
+        @keyframes pulse-wa {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
-        .footer-col ul li a:hover { 
-            color: var(--accent); 
-            padding-left: 5px; 
-        }
-        .footer-col .contact-item {
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: var(--white);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            color: #ccc;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+            animation: pulse-wa 2s infinite;
+        }
+
+        /* --- FOOTER STYLING --- */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 80px 0 20px;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 5;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 40px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -8px;
+            width: 40px; height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .footer-logo { text-align: center; margin-bottom: 20px; display: block; }
+        .footer-logo img { height: 70px; display: inline-block; }
+
+        .footer-about-text {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .social-icons { display: flex; gap: 15px; }
+        .social-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+        }
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark-blue);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .footer-links a::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            color: var(--primary);
+            transition: 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        .contact-item span { line-height: 1.6; flex: 1; }
+
+        .newsletter-form { position: relative; margin-top: 20px; }
+        .newsletter-input {
+            width: 100%;
+            padding: 14px 50px 14px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--white);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+        .newsletter-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .newsletter-btn {
+            position: absolute;
+            top: 0; right: 0;
+            height: 100%;
+            width: 45px;
+            background: var(--primary);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .newsletter-btn:hover { background: var(--white); }
+
+        .footer-bottom {
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
         }
-        .footer-col .contact-item i {
-            color: var(--accent);
-            width: 15px;
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: 20px;
         }
-        .copyright { 
-            text-align: center; 
-            padding-top: 30px; 
-            font-size: 0.9rem; 
-            color: #777; 
+        .footer-bottom-links a:hover { color: var(--primary); }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .footer-credit a {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
-            .nav-links {
-                gap: 20px;
-            }
-            .footer-grid {
-                grid-template-columns: 1.5fr 1fr 1fr;
-            }
-            .story-grid, .values-grid {
-                grid-template-columns: 1fr;
-            }
-            .values-grid {
-                gap: 20px;
-            }
-            .bento-item.mission, .bento-item.vision {
-                grid-column: 1 / -1; /* Stack on tablet */
-            }
-        }
-        
-        @media (max-width: 768px) {
-            /* Hide custom cursor on mobile */
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-            body {
-                cursor: auto; 
-            }
-            a, .btn, .slider-dot, .mobile-toggle {
-                cursor: auto; 
-            }
-
-            .container {
-                width: 90%;
-            }
+            .hero-split-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3.5rem; }
+            .hero-text p { margin: 0 auto; }
+            .hero-visual { display: none; } /* Hide abstract shape on tablet/mobile */
             
-            /* --- Mobile Navigation --- */
-            .mobile-toggle {
-                display: block; 
-            }
-            .nav-links {
-                position: fixed; 
-                top: 90px; 
-                left: 0;
-                width: 100%;
-                height: calc(100vh - 90px);
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 40px;
-                gap: 35px;
-                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-                transform: translateX(100%); 
-                z-index: 999;
-            }
-            .nav-links.active {
-                transform: translateX(0); 
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
-
-            /* --- Mobile Hero --- */
-            .about-hero {
-                min-height: auto;
-                height: auto;
-                padding: 80px 0 100px 0;
-                text-align: center;
-                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-                margin-bottom: -10vh;
-            }
-            .about-hero h1 {
-                font-size: 2.5rem;
-            }
-            .story-section {
-                padding-top: 15vh;
-            }
-            .story-image {
-                height: 300px;
-            }
-            .story-grid {
-                gap: 30px;
-            }
-
-            /* --- Mobile Timeline --- */
-            .timeline-container::after, #timeline-path {
-                left: 20px;
-            }
-            .timeline-item {
-                width: 100%;
-                left: 0 !important; /* Override inline style */
-                padding-left: 60px;
-                padding-right: 20px;
-                text-align: left !important;
-            }
-            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after {
-                left: -12px;
-            }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .stat-divider { display: none; }
             
-            /* --- Mobile Bento Grid --- */
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
-            .bento-item.mission, .bento-item.vision, .bento-item.value-1, .bento-item.value-2, .bento-item.value-3 {
-                grid-column: 1 / -1;
-                grid-row: auto;
-            }
+            .story-row { grid-template-columns: 1fr; gap: 40px; }
+            .story-row.reverse { direction: ltr; }
+            .story-row.reverse .story-content { direction: ltr; }
 
-            /* --- Mobile Grids --- */
-            .stats-section, .values-section {
-                clip-path: none; 
-                margin: 0;
-                padding-top: 80px;
-                padding-bottom: 80px;
-            }
-            .stats-grid { 
-                grid-template-columns: 1fr 1fr; 
-                gap: 40px 20px;
-            }
-            .footer-grid { 
+            /* Values Grid - Keep connected tile aesthetic but stack */
+            .values-grid { 
                 grid-template-columns: 1fr; 
-                gap: 30px;
+                /* Inherit background/border from desktop to keep tile look */
             }
-            .footer {
+            .value-tile { 
+                /* Inherit square corners from desktop */
+                min-height: auto;
+                padding: 40px 20px;
+            }
+            
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .cursor-dot, .cursor-outline { display: none; }
+            body { cursor: auto; }
+            a, .btn, .mobile-toggle { cursor: auto; }
+            
+            .container { width: 90%; }
+            .mobile-toggle { display: block; }
+            
+            /* Responsive Navigation */
+            .nav-links {
+                position: fixed; top: 90px; left: 0; width: 100%; height: calc(100vh - 90px);
+                background: var(--white); flex-direction: column; align-items: center;
+                justify-content: flex-start; padding-top: 40px; gap: 35px;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                transform: translateX(100%); z-index: 999;
+                display: flex; /* Ensure it's flex but hidden off-screen */
+                box-shadow: none;
+            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links a { font-size: 1.2rem; font-weight: 600; }
+            
+            .hero-text h1 { font-size: 2.5rem; }
+            .about-hero { height: auto; padding: 100px 0; }
+            
+            /* --- REVISED MOBILE STATS: BOARDING PASS STYLE --- */
+            .stats-section {
+                transform: none;
                 margin-top: 0;
+                width: 100%;
+                padding: 0;
+                background: transparent;
+                box-shadow: none;
+                border-radius: 0;
             }
-            .footer-col .logo, .footer-col p {
-                max-width: 100%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
+            .stats-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
             }
-            .footer-col h4, .footer-col ul, .footer-col .contact-item {
-                text-align: center;
-                justify-content: center;
+            .stat-item {
+                background: var(--primary);
+                padding: 20px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                /* Look like a torn boarding pass */
+                mask-image: radial-gradient(circle at 10px 50%, transparent 10px, black 11px);
+                -webkit-mask-image: radial-gradient(circle at 10px 50%, transparent 10px, black 11px);
+                border-left: 20px solid transparent; /* Space for the hole punch visual */
+                position: relative;
+            }
+            .stat-item::before {
+                content: '';
+                position: absolute;
+                left: -20px; top: 0; bottom: 0; width: 20px;
+                background: var(--primary);
+            }
+            .stat-item h3 {
+                font-size: 2.5rem;
+                margin: 0;
+                text-align: right;
+            }
+            .stat-item p {
+                text-align: left;
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: 700;
             }
 
-            .section-padding {
-                padding: 80px 0;
+            /* --- TEAM MOBILE GRID (2 Columns) --- */
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
-            .section-title h2 {
-                font-size: 2rem;
+            .team-img-box { height: 200px; }
+            .team-info { padding: 15px; }
+            .team-name { font-size: 1.1rem; }
+            .team-role { font-size: 0.8rem; margin-bottom: 10px; }
+            .team-socials a { font-size: 0.9rem; margin: 0 5px; }
+            
+            /* Footer Responsive Grid */
+            .footer-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 40px 20px; 
+                text-align: left; 
             }
+            .footer-col:first-child { 
+                grid-column: 1 / -1; 
+                text-align: center; 
+            }
+            .footer-col:first-child p { margin: 0 auto 20px; }
+            .social-icons { justify-content: center; }
+            .footer-col:last-child { grid-column: 1 / -1; }
+            
+            .footer-col h4::after { left: 0; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom-links { margin-top: 10px; }
+            .footer-bottom-links a { margin: 0 10px; }
         }
 
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr; 
-                gap: 40px;
+            .section-padding { padding: 60px 0; }
+            /* .stats-grid { grid-template-columns: 1fr; }  Handled by flex column above */
+            .hero-text h1 { font-size: 2.2rem; }
+            
+            /* Ensure 2 columns persist even on small screens */
+            .team-grid {
+               grid-template-columns: repeat(2, 1fr);
+               gap: 10px;
             }
+            .team-img-box { height: 160px; }
         }
     </style>
 </head>
 <body>
-    <!-- NEW: Custom Cursor Elements -->
+    <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- NAVIGATION -->
+    <!-- Navigation -->
     <nav>
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
-                <img src="pi bgn.png" alt="Punjab Immigration Logo">
+                <img src="pi bgn.png" alt="Punjab Immigration">
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
-                <a href="Visa-Services.html">Visa services</a>
-                 <a href="destinations.html">Destinations</a>
-              
-               
+                <a href="Visa-Services.html">Visa Services</a>
+                <a href="destinations.html">Destinations</a>
                 <a href="happy-customers.html">Success Stories</a>
-                 <a href="about.html" class="active">About</a>
+                <a href="about.html" class="active">About</a>
                 <a href="contact.html">Contact</a>
             </div>
             <div class="mobile-toggle" id="mobile-toggle">
@@ -690,167 +863,265 @@
         </div>
     </nav>
 
-    <!-- ABOUT HERO -->
-    <section class="about-hero">
-        <div class="container reveal">
-            <h1>We Are <span>Punjab Immigration</span></h1>
-            <p>Your trusted partners in a journey towards a global future.</p>
+    <!-- HERO SECTION -->
+    <header class="about-hero">
+        <div class="container">
+            <div class="hero-split-grid">
+                <div class="hero-text reveal">
+                    <h5>More Than Consultants</h5>
+                    <h1>Architects of <br><span>Global Dreams.</span></h1>
+                    <p>From the heart of Amritsar to universities around the world. We don't just process visas; we design the future you’ve always imagined.</p>
+                </div>
+                <div class="hero-visual reveal delay-1">
+                    <div class="hero-circle"></div>
+                    <div class="hero-circle"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS COUNTER -->
+    <div class="container">
+        <div class="stats-section reveal">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 data-target="5">0</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 data-target="2000">0</h3>
+                    <p>Visas Granted+</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 data-target="15">0</h3>
+                    <p>Countries</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 data-target="98">0</h3>
+                    <p>Success Rate %</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OUR STORY SECTION -->
+    <section class="story-section section-padding">
+        <div class="container">
+            <!-- Row 1: The Beginning -->
+            <div class="story-row reveal-left">
+                <div class="story-img-wrapper">
+                    <!-- Placeholder for Golden Temple/Amritsar image -->
+                    <img src="https://images.unsplash.com/photo-1514222134-b57cbb8ce073?q=80&w=1000&auto=format&fit=crop" alt="Amritsar Roots" class="story-img">
+                    <div class="story-bg-box"></div>
+                </div>
+                <div class="story-content">
+                    <h5>OUR ROOTS</h5>
+                    <h2>Born in Amritsar, <br>Connected Globally</h2>
+                    <p>Five years ago, we started with a simple mission in Amritsar: to simplify the complex maze of international immigration. We saw students with brilliant potential struggling with paperwork and misguidance.</p>
+                    <div class="story-highlight">
+                        "We aimed to be the bridge between local talent and global opportunity."
+                    </div>
+                    <p>Today, Punjab Immigration stands as a beacon of trust in the region. We combine the warmth of Punjabi hospitality with the precision of international legal standards.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- STORY SECTION (Asymmetrical) -->
-    <section class="section-padding story-section">
+    <!-- MISSION & VALUES (TILES) -->
+    <section class="values-section">
         <div class="container">
-            <div class="story-grid">
-                <div class="reveal">
-                    <img src="https://placehold.co/600x700/133beb/white?text=Our+Team" alt="Our Team" class="story-image">
+            <div class="values-header reveal">
+                <h2>Our <span>DNA</span></h2>
+                <p>The principles that drive every file we process.</p>
+            </div>
+            <div class="values-grid">
+                <!-- Tile 1 -->
+                <div class="value-tile reveal">
+                    <div class="value-icon-box">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3>Absolute Integrity</h3>
+                    <p>We tell you what you need to hear, not just what you want to hear. Honest profiling is the foundation of our high success rate.</p>
                 </div>
-                <div class="story-content reveal delay-1">
-                    <h5>OUR STORY</h5>
-                    <h2>More Than Just Consultants</h2>
-                    <p>Founded in the heart of Amritsar, Punjab Immigration began with a simple mission: to bring honesty, transparency, and clarity to the complex world of immigration. We saw too many aspiring students and families get lost in confusing paperwork and false promises.</p>
-                    <p>Today, we are a leading name, built on a foundation of trust. We don't just process files; we build roadmaps. Our goal is to be your first friend in a new country, ensuring your journey is smooth from the first consultation to your first day on campus or at your new job.</p>
-                    <a href="contact.html" class="btn btn-primary" style="margin-top: 20px;">Book a Consultation</a>
+                <!-- Tile 2 -->
+                <div class="value-tile reveal delay-1">
+                    <div class="value-icon-box">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                    </div>
+                    <h3>Personalized Focus</h3>
+                    <p>You are not a file number. We build a customized roadmap for every student based on their academic history and career dreams.</p>
+                </div>
+                <!-- Tile 3 -->
+                <div class="value-tile reveal delay-2">
+                    <div class="value-icon-box">
+                         <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3>End-to-End Support</h3>
+                    <p>From the first counseling session in Amritsar to your airport pickup in Toronto or London, we are with you at every step.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- TEAM SECTION -->
-    <section class="section-padding team-section">
+    <section class="team-section">
         <div class="container">
-            <div class="text-center section-title reveal">
-                <h5>OUR EXPERTS</h5>
-                <h2>Meet The Team</h2>
+            <div class="text-center reveal">
+                <h5 style="color: var(--accent); letter-spacing: 2px;">THE LEADERSHIP</h5>
+                <h2 style="font-size: 2.5rem; color: var(--dark-blue); margin-top: 10px;">Meet the Visionaries</h2>
             </div>
             <div class="team-grid">
+                <!-- Member 1: Founder -->
                 <div class="team-card reveal">
-                    <img src="https://placehold.co/400x500/fab00d/333?text=R.+Singh" alt="Team Member 1" class="team-card-img">
-                    <div class="team-card-info">
-                        <h4>Rajinder Singh</h4>
-                        <span>Founder & RCIC Member</span>
+                    <div class="team-img-box">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" alt="Founder" class="team-img">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Aman Singh</h3>
+                        <span class="team-role">Founder & CEO</span>
+                        <div class="team-socials">
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Member 2: MD -->
                 <div class="team-card reveal delay-1">
-                    <img src="https://placehold.co/400x500/133beb/white?text=P.+Kaur" alt="Team Member 2" class="team-card-img">
-                    <div class="team-card-info">
-                        <h4>Priya Kaur</h4>
-                        <span>Head of Study Visas (UK)</span>
+                    <div class="team-img-box">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" alt="MD" class="team-img">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Priya Kaur</h3>
+                        <span class="team-role">Managing Director</span>
+                        <div class="team-socials">
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Member 3: Senior Consultant -->
                 <div class="team-card reveal delay-2">
-                    <img src="https://placehold.co/400x500/fab00d/333?text=A.+Verma" alt="Team Member 3" class="team-card-img">
-                    <div class="team-card-info">
-                        <h4>Amit Verma</h4>
-                        <span>PR Specialist (Australia)</span>
+                    <div class="team-img-box">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop" alt="Consultant" class="team-img">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Rajeev Sharma</h3>
+                        <span class="team-role">Senior Consultant</span>
+                        <div class="team-socials">
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW: BENTO GRID VALUES SECTION -->
-    <section class="section-padding bento-section">
+    <!-- QUOTE SECTION -->
+    <section class="quote-section">
         <div class="container">
-            <div class="text-center section-title reveal">
-                <h5>OUR VALUES</h5>
-                <h2>The Foundation of Our Success</h2>
-            </div>
-            <div class="bento-grid">
-                <div class_alias="bento-item mission reveal">
-                    <h3>Our Mission</h3>
-                    <p>To provide transparent, honest, and expert immigration consultancy that empowers our clients to achieve their global aspirations. We strive to make the complex process simple, clear, and successful, building futures one visa at a time.</p>
-                </div>
-                <div class="bento-item vision reveal delay-1">
-                    <h3>Our Vision</h3>
-                    <p>To be Punjab's most trusted and respected name in immigration, known for our unwavering integrity and client success stories.</p>
-                </div>
-                <div class="bento-item value-card text-center reveal delay-1">
-                    <i class="fa-solid fa-eye"></i>
-                    <h3>Transparency</h3>
-                </div>
-                <div class="bento-item value-card text-center reveal delay-2">
-                    <i class="fa-solid fa-star"></i>
-                    <h3>Expertise</h3>
-                </div>
-                <div class="bento-item value-card text-center reveal delay-3">
-                    <i class="fa-solid fa-trophy"></i>
-                    <h3>Success</h3>
+            <div class="quote-box reveal">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p class="quote-text">"Education is the most powerful weapon which you can use to change the world. At Punjab Immigration, we just help you load that weapon."</p>
+                <div class="quoter-info">
+                    <h4>Director's Message</h4>
+                    <span>Punjab Immigration</span>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- STATS -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item reveal">
-                    <h2 data-target="10">0</h2>
-                    <p>Years Experience</p>
-                </div>
-                <div class="stat-item reveal delay-1">
-                    <h2 data-target="2500">0</h2>
-                    <p>Visas Granted</p>
-                </div>
-                <div class="stat-item reveal delay-2">
-                    <h2 data-target="15">0</h2>
-                    <p>Countries</p>
-                </div>
-                <div class="stat-item reveal delay-3">
-                    <h2 data-target="98">0</h2>
-                    <p>% Success Rate</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/919507795077" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
+                <!-- Column 1: About -->
                 <div class="footer-col">
-                    <a href="index.html" class="logo">
-                         <img src="your-logo-white.png" alt="Punjab Immigration Logo (White)" >
+                    <a href="index.html" class="footer-logo">
+                         <img src="logowhite.png" alt="Punjab Immigration Logo">
                     </a>
-                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
+                    <p class="footer-about-text">Your trusted partner for global dreams. We provide transparent, honest, and efficient visa services for Canada, UK, Australia, and beyond.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/1Am5DtawRN/?mibextid=wwXIfr" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_punjabimmigration/" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/punjab-immigration-a37827383" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@PunjabImmigration53" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
                 </div>
+
+                <!-- Column 2: Quick Links -->
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <ul>
+                    <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="destinations.html">Destinations</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="happy-customers.html">Success Stories</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 3: Services -->
                 <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul>
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
                         <li><a href="visitor-visa.html">Visitor Visa</a></li>
                     </ul>
                 </div>
+
+                <!-- Column 4: Contact -->
                 <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
-                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
-                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
-                    </ul>
+                    <h4>Get In Touch</h4>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>For Enquiry: 95077 95077</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>SCO 53, RANJIT AVENUE B BLOCK, AMRITSAR</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>punjabimmigration.in</span>
+                    </div>
+                    
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
                 </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 Punjab Immigration. All Rights Reserved.
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 Punjab Immigration. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+            
+            <div class="footer-credit">
+                Built by <a href="https://yenoh.space/">Yenoh</a>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
             // --- CUSTOM CURSOR ---
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
@@ -861,24 +1132,58 @@
                     const posY = e.clientY;
                     cursorDot.style.left = `${posX}px`;
                     cursorDot.style.top = `${posY}px`;
-                    cursorOutline.animate({
-                        left: `${posX}px`,
-                        top: `${posY}px`
-                    }, { duration: 500, fill: 'forwards' });
+                    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: 'forwards' });
                 }
             });
 
-            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot');
+            const hoverElements = document.querySelectorAll('a, .btn, .value-tile, .story-img-wrapper, .team-card');
             hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    if(cursorOutline) cursorOutline.classList.add('cursor-hover');
-                });
-                el.addEventListener('mouseleave', () => {
-                    if(cursorOutline) cursorOutline.classList.remove('cursor-hover');
-                });
+                el.addEventListener('mouseenter', () => cursorOutline?.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursorOutline?.classList.remove('cursor-hover'));
             });
 
-            // --- MOBILE NAVIGATION TOGGLE ---
+            // --- SCROLL REVEAL ---
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) {
+                        el.classList.add('active');
+                        // Trigger counters if this is the stats section
+                        if (el.classList.contains('stats-section') && !el.classList.contains('counted')) {
+                            startCounters();
+                            el.classList.add('counted');
+                        }
+                    }
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+
+            // --- NUMBER COUNTER ANIMATION ---
+            function startCounters() {
+                const counters = document.querySelectorAll('.stat-item h3');
+                const speed = 200; // The lower the slower
+
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target + (target > 100 ? "+" : ""); // Add + for big numbers
+                        }
+                    };
+                    updateCount();
+                });
+            }
+
+            // --- MOBILE NAV TOGGLE (UPDATED) ---
             const navLinks = document.getElementById('nav-links');
             const mobileToggle = document.getElementById('mobile-toggle');
             
@@ -895,68 +1200,6 @@
                     }
                 });
             }
-
-            // --- SCROLL REVEAL ANIMATION ---
-            const revealElements = document.querySelectorAll('.reveal');
-            
-            const revealOnScroll = () => {
-                const windowHeight = window.innerHeight;
-                revealElements.forEach(el => {
-                    if (el.getBoundingClientRect) {
-                        const elementTop = el.getBoundingClientRect().top;
-                        if (elementTop < windowHeight - 100) {
-                            el.classList.add('active');
-                        }
-                    }
-                });
-            };
-            
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll(); 
-
-            // --- NUMBER COUNTER ANIMATION ---
-            const counters = document.querySelectorAll('.stat-item h2');
-            const statsSection = document.querySelector('.stats-section');
-            let countersStarted = false;
-
-            const startCounters = () => {
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    let count = 0;
-                    const updateCount = () => {
-                        const inc = target / 100; 
-                        if (count < target) {
-                            count = Math.ceil(count + inc);
-                            if(count > target) count = target;
-                            counter.innerText = count;
-                            setTimeout(updateCount, 20);
-                        } else {
-                            if (target === 98) {
-                                counter.innerText = target + "%";
-                            } else {
-                                counter.innerText = target + "+";
-                            }
-                        }
-                    };
-                    updateCount();
-                });
-            };
-            
-            if (statsSection && typeof IntersectionObserver !== 'undefined') {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting && !countersStarted) {
-                            startCounters();
-                            countersStarted = true;
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-                observer.observe(statsSection);
-            } else if (statsSection) {
-                startCounters();
-            }
-
         });
     </script>
 </body>
