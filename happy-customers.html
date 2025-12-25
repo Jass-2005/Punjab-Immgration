@@ -369,83 +369,156 @@
             letter-spacing: 1px;
         }
         
-        /* --- TESTIMONIALS SLIDER --- */
+        /* --- INFINITE SCROLL TESTIMONIALS (MARQUEE) --- */
         .testimonial-section {
             position: relative;
-            background: var(--light);
+            background: var(--dark-blue);
             overflow: hidden;
-            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
-            margin-top: -10vh;
-            padding-top: 20vh;
+            padding: 100px 0;
+            margin-top: -5vh;
+            clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
         }
-        .testimonial-bg-icon {
+
+        .testimonial-section::before {
+            content: '';
             position: absolute;
-            top: -50px;
-            left: -50px;
-            font-size: 30rem;
-            color: var(--white);
-            z-index: 1;
-            opacity: 0.8;
-            line-height: 1;
-        }
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        .testimonial-slide {
-            display: none; 
-            padding: 40px;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-        .testimonial-slide.active { display: block; }
-        .testimonial-slide img {
-            width: 80px;
-            height: 80px;
+            top: -10%; right: -5%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(250, 176, 13, 0.1) 0%, transparent 70%);
             border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 4px solid var(--accent); 
+            pointer-events: none;
         }
-        .testimonial-slide p {
-            font-size: 1.1rem;
-            font-style: italic;
-            line-height: 1.7;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        .testimonial-slide h4 {
-            font-size: 1.2rem;
-            color: var(--primary); 
-        }
-        .testimonial-slide span {
-            font-size: 0.9rem;
-            color: var(--accent); 
-            font-weight: 600;
-        }
-        .slider-nav {
+
+        .testimonial-section .section-title h5 { color: var(--primary); opacity: 0.9; }
+        .testimonial-section .section-title h2 { color: var(--white); }
+
+        .marquee-wrapper {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            flex-direction: column;
+            gap: 40px; /* Space between the two rows */
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            padding: 20px 0;
         }
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ccc;
-            cursor: none;
+
+        .marquee-row {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            user-select: none;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 30px;
+            flex-shrink: 0;
+            justify-content: flex-start; /* Ensure gaps are rigid */
+            min-width: 100%;
+            padding-right: 30px; /* Essential for even spacing between loops */
+            animation: scroll-left 40s linear infinite;
+        }
+
+        .marquee-row.reverse-dir .marquee-content {
+            animation: scroll-right 45s linear infinite; /* Slightly slower for variety */
+        }
+
+        /* Pause animation on hover */
+        .marquee-wrapper:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-left {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
+        @keyframes scroll-right {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* --- TESTIMONIAL CARD STYLING --- */
+        .testimonial-card {
+            width: 400px; /* Fixed width for consistent scroll */
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            border-left: 5px solid var(--primary);
             transition: 0.3s;
         }
-        .slider-dot.active, .slider-dot:hover {
-            background: var(--primary); 
-            transform: scale(1.2);
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: #fafafa;
         }
-        
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .client-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .client-meta h4 {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .visa-pill {
+            display: inline-block;
+            background: rgba(6, 18, 46, 0.05);
+            color: var(--accent);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .card-quote {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+            position: relative;
+        }
+
+        .card-quote::before {
+            content: '“';
+            position: absolute;
+            top: -10px;
+            left: -15px;
+            font-size: 3rem;
+            color: rgba(250, 176, 13, 0.2);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .verified-check {
+            margin-left: auto;
+            color: #25D366;
+            font-size: 1.2rem;
+        }
+
         /* --- WHATSAPP BUTTON --- */
         @keyframes pulse-wa {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
@@ -502,10 +575,10 @@
         }
         .footer-col .logo { margin-bottom: 20px; display: block; }
         .footer-col .logo img {
-    height: 70px;
-    display: block;
-    margin: 0 auto;
-}
+            height: 70px;
+            display: block;
+            margin: 0 auto;
+        }
 
         
         .footer-col p { 
@@ -518,7 +591,7 @@
             color: var(--white); 
             margin-bottom: 25px; 
             font-size: 1.2rem; 
-            font-weight: 600;
+            font-weight: 600; 
             position: relative;
             display: inline-block;
         }
@@ -738,6 +811,16 @@
 
             .click-hint { opacity: 1; transform: translateY(0); }
 
+            /* Marquee Mobile Adjustments */
+            .testimonial-section { clip-path: none; padding: 60px 0; }
+            .marquee-wrapper { gap: 0; padding: 10px 0; }
+            
+            /* HIDE SECOND ROW ON MOBILE AS REQUESTED */
+            .marquee-row.reverse-dir { display: none; }
+            
+            .testimonial-card { width: 300px; padding: 20px; }
+            .card-quote::before { font-size: 2rem; top: -5px; }
+
             /* Footer stacking */
             .footer-grid { 
                 grid-template-columns: repeat(2, 1fr); 
@@ -756,8 +839,6 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             .footer-bottom-links { margin-top: 10px; }
             .footer-bottom-links a { margin: 0 10px; }
-            
-            .testimonial-section { clip-path: none; padding-top: 60px; margin-top: 0; }
         }
 
         /* Narrow Mobile (Phones < 480px) */
@@ -771,7 +852,6 @@
             /* Video takes full width */
             .video-grid { grid-template-columns: 100%; }
 
-            .testimonial-slide { padding: 25px 15px; }
             /* Fallback to 1 column footer if 2 is too tight */
             .footer-grid { grid-template-columns: 1fr; }
         }
@@ -1033,42 +1113,31 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS SLIDER -->
-    <section class="section-padding testimonial-section">
-        <i class="fa-solid fa-quote-left testimonial-bg-icon"></i>
-        <div class="container">
-            <div class="text-center section-title reveal">
-                <h5>FEATURED STORIES</h5>
-                <h2 style="color: #333">Don't Just Take Our Word</h2>
-            </div>
-            <div class="testimonial-slider reveal">
-                <div class="testimonial-slide active">
-                    <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
-                    <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
-                    <h4>Manpreet Singh</h4>
-                    <span>Study Visa (Canada)</span>
-                </div>
-                <div class="testimonial-slide">
-                    <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
-                    <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
-                    <h4>Priya Sharma</h4>
-                    <span>Spouse Open Work Permit (UK)</span>
-                </div>
-                <div class="testimonial-slide">
-                    <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
-                    <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
-                    <h4>Amit Verma</h4>
-                    <span>PR Visa (Australia)</span>
-                </div>
-            </div>
-            <div class="slider-nav reveal">
-                <div class="slider-dot active" data-slide="0"></div>
-                <div class="slider-dot" data-slide="1"></div>
-                <div class="slider-dot" data-slide="2"></div>
-            </div>
-        </div>
-    </section>
+<!-- TESTIMONIALS SECTION (INFINITE SCROLL MARQUEE) -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="text-center section-title reveal">
+      <h5>SUCCESS STORIES</h5>
+      <h2>What Our Clients Say</h2>
+    </div>
 
+    <div class="marquee-wrapper reveal">
+
+      <!-- Row 1: Moves Left -->
+      <div class="marquee-row">
+        <div class="marquee-content" id="testimonialRow"></div>
+        <div class="marquee-content" aria-hidden="true" id="testimonialRowClone"></div>
+      </div>
+
+      <!-- Row 2: Moves Right (Hidden on Mobile) -->
+      <div class="marquee-row reverse-dir">
+        <div class="marquee-content" id="rowReverse"></div>
+        <div class="marquee-content" aria-hidden="true" id="rowReverseClone"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
     <a href="https://wa.me/919507795077" target="_blank" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -1213,46 +1282,6 @@
             
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll(); 
-
-            // --- TESTIMONIAL SLIDER ---
-            const slides = document.querySelectorAll('.testimonial-slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            let currentSlide = 0;
-            let slideInterval;
-
-            function showSlide(index) {
-                if (slides.length === 0) return;
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active'));
-                if(slides[index] && dots[index]) {
-                    slides[index].classList.add('active');
-                    dots[index].classList.add('active');
-                    currentSlide = index;
-                }
-            }
-            function startSlideShow() {
-                if (slides.length === 0) return;
-                slideInterval = setInterval(() => {
-                    let nextSlide = (currentSlide + 1) % slides.length;
-                    showSlide(nextSlide);
-                }, 5000); 
-            }
-            function stopSlideShow() {
-                clearInterval(slideInterval);
-            }
-            
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    showSlide(parseInt(dot.getAttribute('data-slide')));
-                    stopSlideShow();
-                    startSlideShow();
-                });
-            });
-            
-            if (slides.length > 0 && dots.length > 0) {
-                showSlide(0); 
-                startSlideShow();
-            }
             
             // --- INTERACTIVE FLIP GALLERY LOGIC ---
             const galleryCards = document.querySelectorAll('.gallery-card');
@@ -1285,5 +1314,483 @@
 
         });
     </script>
+<script>
+const reviews = [
+  {
+    name: "Gurjant Singh",
+    visa: "UK Study Visa",
+    quote: "I am very thankful to Punjab Immigration. I did +2 in 2019 which was a 5 year gap. My visa came within 45 days.",
+    image: "https://placehold.co/100x100/fab00d/333?text=GS"
+  },
+  {
+    name: "Simar Rajput",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 3 days. The staff members are very helpful and cooperative.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SR"
+  },
+  {
+    name: "Amrit Bal",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Staff behavior was very good. Thank you to the entire team.",
+    image: "https://placehold.co/100x100/fab00d/333?text=AB"
+  },
+  {
+    name: "Karan Deep",
+    visa: "Study Visa",
+    quote: "The staff is really amazing and very supportive. Thanks to the team for my visa.",
+    image: "https://placehold.co/100x100/06122e/fff?text=KD"
+  },
+  {
+    name: "Balraj Masih",
+    visa: "Study Visa",
+    quote: "Thank you so much. I got my visa in 10 to 15 days. Staff members of Punjab Immigration are very humble and polite. They guide every student very well.",
+    image: "https://placehold.co/100x100/fab00d/333?text=BM"
+  },
+  {
+    name: "Romanpreet Kaur",
+    visa: "Study Visa",
+    quote: "I got my visa within a week and I appreciate all the services I received from Punjab Immigration. Staff members are very humble and cooperative.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RK"
+  },
+  {
+    name: "Simran Bal",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 3 days for my masters. Staff is very supportive and helpful. Thank you Priya Mam and Harsimran Sir.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SB"
+  },
+  {
+    name: "Pawandeep Kaur",
+    visa: "Study Visa",
+    quote: "Punjab Immigration staff is cooperative and supportive and gives good advice to students. Sukh Sir and the staff nature is very good.",
+    image: "https://placehold.co/100x100/06122e/fff?text=PK"
+  },
+  {
+    name: "Komalpreet Kaur Khehra",
+    visa: "Study + Spouse Visa",
+    quote: "I got my study visa as well as spouse visa within 5 days. File work was very smooth and staff was very nice.",
+    image: "https://placehold.co/100x100/fab00d/333?text=KK"
+  },
+  {
+    name: "Shehbaz Randhawa",
+    visa: "Study Visa",
+    quote: "Punjab Immigration is a great place. Staff members are friendly and supportive. My favourite teacher is Simran Mam.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SR"
+  },
+  {
+    name: "Amandeep Kaur",
+    visa: "UK Study Visa",
+    quote: "I received my UK study visa within 5 days. I am very happy and recommend everyone to apply from Punjab Immigration.",
+    image: "https://placehold.co/100x100/fab00d/333?text=AK"
+  },
+  {
+    name: "Parm Nijjer",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within a week. It is a great place to fulfill your dreams. Staff is amazing.",
+    image: "https://placehold.co/100x100/06122e/fff?text=PN"
+  },
+  {
+    name: "Gursimran Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 4 days. The whole process was smooth and transparent. Staff behaviour was very good.",
+    image: "https://placehold.co/100x100/fab00d/333?text=GS"
+  },
+  {
+    name: "Jaswinder Kaur",
+    visa: "UK Spouse Visa",
+    quote: "I applied for UK spouse visa and got my case approved within 15 days. Staff is very cooperative.",
+    image: "https://placehold.co/100x100/06122e/fff?text=JK"
+  },
+  {
+    name: "Jaskirat Singh",
+    visa: "Canada Work Visa",
+    quote: "I applied my work visa from Punjab Immigration and got my Canada work visa. They are very good in work visas.",
+    image: "https://placehold.co/100x100/fab00d/333?text=JS"
+  },
+  {
+    name: "Parminder Sandhu",
+    visa: "UK Study Visa",
+    quote: "I received my UK study visa within 2 days. Whole staff members are very cooperative. Thanks to all.",
+    image: "https://placehold.co/100x100/06122e/fff?text=PS"
+  },
+  {
+    name: "Parm Nijjer",
+    visa: "UK Study Visa",
+    quote: "I am very happy as I got my UK study visa within a week from Punjab Immigration. It is a great place to fulfil your dreams. The staff is amazing.",
+    image: "https://placehold.co/100x100/fab00d/333?text=PN"
+  },
+  {
+    name: "Joban Nijjer",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa and I am very impressed with the staff as they supported me every time. The process was very smooth.",
+    image: "https://placehold.co/100x100/06122e/fff?text=JN"
+  },
+  {
+    name: "Harkamal Singh",
+    visa: "Canada Work Permit",
+    quote: "I got my Canada work permit from Punjab Immigration. They were very supportive throughout my process. Thanks to Sukh Sir and Manpreet Sir.",
+    image: "https://placehold.co/100x100/fab00d/333?text=HS"
+  },
+  {
+    name: "Harman Singh",
+    visa: "UK Study Visa",
+    quote: "I applied my UK study visa from Punjab Immigration and got my visa approval in a very short time. I really appreciate the team work.",
+    image: "https://placehold.co/100x100/06122e/fff?text=HS"
+  },
+  {
+    name: "Manjinder Bal",
+    visa: "UK Study Visa",
+    quote: "I applied my UK student visa and received my visa within 2 days. I am very happy and thankful to the entire staff.",
+    image: "https://placehold.co/100x100/fab00d/333?text=MB"
+  },
+  {
+    name: "Ravinder Kaur",
+    visa: "Study Visa",
+    quote: "Great services and never ending support from Punjab Immigration. I hope they guide many people to complete their dreams.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RK"
+  },
+  {
+    name: "Aasdeep Khinda",
+    visa: "Study Visa",
+    quote: "I got my visa within 5 days. The staff and all members are very supportive. I recommend everyone to visit Punjab Immigration.",
+    image: "https://placehold.co/100x100/fab00d/333?text=AK"
+  },
+  {
+    name: "Rajan Mand",
+    visa: "UK Study Visa",
+    quote: "I applied my case from Punjab Immigration and got my CAS letter. Thanks to Sukh Sir, Manpreet Sir and the entire team.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RM"
+  },
+  {
+    name: "Jaskaran Singh",
+    visa: "Canada Visa",
+    quote: "I got my Canada visa from Punjab Immigration. The staff behaviour is excellent and I recommend everyone to visit them.",
+    image: "https://placehold.co/100x100/fab00d/333?text=JS"
+  },
+  {
+    name: "Kulpreet Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days and I am fully satisfied with Punjab Immigration staff and owners.",
+    image: "https://placehold.co/100x100/06122e/fff?text=KS"
+  },
+  {
+    name: "Sonu Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Special thanks to Harsimran Sir, Priya Mam, Sukh Sir and Manpreet Sir.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SS"
+  },
+  {
+    name: "Karanbir Singh",
+    visa: "UK Study Visa",
+    quote: "I applied my UK student visa and got my visa within 4 days. Special thanks to Priya Mam and Punjab Immigration team.",
+    image: "https://placehold.co/100x100/06122e/fff?text=KB"
+  },
+  {
+    name: "Ripudaman Singh",
+    visa: "Canada Work Permit",
+    quote: "I got my Canada work permit from Punjab Immigration. Their services are very good and supportive.",
+    image: "https://placehold.co/100x100/fab00d/333?text=RS"
+  },
+  {
+    name: "Simran Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Punjab Immigration is a great place to fulfil your dreams.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SS"
+  },
+  {
+    name: "Komalpreet Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Everyone supported me in the best way possible.",
+    image: "https://placehold.co/100x100/fab00d/333?text=KS"
+  },
+  {
+    name: "Gurinderkaur Sandhu",
+    visa: "Study Visa",
+    quote: "The staff at Punjab Immigration is accommodating and knowledgeable. The entire process was smooth and stress free.",
+    image: "https://placehold.co/100x100/06122e/fff?text=GS"
+  },
+  {
+    name: "Sahejnoor Singh",
+    visa: "UK Study Visa",
+    quote: "Thank you Punjab Immigration for fulfilling my dream of UK. I got my visa in just 5 days.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SS"
+  },
+  {
+    name: "Simranjit Kaur",
+    visa: "Study Visa",
+    quote: "Punjab Immigration is the best place for students who want to study abroad. Staff is cooperative and friendly.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SK"
+  },
+  {
+    name: "Prabh Randhawa",
+    visa: "Spouse / Study Visa",
+    quote: "I applied my spouse case and got my UK study visa within 3 days. The team is very supportive.",
+    image: "https://placehold.co/100x100/fab00d/333?text=PR"
+  },
+  {
+    name: "Ranjit Randhawa",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa for September intake in just 5 days. The process was fast and transparent.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RR"
+  },
+  {
+    name: "Chahal Raj",
+    visa: "Study Visa",
+    quote: "I got my study visa within one week. The staff is very polite and well mannered.",
+    image: "https://placehold.co/100x100/fab00d/333?text=CR"
+  },
+  {
+    name: "Mansi Cheeda",
+    visa: "Study Visa",
+    quote: "The entire filing process was smooth and hassle free. I am extremely satisfied with Punjab Immigration.",
+    image: "https://placehold.co/100x100/06122e/fff?text=MC"
+  },
+  {
+    name: "Sarvpal Singh Gill",
+    visa: "Study Visa",
+    quote: "All the work done by Punjab Immigration team is very professional and responsible.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SG"
+  },
+  {
+    name: "Rajan Bajwa",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 15 days. Staff members are very polite and helpful.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RB"
+  },
+  {
+    name: "Gill 10",
+    visa: "Canada Visa",
+    quote: "I got my Canada visa within 5 days. I am very happy with the team efforts.",
+    image: "https://placehold.co/100x100/fab00d/333?text=G10"
+  },
+  {
+    name: "Jagdeep Singh Bajwa",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa with a fast and transparent process. Special thanks to the Punjab Immigration team.",
+    image: "https://placehold.co/100x100/06122e/fff?text=JB"
+  },
+  {
+    name: "Harpreet Singh",
+    visa: "Study Visa",
+    quote: "I got my CAS letter for September intake. Special thanks to Himani Mam, Priya Mam and Simran Mam.",
+    image: "https://placehold.co/100x100/fab00d/333?text=HS"
+  },
+  {
+    name: "Guntas Dhillon",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. The process was fast and smooth. Staff behaviour was amazing.",
+    image: "https://placehold.co/100x100/06122e/fff?text=GD"
+  },
+  {
+    name: "Parmeet Singh",
+    visa: "UK Study Visa",
+    quote: "I received my UK visa within 6 days. Thanks to Punjab Immigration team.",
+    image: "https://placehold.co/100x100/fab00d/333?text=PS"
+  },
+  {
+  name: "Sajan Malhi",
+  visa: "UK Study Visa",
+  quote: "I got my UK visa for September intake. I am very thankful to the UK team. Manpreet Sir and Sukh Sir are very supportive. Thanks to Priya Mam and Simran Mam.",
+  image: "https://placehold.co/100x100/fab00d/333?text=SM"
+},
+{
+  name: "Sandeep Kaur Randhawa",
+  visa: "UK Study Visa",
+  quote: "Staff is very supportive and positive. I got my UK visa in just 5 days. Overall a very nice experience. Highly recommended.",
+  image: "https://placehold.co/100x100/06122e/fff?text=SK"
+},
+{
+  name: "JASS ARMY",
+  visa: "UK Study Visa",
+  quote: "I received my UK visa within 4 days. I am very thankful to Manpreet Sir and Sukh Sir. The whole team guided me very well.",
+  image: "https://placehold.co/100x100/fab00d/333?text=JA"
+},
+{
+  name: "Major Singh",
+  visa: "Study Visa",
+  quote: "My brother applied his case from Punjab Immigration. Their services are amazing and staff is very helpful.",
+  image: "https://placehold.co/100x100/06122e/fff?text=MS"
+},
+{
+  name: "Love Bal",
+  visa: "Study Visa",
+  quote: "I applied my case from Punjab Immigration and got my visa within 4 days. Staff is cooperative. Thanks to Sukh Sir and Manpreet Sir.",
+  image: "https://placehold.co/100x100/fab00d/333?text=LB"
+},
+{
+  name: "Kiran Uppal",
+  visa: "Study Visa",
+  quote: "Punjab Immigration staff is very brilliant and cooperative. Teaching method is excellent and file processing is very fast.",
+  image: "https://placehold.co/100x100/06122e/fff?text=KU"
+},
+{
+  name: "Sukhmanpreet Singh",
+  visa: "Study Visa",
+  quote: "Staff is very polite and helped me a lot with accurate information and guidance. This is the best immigration consultancy in Amritsar.",
+  image: "https://placehold.co/100x100/fab00d/333?text=SS"
+},
+{
+  name: "Harsimran Gill",
+  visa: "Australia Visa",
+  quote: "I collected my visa from Punjab Immigration. I am very thankful to Mansi Mam and Manpreet Sir for my Australia visa.",
+  image: "https://placehold.co/100x100/06122e/fff?text=HG"
+},
+{
+  name: "Harsimran Sandhu",
+  visa: "Study Visa",
+  quote: "The staff is amazing and the team is very hardworking. The success rate is extremely appreciable.",
+  image: "https://placehold.co/100x100/fab00d/333?text=HS"
+},
+{
+  name: "Lovejot Bhinder",
+  visa: "Canada Study Visa",
+  quote: "I applied for Canada study visa from Punjab Immigration. My whole experience was very good.",
+  image: "https://placehold.co/100x100/06122e/fff?text=LB"
+},
+{
+  name: "Ravneet Singh",
+  visa: "Study Visa",
+  quote: "Punjab Immigration provides the best services. Staff is amazing and very helpful. Special thanks to Sukh Sir and Manpreet Sir.",
+  image: "https://placehold.co/100x100/fab00d/333?text=RS"
+},
+{
+  name: "Mehak Kaur",
+  visa: "Study Visa",
+  quote: "I got the best result from this immigration. Staff members are very cooperative and supportive. Overall a very good experience.",
+  image: "https://placehold.co/100x100/06122e/fff?text=MK"
+},
+{
+  name: "Aman Hanspal",
+  visa: "Study Visa",
+  quote: "Staff is amazing and services are top notch. Best immigration services consultant in Amritsar.",
+  image: "https://placehold.co/100x100/fab00d/333?text=AH"
+},
+{
+  name: "Guri Kahlon",
+  visa: "Study Visa",
+  quote: "I applied my case from Punjab Immigration. Staff members are very cooperative and handled my case very well.",
+  image: "https://placehold.co/100x100/06122e/fff?text=GK"
+},
+{
+  name: "Mahiraj Sandhu",
+  visa: "Study Visa",
+  quote: "Punjab Immigration provides excellent services. Especially Simran Mam, she is very understanding and friendly.",
+  image: "https://placehold.co/100x100/fab00d/333?text=MS"
+},
+{
+  name: "Rajkaran Deol",
+  visa: "Study Visa",
+  quote: "The staff of Punjab Immigration is very cooperative. Sukh Sir and Manpreet Sir guided me very well.",
+  image: "https://placehold.co/100x100/06122e/fff?text=RD"
+},
+{
+  name: "Harkamal Chahal",
+  visa: "Study Visa",
+  quote: "I applied my case from Punjab Immigration. Services are amazing and staff is very cooperative.",
+  image: "https://placehold.co/100x100/fab00d/333?text=HC"
+},
+{
+  name: "Suman Shaberwal",
+  visa: "Study Visa",
+  quote: "It is a very supportive and hardworking team. I am very grateful to Punjab Immigration for making my dream come true.",
+  image: "https://placehold.co/100x100/06122e/fff?text=SS"
+},
+{
+  name: "Amritpal Sidhu",
+  visa: "Study Visa",
+  quote: "Punjab Immigration team is very dedicated and supportive. I really appreciate their work.",
+  image: "https://placehold.co/100x100/fab00d/333?text=AS"
+},
+{
+  name: "Harbir Singh",
+  visa: "Study Visa",
+  quote: "Staff is very cooperative and the environment is very nice. Overall thumbs up for this immigration.",
+  image: "https://placehold.co/100x100/06122e/fff?text=HS"
+},
+{
+  name: "Gurwinder Singh",
+  visa: "Study Visa",
+  quote: "Punjab Immigration is the best place to apply for a visa. I had a wonderful experience with them.",
+  image: "https://placehold.co/100x100/fab00d/333?text=GS"
+},
+{
+  name: "Satanterpal Singh",
+  visa: "Study Visa",
+  quote: "It is a great place to apply for your visa. Services are awesome.",
+  image: "https://placehold.co/100x100/06122e/fff?text=SS"
+},
+{
+  name: "Varinderjit Kaur",
+  visa: "Study Visa",
+  quote: "Very good experience. Staff easily provides visa and is very helpful.",
+  image: "https://placehold.co/100x100/fab00d/333?text=VK"
+},
+{
+  name: "Manveer Mahal",
+  visa: "IELTS / Immigration",
+  quote: "One of the best immigration and IELTS centres in Amritsar.",
+  image: "https://placehold.co/100x100/06122e/fff?text=MM"
+},
+{
+  name: "Gursewak Mitter",
+  visa: "Study Visa",
+  quote: "Very good services. Staff is also very cooperative.",
+  image: "https://placehold.co/100x100/fab00d/333?text=GM"
+},
+{
+  name: "Gurmanat Bhangu",
+  visa: "Study Visa",
+  quote: "Very good.",
+  image: "https://placehold.co/100x100/06122e/fff?text=GB"
+},
+{
+  name: "Harmanpreet Singh",
+  visa: "Study Visa",
+  quote: "Best immigration centre.",
+  image: "https://placehold.co/100x100/fab00d/333?text=HS"
+}
+
+  
+];
+</script>
+
+<<script>
+const rowForward = document.getElementById("testimonialRow");
+const rowForwardClone = document.getElementById("testimonialRowClone");
+
+const rowReverse = document.getElementById("rowReverse");
+const rowReverseClone = document.getElementById("rowReverseClone");
+
+// Split reviews alternately
+const forwardReviews = reviews.filter((_, i) => i % 2 === 0);
+const reverseReviews = reviews.filter((_, i) => i % 2 !== 0);
+
+// Render function
+function renderRow(row, clone, data) {
+  const html = data.map(r => `
+    <div class="testimonial-card">
+      <div class="card-header">
+        <img src="${r.image}" class="client-thumb" alt="${r.name}">
+        <div class="client-meta">
+          <h4>${r.name}</h4>
+          <span class="visa-pill">${r.visa}</span>
+        </div>
+        <div class="verified-check">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+      </div>
+      <p class="card-quote">"${r.quote}"</p>
+    </div>
+  `).join("");
+
+  row.innerHTML = html;
+  clone.innerHTML = html;
+}
+
+// Render both rows
+renderRow(rowForward, rowForwardClone, forwardReviews);
+renderRow(rowReverse, rowReverseClone, reverseReviews);
+</script>
+
+
 </body>
 </html>

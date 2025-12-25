@@ -965,7 +965,7 @@
             display: flex;
             width: max-content; 
             gap: 30px; 
-            animation: scroll 25s linear infinite; 
+            animation: scroll 150s linear infinite; 
         }
 
         .testimonial-track:hover {
@@ -1766,59 +1766,21 @@
     </section>
 
     <section class="section-padding testimonial-section">
-        <i class="fa-solid fa-quote-left testimonial-bg-icon"></i>
-        <div class="container">
-            <div class="text-center section-title reveal">
-                <h5>SUCCESS STORIES</h5>
-                <h2 style="color: #333">What Our Clients Say</h2>
-            </div>
-            <div class="testimonial-slider">
-                <!-- The Moving Track -->
-                <div class="testimonial-track">
-                    
-                    <!-- ORIGINAL SLIDES -->
-                    <div class="testimonial-slide">
-                        <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
-                        <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
-                        <h4>Manpreet Singh</h4>
-                        <span>Study Visa (Canada)</span>
-                    </div>
-                    <div class="testimonial-slide">
-                        <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
-                        <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
-                        <h4>Priya Sharma</h4>
-                        <span>Spouse Open Work Permit (UK)</span>
-                    </div>
-                    <div class="testimonial-slide">
-                        <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
-                        <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
-                        <h4>Amit Verma</h4>
-                        <span>PR Visa (Australia)</span>
-                    </div>
+    <i class="fa-solid fa-quote-left testimonial-bg-icon"></i>
 
-                    <!-- DUPLICATED SLIDES FOR ENDLESS LOOP -->
-                    <div class="testimonial-slide">
-                        <img src="https://placehold.co/100x100/fab00d/333?text=MS" alt="Client Photo">
-                        <p>"Got my Canada Study Visa in just 15 days! The team was professional, transparent, and handled everything perfectly. Highly recommended!"</p>
-                        <h4>Manpreet Singh</h4>
-                        <span>Study Visa (Canada)</span>
-                    </div>
-                    <div class="testimonial-slide">
-                        <img src="https://placehold.co/100x100/fab00d/333?text=PS" alt="Client Photo">
-                        <p>"Excellent service for my spouse open work permit. Punjab Immigration guided us at every step. We are happily settled in the UK now."</p>
-                        <h4>Priya Sharma</h4>
-                        <span>Spouse Open Work Permit (UK)</span>
-                    </div>
-                    <div class="testimonial-slide">
-                        <img src="https://placehold.co/100x100/fab00d/333?text=AV" alt="Client Photo">
-                        <p>"I was confused about the PR process for Australia. Their consultants simplified everything and my application was approved without any issues."</p>
-                        <h4>Amit Verma</h4>
-                        <span>PR Visa (Australia)</span>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="text-center section-title reveal">
+            <h5>SUCCESS STORIES</h5>
+            <h2 style="color: #333">What Our Clients Say</h2>
         </div>
-    </section>
+
+        <div class="testimonial-slider">
+            <!-- The Moving Track (JS will inject slides here) -->
+            <div class="testimonial-track" id="testimonialTrack"></div>
+        </div>
+    </div>
+</section>
+
 
     <!-- WHATSAPP BUTTON -->
     <a href="https://wa.me/919507795077" target="_blank" class="whatsapp-float">
@@ -2187,6 +2149,466 @@
 })();
 
 
+
+
+
     </script>
+    <script>
+
+    const reviews = [
+  {
+    name: "Gurjant Singh",
+    visa: "UK Study Visa",
+    quote: "I am very thankful to Punjab Immigration. I did +2 in 2019 which was a 5 year gap. My visa came within 45 days.",
+    image: "https://placehold.co/100x100/fab00d/333?text=GS"
+  },
+  {
+    name: "Simar Rajput",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 3 days. The staff members are very helpful and cooperative.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SR"
+  },
+  {
+    name: "Amrit Bal",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Staff behavior was very good. Thank you to the entire team.",
+    image: "https://placehold.co/100x100/fab00d/333?text=AB"
+  },
+  {
+    name: "Karan Deep",
+    visa: "Study Visa",
+    quote: "The staff is really amazing and very supportive. Thanks to the team for my visa.",
+    image: "https://placehold.co/100x100/06122e/fff?text=KD"
+  },
+  {
+    name: "Balraj Masih",
+    visa: "Study Visa",
+    quote: "Thank you so much. I got my visa in 10 to 15 days. Staff members of Punjab Immigration are very humble and polite. They guide every student very well.",
+    image: "https://placehold.co/100x100/fab00d/333?text=BM"
+  },
+  {
+    name: "Romanpreet Kaur",
+    visa: "Study Visa",
+    quote: "I got my visa within a week and I appreciate all the services I received from Punjab Immigration. Staff members are very humble and cooperative.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RK"
+  },
+  {
+    name: "Simran Bal",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 3 days for my masters. Staff is very supportive and helpful. Thank you Priya Mam and Harsimran Sir.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SB"
+  },
+  {
+    name: "Pawandeep Kaur",
+    visa: "Study Visa",
+    quote: "Punjab Immigration staff is cooperative and supportive and gives good advice to students. Sukh Sir and the staff nature is very good.",
+    image: "https://placehold.co/100x100/06122e/fff?text=PK"
+  },
+  {
+    name: "Komalpreet Kaur Khehra",
+    visa: "Study + Spouse Visa",
+    quote: "I got my study visa as well as spouse visa within 5 days. File work was very smooth and staff was very nice.",
+    image: "https://placehold.co/100x100/fab00d/333?text=KK"
+  },
+  {
+    name: "Shehbaz Randhawa",
+    visa: "Study Visa",
+    quote: "Punjab Immigration is a great place. Staff members are friendly and supportive. My favourite teacher is Simran Mam.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SR"
+  },
+  {
+    name: "Amandeep Kaur",
+    visa: "UK Study Visa",
+    quote: "I received my UK study visa within 5 days. I am very happy and recommend everyone to apply from Punjab Immigration.",
+    image: "https://placehold.co/100x100/fab00d/333?text=AK"
+  },
+  {
+    name: "Parm Nijjer",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within a week. It is a great place to fulfill your dreams. Staff is amazing.",
+    image: "https://placehold.co/100x100/06122e/fff?text=PN"
+  },
+  {
+    name: "Gursimran Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 4 days. The whole process was smooth and transparent. Staff behaviour was very good.",
+    image: "https://placehold.co/100x100/fab00d/333?text=GS"
+  },
+  {
+    name: "Jaswinder Kaur",
+    visa: "UK Spouse Visa",
+    quote: "I applied for UK spouse visa and got my case approved within 15 days. Staff is very cooperative.",
+    image: "https://placehold.co/100x100/06122e/fff?text=JK"
+  },
+  {
+    name: "Jaskirat Singh",
+    visa: "Canada Work Visa",
+    quote: "I applied my work visa from Punjab Immigration and got my Canada work visa. They are very good in work visas.",
+    image: "https://placehold.co/100x100/fab00d/333?text=JS"
+  },
+  {
+    name: "Parminder Sandhu",
+    visa: "UK Study Visa",
+    quote: "I received my UK study visa within 2 days. Whole staff members are very cooperative. Thanks to all.",
+    image: "https://placehold.co/100x100/06122e/fff?text=PS"
+  },
+  {
+    name: "Parm Nijjer",
+    visa: "UK Study Visa",
+    quote: "I am very happy as I got my UK study visa within a week from Punjab Immigration. It is a great place to fulfil your dreams. The staff is amazing.",
+    image: "https://placehold.co/100x100/fab00d/333?text=PN"
+  },
+  {
+    name: "Joban Nijjer",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa and I am very impressed with the staff as they supported me every time. The process was very smooth.",
+    image: "https://placehold.co/100x100/06122e/fff?text=JN"
+  },
+  {
+    name: "Harkamal Singh",
+    visa: "Canada Work Permit",
+    quote: "I got my Canada work permit from Punjab Immigration. They were very supportive throughout my process. Thanks to Sukh Sir and Manpreet Sir.",
+    image: "https://placehold.co/100x100/fab00d/333?text=HS"
+  },
+  {
+    name: "Harman Singh",
+    visa: "UK Study Visa",
+    quote: "I applied my UK study visa from Punjab Immigration and got my visa approval in a very short time. I really appreciate the team work.",
+    image: "https://placehold.co/100x100/06122e/fff?text=HS"
+  },
+  {
+    name: "Manjinder Bal",
+    visa: "UK Study Visa",
+    quote: "I applied my UK student visa and received my visa within 2 days. I am very happy and thankful to the entire staff.",
+    image: "https://placehold.co/100x100/fab00d/333?text=MB"
+  },
+  {
+    name: "Ravinder Kaur",
+    visa: "Study Visa",
+    quote: "Great services and never ending support from Punjab Immigration. I hope they guide many people to complete their dreams.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RK"
+  },
+  {
+    name: "Aasdeep Khinda",
+    visa: "Study Visa",
+    quote: "I got my visa within 5 days. The staff and all members are very supportive. I recommend everyone to visit Punjab Immigration.",
+    image: "https://placehold.co/100x100/fab00d/333?text=AK"
+  },
+  {
+    name: "Rajan Mand",
+    visa: "UK Study Visa",
+    quote: "I applied my case from Punjab Immigration and got my CAS letter. Thanks to Sukh Sir, Manpreet Sir and the entire team.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RM"
+  },
+  {
+    name: "Jaskaran Singh",
+    visa: "Canada Visa",
+    quote: "I got my Canada visa from Punjab Immigration. The staff behaviour is excellent and I recommend everyone to visit them.",
+    image: "https://placehold.co/100x100/fab00d/333?text=JS"
+  },
+  {
+    name: "Kulpreet Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days and I am fully satisfied with Punjab Immigration staff and owners.",
+    image: "https://placehold.co/100x100/06122e/fff?text=KS"
+  },
+  {
+    name: "Sonu Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Special thanks to Harsimran Sir, Priya Mam, Sukh Sir and Manpreet Sir.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SS"
+  },
+  {
+    name: "Karanbir Singh",
+    visa: "UK Study Visa",
+    quote: "I applied my UK student visa and got my visa within 4 days. Special thanks to Priya Mam and Punjab Immigration team.",
+    image: "https://placehold.co/100x100/06122e/fff?text=KB"
+  },
+  {
+    name: "Ripudaman Singh",
+    visa: "Canada Work Permit",
+    quote: "I got my Canada work permit from Punjab Immigration. Their services are very good and supportive.",
+    image: "https://placehold.co/100x100/fab00d/333?text=RS"
+  },
+  {
+    name: "Simran Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Punjab Immigration is a great place to fulfil your dreams.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SS"
+  },
+  {
+    name: "Komalpreet Singh",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. Everyone supported me in the best way possible.",
+    image: "https://placehold.co/100x100/fab00d/333?text=KS"
+  },
+  {
+    name: "Gurinderkaur Sandhu",
+    visa: "Study Visa",
+    quote: "The staff at Punjab Immigration is accommodating and knowledgeable. The entire process was smooth and stress free.",
+    image: "https://placehold.co/100x100/06122e/fff?text=GS"
+  },
+  {
+    name: "Sahejnoor Singh",
+    visa: "UK Study Visa",
+    quote: "Thank you Punjab Immigration for fulfilling my dream of UK. I got my visa in just 5 days.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SS"
+  },
+  {
+    name: "Simranjit Kaur",
+    visa: "Study Visa",
+    quote: "Punjab Immigration is the best place for students who want to study abroad. Staff is cooperative and friendly.",
+    image: "https://placehold.co/100x100/06122e/fff?text=SK"
+  },
+  {
+    name: "Prabh Randhawa",
+    visa: "Spouse / Study Visa",
+    quote: "I applied my spouse case and got my UK study visa within 3 days. The team is very supportive.",
+    image: "https://placehold.co/100x100/fab00d/333?text=PR"
+  },
+  {
+    name: "Ranjit Randhawa",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa for September intake in just 5 days. The process was fast and transparent.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RR"
+  },
+  {
+    name: "Chahal Raj",
+    visa: "Study Visa",
+    quote: "I got my study visa within one week. The staff is very polite and well mannered.",
+    image: "https://placehold.co/100x100/fab00d/333?text=CR"
+  },
+  {
+    name: "Mansi Cheeda",
+    visa: "Study Visa",
+    quote: "The entire filing process was smooth and hassle free. I am extremely satisfied with Punjab Immigration.",
+    image: "https://placehold.co/100x100/06122e/fff?text=MC"
+  },
+  {
+    name: "Sarvpal Singh Gill",
+    visa: "Study Visa",
+    quote: "All the work done by Punjab Immigration team is very professional and responsible.",
+    image: "https://placehold.co/100x100/fab00d/333?text=SG"
+  },
+  {
+    name: "Rajan Bajwa",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 15 days. Staff members are very polite and helpful.",
+    image: "https://placehold.co/100x100/06122e/fff?text=RB"
+  },
+  {
+    name: "Gill 10",
+    visa: "Canada Visa",
+    quote: "I got my Canada visa within 5 days. I am very happy with the team efforts.",
+    image: "https://placehold.co/100x100/fab00d/333?text=G10"
+  },
+  {
+    name: "Jagdeep Singh Bajwa",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa with a fast and transparent process. Special thanks to the Punjab Immigration team.",
+    image: "https://placehold.co/100x100/06122e/fff?text=JB"
+  },
+  {
+    name: "Harpreet Singh",
+    visa: "Study Visa",
+    quote: "I got my CAS letter for September intake. Special thanks to Himani Mam, Priya Mam and Simran Mam.",
+    image: "https://placehold.co/100x100/fab00d/333?text=HS"
+  },
+  {
+    name: "Guntas Dhillon",
+    visa: "UK Study Visa",
+    quote: "I got my UK study visa within 5 days. The process was fast and smooth. Staff behaviour was amazing.",
+    image: "https://placehold.co/100x100/06122e/fff?text=GD"
+  },
+  {
+    name: "Parmeet Singh",
+    visa: "UK Study Visa",
+    quote: "I received my UK visa within 6 days. Thanks to Punjab Immigration team.",
+    image: "https://placehold.co/100x100/fab00d/333?text=PS"
+  },
+  {
+  name: "Sajan Malhi",
+  visa: "UK Study Visa",
+  quote: "I got my UK visa for September intake. I am very thankful to the UK team. Manpreet Sir and Sukh Sir are very supportive. Thanks to Priya Mam and Simran Mam.",
+  image: "https://placehold.co/100x100/fab00d/333?text=SM"
+},
+{
+  name: "Sandeep Kaur Randhawa",
+  visa: "UK Study Visa",
+  quote: "Staff is very supportive and positive. I got my UK visa in just 5 days. Overall a very nice experience. Highly recommended.",
+  image: "https://placehold.co/100x100/06122e/fff?text=SK"
+},
+{
+  name: "JASS ARMY",
+  visa: "UK Study Visa",
+  quote: "I received my UK visa within 4 days. I am very thankful to Manpreet Sir and Sukh Sir. The whole team guided me very well.",
+  image: "https://placehold.co/100x100/fab00d/333?text=JA"
+},
+{
+  name: "Major Singh",
+  visa: "Study Visa",
+  quote: "My brother applied his case from Punjab Immigration. Their services are amazing and staff is very helpful.",
+  image: "https://placehold.co/100x100/06122e/fff?text=MS"
+},
+{
+  name: "Love Bal",
+  visa: "Study Visa",
+  quote: "I applied my case from Punjab Immigration and got my visa within 4 days. Staff is cooperative. Thanks to Sukh Sir and Manpreet Sir.",
+  image: "https://placehold.co/100x100/fab00d/333?text=LB"
+},
+{
+  name: "Kiran Uppal",
+  visa: "Study Visa",
+  quote: "Punjab Immigration staff is very brilliant and cooperative. Teaching method is excellent and file processing is very fast.",
+  image: "https://placehold.co/100x100/06122e/fff?text=KU"
+},
+{
+  name: "Sukhmanpreet Singh",
+  visa: "Study Visa",
+  quote: "Staff is very polite and helped me a lot with accurate information and guidance. This is the best immigration consultancy in Amritsar.",
+  image: "https://placehold.co/100x100/fab00d/333?text=SS"
+},
+{
+  name: "Harsimran Gill",
+  visa: "Australia Visa",
+  quote: "I collected my visa from Punjab Immigration. I am very thankful to Mansi Mam and Manpreet Sir for my Australia visa.",
+  image: "https://placehold.co/100x100/06122e/fff?text=HG"
+},
+{
+  name: "Harsimran Sandhu",
+  visa: "Study Visa",
+  quote: "The staff is amazing and the team is very hardworking. The success rate is extremely appreciable.",
+  image: "https://placehold.co/100x100/fab00d/333?text=HS"
+},
+{
+  name: "Lovejot Bhinder",
+  visa: "Canada Study Visa",
+  quote: "I applied for Canada study visa from Punjab Immigration. My whole experience was very good.",
+  image: "https://placehold.co/100x100/06122e/fff?text=LB"
+},
+{
+  name: "Ravneet Singh",
+  visa: "Study Visa",
+  quote: "Punjab Immigration provides the best services. Staff is amazing and very helpful. Special thanks to Sukh Sir and Manpreet Sir.",
+  image: "https://placehold.co/100x100/fab00d/333?text=RS"
+},
+{
+  name: "Mehak Kaur",
+  visa: "Study Visa",
+  quote: "I got the best result from this immigration. Staff members are very cooperative and supportive. Overall a very good experience.",
+  image: "https://placehold.co/100x100/06122e/fff?text=MK"
+},
+{
+  name: "Aman Hanspal",
+  visa: "Study Visa",
+  quote: "Staff is amazing and services are top notch. Best immigration services consultant in Amritsar.",
+  image: "https://placehold.co/100x100/fab00d/333?text=AH"
+},
+{
+  name: "Guri Kahlon",
+  visa: "Study Visa",
+  quote: "I applied my case from Punjab Immigration. Staff members are very cooperative and handled my case very well.",
+  image: "https://placehold.co/100x100/06122e/fff?text=GK"
+},
+{
+  name: "Mahiraj Sandhu",
+  visa: "Study Visa",
+  quote: "Punjab Immigration provides excellent services. Especially Simran Mam, she is very understanding and friendly.",
+  image: "https://placehold.co/100x100/fab00d/333?text=MS"
+},
+{
+  name: "Rajkaran Deol",
+  visa: "Study Visa",
+  quote: "The staff of Punjab Immigration is very cooperative. Sukh Sir and Manpreet Sir guided me very well.",
+  image: "https://placehold.co/100x100/06122e/fff?text=RD"
+},
+{
+  name: "Harkamal Chahal",
+  visa: "Study Visa",
+  quote: "I applied my case from Punjab Immigration. Services are amazing and staff is very cooperative.",
+  image: "https://placehold.co/100x100/fab00d/333?text=HC"
+},
+{
+  name: "Suman Shaberwal",
+  visa: "Study Visa",
+  quote: "It is a very supportive and hardworking team. I am very grateful to Punjab Immigration for making my dream come true.",
+  image: "https://placehold.co/100x100/06122e/fff?text=SS"
+},
+{
+  name: "Amritpal Sidhu",
+  visa: "Study Visa",
+  quote: "Punjab Immigration team is very dedicated and supportive. I really appreciate their work.",
+  image: "https://placehold.co/100x100/fab00d/333?text=AS"
+},
+{
+  name: "Harbir Singh",
+  visa: "Study Visa",
+  quote: "Staff is very cooperative and the environment is very nice. Overall thumbs up for this immigration.",
+  image: "https://placehold.co/100x100/06122e/fff?text=HS"
+},
+{
+  name: "Gurwinder Singh",
+  visa: "Study Visa",
+  quote: "Punjab Immigration is the best place to apply for a visa. I had a wonderful experience with them.",
+  image: "https://placehold.co/100x100/fab00d/333?text=GS"
+},
+{
+  name: "Satanterpal Singh",
+  visa: "Study Visa",
+  quote: "It is a great place to apply for your visa. Services are awesome.",
+  image: "https://placehold.co/100x100/06122e/fff?text=SS"
+},
+{
+  name: "Varinderjit Kaur",
+  visa: "Study Visa",
+  quote: "Very good experience. Staff easily provides visa and is very helpful.",
+  image: "https://placehold.co/100x100/fab00d/333?text=VK"
+},
+{
+  name: "Manveer Mahal",
+  visa: "IELTS / Immigration",
+  quote: "One of the best immigration and IELTS centres in Amritsar.",
+  image: "https://placehold.co/100x100/06122e/fff?text=MM"
+},
+{
+  name: "Gursewak Mitter",
+  visa: "Study Visa",
+  quote: "Very good services. Staff is also very cooperative.",
+  image: "https://placehold.co/100x100/fab00d/333?text=GM"
+},
+{
+  name: "Gurmanat Bhangu",
+  visa: "Study Visa",
+  quote: "Very good.",
+  image: "https://placehold.co/100x100/06122e/fff?text=GB"
+},
+{
+  name: "Harmanpreet Singh",
+  visa: "Study Visa",
+  quote: "Best immigration centre.",
+  image: "https://placehold.co/100x100/fab00d/333?text=HS"
+}
+
+  
+];
+
+// --- INDEX PAGE TESTIMONIAL AUTO RENDER ---
+(function renderIndexTestimonials() {
+  const track = document.getElementById("testimonialTrack");
+  if (!track || typeof reviews === "undefined") return;
+
+  const slidesHTML = reviews.map(r => `
+    <div class="testimonial-slide">
+      <img src="${r.image}" alt="${r.name}">
+      <p>"${r.quote}"</p>
+      <h4>${r.name}</h4>
+      <span>${r.visa}</span>
+    </div>
+  `).join("");
+
+  // Duplicate once for seamless infinite scroll
+  track.innerHTML = slidesHTML + slidesHTML;
+})();
+</script>
 </body>
 </html>
