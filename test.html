@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destinations | Punjab Immigration</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="logowhite.png">
@@ -16,7 +16,9 @@
             /* COLOR PALETTE - STRICT MONOCHROME BLUE */
             --primary: #fab00d;       /* Main Orange/Yellow */
             --dark-blue: #06122e;     /* Deep Navy Blue */
-            --accent: #06122e;        /* Accent matches Dark Blue */
+            
+            /* Accent matches Dark Blue */
+            --accent: #06122e;        
             
             --text: #333333;
             --light: #F5F7FA;
@@ -25,8 +27,8 @@
             /* Shadows using Dark Blue RGB */
             --shadow: 0 15px 40px -10px rgba(6, 18, 46, 0.15);
             
-            --footer-bg: #040c1f;     /* Slightly darker than main dark blue for contrast */
-            --footer-text: #b0b0b0;
+            --footer-bg: var(--dark-blue);     
+            --footer-text: #e0e0e0;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -79,7 +81,6 @@
             transform: translate(-50%, -50%) scale(1.5);
             background-color: var(--primary);
             opacity: 0.5;
-            border-color: transparent;
         }
 
         /* --- UTILITIES --- */
@@ -108,8 +109,10 @@
         .btn-primary::before { 
             content: ''; 
             position: absolute; 
-            top: 0; left: 0; 
-            width: 0%; height: 100%; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 100%; 
             background: var(--primary); 
             transition: 0.4s; 
             z-index: -1; 
@@ -131,7 +134,9 @@
         
         .section-padding { padding: 100px 0; }
         .text-center { text-align: center; }
-        .section-title { margin-bottom: 60px; }
+        .section-title {
+            margin-bottom: 60px;
+        }
         .section-title h5 {
             color: var(--accent); 
             letter-spacing: 2px;
@@ -178,7 +183,10 @@
             width: auto;
             vertical-align: middle; 
         }
-        .nav-links { display: flex; gap: 30px; }
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
         .nav-links a { 
             color: #333; 
             font-weight: 600; 
@@ -188,10 +196,12 @@
         }
         .nav-links a::after { 
             content: ''; 
-            width: 0; height: 2px; 
+            width: 0; 
+            height: 2px; 
             background: var(--accent); 
             position: absolute; 
-            bottom: -5px; left: 0; 
+            bottom: -5px; 
+            left: 0; 
             transition: 0.3s; 
         }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
@@ -306,14 +316,12 @@
         }
         
         /* --- STATS --- */
-       /* --- STATS --- */
-.stats-section { 
-    background: var(--primary); 
-    color: #333; 
-    /* Increased bottom padding from 120px to 200px to make room for the overlap */
-    padding: 120px 0 200px 0; 
-    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
-}
+        .stats-section { 
+            background: var(--primary); 
+            color: #333; 
+            padding: 120px 0; 
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+        }
         .stats-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -441,223 +449,85 @@
         .btn-spotlight {
             background: var(--white);
             color: var(--dark-blue);
-            display: inline-block;
-            padding: 14px 32px;
-            border-radius: 50px;
-            font-weight: 600;
-            border: none;
-            cursor: none;
-            transition: 0.4s;
         }
         .btn-spotlight:hover {
             background: var(--primary);
             color: var(--dark-blue);
         }
-        
-        /* --- WHATSAPP BUTTON --- */
-        @keyframes pulse-wa {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: #25D366;
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 100;
-            animation: pulse-wa 2s infinite;
-        }
 
-        /* --- FOOTER STYLING --- */
-        footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
-            padding: 80px 0 20px;
-            font-size: 0.95rem;
+        /* --- FOOTER --- */
+        footer { 
+            background: var(--footer-bg); 
+            color: var(--footer-text); 
+            padding: 80px 0 30px; 
             position: relative;
             z-index: 5;
-            margin-top: -5vh; /* Pull up to overlap stats */
-
         }
         footer::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/2000px-World_map_blank_without_borders.svg.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.03;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05), transparent 40%);
             pointer-events: none;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-            gap: 40px;
-            padding-bottom: 50px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-col h4 {
-            color: var(--white);
-            font-size: 1.2rem;
-            margin-bottom: 25px;
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+            gap: 40px; 
+            border-bottom: 1px solid rgba(255,255,235,0.1); 
+            padding-bottom: 40px; 
             position: relative;
-            font-weight: 600;
-            display: inline-block;
+            z-index: 1;
         }
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            left: 0; bottom: -8px;
-            width: 40px; height: 3px;
-            background-color: var(--primary);
-            border-radius: 2px;
-        }
-
-        .footer-logo img {
-            height: 70px;
-            margin-bottom: 20px;
-        }
-
-        .footer-about-text {
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .social-icons { display: flex; gap: 15px; }
-        .social-icon {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--white);
-            transition: 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1rem;
-        }
-        .social-icon:hover {
-            background: var(--primary);
-            color: var(--dark-blue);
-            transform: translateY(-3px);
-            border-color: var(--primary);
-        }
-
-        .footer-links li { margin-bottom: 15px; }
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-        }
-        .footer-links a::before {
-            content: '\f105';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            margin-right: 8px;
-            color: var(--primary);
-            transition: 0.3s;
-        }
-        .footer-links a:hover {
-            color: var(--white);
-            padding-left: 5px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        .contact-item i {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-        .contact-item span { line-height: 1.6; flex: 1; }
-
-        .newsletter-form { position: relative; margin-top: 20px; }
-        .newsletter-input {
-            width: 100%;
-            padding: 14px 50px 14px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: var(--white);
-            font-family: inherit;
-            outline: none;
-            transition: 0.3s;
-        }
-        .newsletter-input:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .newsletter-btn {
-            position: absolute;
-            top: 0; right: 0;
-            height: 100%;
-            width: 45px;
-            background: var(--primary);
-            border: none;
-            border-radius: 0 5px 5px 0;
-            color: var(--dark-blue);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .newsletter-btn:hover { background: var(--white); }
-
-        .footer-bottom {
-            padding-top: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .footer-col .logo { margin-bottom: 20px; color: white; }
+        .footer-col p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
+            max-width: 300px;
         }
-        .footer-bottom-links a {
-            color: rgba(255, 255, 255, 0.6);
-            margin-left: 20px;
-        }
-        .footer-bottom-links a:hover { color: var(--primary); }
-
-        .footer-credit {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.4);
-        }
-        .footer-credit a {
-            color: var(--primary);
+        .footer-col h4 { 
+            color: var(--white); 
+            margin-bottom: 25px; 
+            font-size: 1.2rem; 
             font-weight: 600;
+        }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { 
+            color: rgba(255,255,255,0.7); 
+            font-size: 0.9rem; 
+            font-weight: 300;
+        }
+        .footer-col ul li a:hover { 
+            color: var(--primary); 
+            padding-left: 5px; 
+        }
+        .footer-col .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+        .footer-col .contact-item i {
+            color: var(--primary);
+            width: 15px;
+        }
+        .copyright { 
+            text-align: center; 
+            padding-top: 30px; 
+            font-size: 0.9rem; 
+            color: rgba(255,255,255,0.5); 
+            position: relative;
+            z-index: 1;
         }
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 992px) {
             .nav-links { gap: 20px; }
-            .services-layout { grid-template-columns: 1fr; }
-            .services-sticky-visual {
-                position: relative;
-                top: 0;
-                height: 300px;
-                margin-bottom: 40px;
-            }
-            .services-scrolling-content { padding-bottom: 0; }
-            .service-trigger-box { min-height: auto; }
-            
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; }
         }
         
         @media (max-width: 768px) {
@@ -669,11 +539,20 @@
             
             .mobile-toggle { display: block; }
             .nav-links {
-                position: fixed; top: 90px; left: 0; width: 100%; height: calc(100vh - 90px);
-                background: var(--white); flex-direction: column; align-items: center;
-                justify-content: flex-start; padding-top: 40px; gap: 35px;
+                position: fixed; 
+                top: 90px; 
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 35px;
                 transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-                transform: translateX(100%); z-index: 999;
+                transform: translateX(100%); 
+                z-index: 999;
             }
             .nav-links.active { transform: translateX(0); }
             .nav-links a { font-size: 1.2rem; font-weight: 600; }
@@ -691,27 +570,10 @@
             
             /* Mobile Grids */
             .destinations-grid { grid-template-columns: 1fr; }
-            .stats-section { clip-path: none; margin: 0; padding: 80px 0; }
+            .stats-section { clip-path: none; margin: 0; }
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
-            
-            /* Mobile Footer - Updated to Grid Layout */
-            .footer-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 40px 20px; 
-                text-align: left; 
-            }
-            .footer-col:first-child { 
-                grid-column: 1 / -1; 
-                text-align: center; 
-            }
-            .footer-col:first-child p { margin: 0 auto 20px; }
-            .social-icons { justify-content: center; }
-            .footer-col:last-child { grid-column: 1 / -1; }
-            
-            .footer-col h4::after { left: 0; transform: none; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
-            .footer-bottom-links { margin-top: 10px; }
-            .footer-bottom-links a { margin: 0 10px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer { margin-top: 0; }
 
             .section-padding { padding: 80px 0; }
             .section-title h2 { font-size: 2rem; }
@@ -721,22 +583,6 @@
             .spotlight-row.reverse { flex-direction: column; }
             .spotlight-content h2 { font-size: 2.2rem; }
             .spotlight-image { height: 300px; box-shadow: none; }
-
-            .spotlight-section {
-        margin-top: 0;
-        padding-top: 80px;
-    }
-    
-    /* Optional: Ensure stats have enough breathing room */
-    .stats-section {
-        padding-bottom: 80px;
-    }
-
-    .destinations-section { padding-top: 15vh; } 
-    
-    /* If the page uses .why-section instead, use this: */
-    .why-section { padding-top: 15vh; }
-
         }
 
         @media (max-width: 480px) {
@@ -757,8 +603,9 @@
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="index.html">Home</a>
-                <a href="visa-services.html">Visa services</a>
-                 <a href="destinations.html" class="active">Destinations</a>
+                    <a href="Visa-Services.html">Visa services</a>
+                
+                <a href="destinations.html" class="active">Destinations</a>
                 <a href="happy-customers.html">Success Stories</a>
                  <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
@@ -863,7 +710,7 @@
             <!-- Row 1: Refusal Cases -->
             <div class="spotlight-row reveal delay-1">
                 <div class="spotlight-image-wrapper">
-                    <img src="refusal-case.avif" alt="Visa Refusal Analysis" class="spotlight-image">
+                    <img src="refusal-case.png" alt="Visa Refusal Analysis" class="spotlight-image" onerror="this.src='https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80';">
                 </div>
                 <div class="spotlight-content">
                     <span class="spot-badge">Refusal Specialist</span>
@@ -881,7 +728,7 @@
             <!-- Row 2: Gap Justification -->
             <div class="spotlight-row reverse reveal delay-2">
                 <div class="spotlight-image-wrapper">
-                    <img src="counseling.avif" alt="Career Counseling" class="spotlight-image">
+                    <img src="counseling.png" alt="Career Counseling" class="spotlight-image" onerror="this.src='https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=800&q=80';">
                 </div>
                 <div class="spotlight-content">
                     <span class="spot-badge">Profile Assessment</span>
@@ -899,83 +746,51 @@
         </div>
     </section>
 
-    <!-- WHATSAPP BUTTON -->
-    <a href="https://wa.me/919507795077" target="_blank" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
     <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <!-- Column 1: About -->
                 <div class="footer-col">
-                    <a href="index.html" class="footer-logo">
-                         <img src="logowhite.png" alt="Punjab Immigration Logo">
+                    <a href="index.html" class="logo">
+                         <img src="logowhite.png" alt="Punjab Immigration Logo (White)">
                     </a>
-                    <p class="footer-about-text">Your trusted partner for global dreams. We provide transparent, honest, and efficient visa services for Canada, UK, Australia, and beyond.</p>
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/share/1Am5DtawRN/?mibextid=wwXIfr" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/_punjabimmigration/" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/punjab-immigration-a37827383" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://www.youtube.com/@PunjabImmigration53" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-                    </div>
+                    <p>Helping dreams take flight from Punjab to the world. Trusted, transparent, and timely immigration services.</p>
                 </div>
-
-                <!-- Column 2: Quick Links -->
                 <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <ul class="footer-links">
+                    <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="destinations.html">Destinations</a></li>
-                        <li><a href="happy-customers.html">Success Stories</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-
-                <!-- Column 3: Services -->
                 <div class="footer-col">
-                    <h4>Our Services</h4>
-                    <ul class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
                         <li><a href="study-visa.html">Study Visa</a></li>
                         <li><a href="work-visa.html">Work Visa</a></li>
                         <li><a href="pr-visa.html">PR Visa</a></li>
                         <li><a href="visitor-visa.html">Visitor Visa</a></li>
                     </ul>
                 </div>
-
-                <!-- Column 4: Contact -->
                 <div class="footer-col">
-                    <h4>Get In Touch</h4>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>For Enquiry: 95077 95077</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span>SCO 53, RANJIT AVENUE B BLOCK, AMRITSAR</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-globe"></i>
-                        <span>punjabimmigration.in</span>
-                    </div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="contact-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li class="contact-item"><i class="fa-solid fa-envelope"></i> info@punjabimm.com</li>
+                        <li class="contact-item"><i class="fa-solid fa-location-dot"></i> Ranjit Avenue, Amritsar</li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="footer-bottom">
-                <div class="copyright">
-                    &copy; 2025 Punjab Immigration. All Rights Reserved.
-                </div>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms & Conditions</a>
-                </div>
+            <div class="copyright">
+                &copy; 2025 Punjab Immigration. All Rights Reserved.
             </div>
-            
-            <div class="footer-credit">
-                Built by <a href="https://yenoh.space/">Yenoh</a>
-            </div>
+            <div style="text-align: center; padding: 20px; font-family: sans-serif;">
+    <h4 style="margin: 0; color: white; font-weight: normal;">
+        Built by <a href="https://yenoh.space/" style="color: #F3CF55; text-decoration: underline;">Yenoh</a>
+    </h4>
+</div>
         </div>
     </footer>
 
@@ -999,7 +814,7 @@
                 }
             });
 
-            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .destination-card, .btn-spotlight');
+            const hoverElements = document.querySelectorAll('a, .btn, .slider-dot, .mobile-toggle, .map-hotspot, .destination-card, .panel');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     if(cursorOutline) cursorOutline.classList.add('cursor-hover');
@@ -1087,6 +902,7 @@
             } else if (statsSection) {
                 startCounters();
             }
+
         });
     </script>
 </body>

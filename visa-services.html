@@ -660,16 +660,61 @@
             .services-layout-wrapper .section-title h5 { color: var(--primary); }
             .services-layout-wrapper .section-title h2 { color: var(--white); }
 
-            .dest-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .dest-card { height: 250px; }
-            .dest-overlay-content {
-                transform: translateY(0);
-                background: linear-gradient(to top, rgba(6, 18, 46, 1) 0%, rgba(6, 18, 46, 0.5) 100%);
-                padding: 15px;
+            /* --- FIXED MOBILE CARD STYLING (PERMANENT OVERLAY) --- */
+            .dest-grid { 
+                grid-template-columns: 1fr; /* Switch to 1 column for better mobile view */
+                max-width: 400px; 
+                margin: 50px auto 0;
             }
-            .dest-card h3 { font-size: 1.3rem; margin-bottom: 2px; }
-            .dest-tagline { font-size: 0.7rem; margin-bottom: 5px; }
-            .dest-hidden-info { display: none; } /* Hide extra info on mobile cards to keep them clean */
+
+            .dest-card { 
+                height: 350px; 
+                display: block;
+                overflow: hidden;
+            }
+            .dest-card img {
+                height: 100%; 
+                width: 100%;
+                object-fit: cover;
+            }
+            
+            /* Always show overlay content on mobile at bottom */
+            .dest-overlay-content {
+                position: absolute;
+                bottom: 0; 
+                left: 0; 
+                width: 100%;
+                height: auto;
+                padding: 20px;
+                /* Dark gradient for readability */
+                background: linear-gradient(to top, rgba(6, 18, 46, 1) 15%, rgba(6, 18, 46, 0.6) 100%);
+                transform: translateY(0); /* Force Visible */
+                opacity: 1;
+            }
+            
+            .dest-hidden-info {
+                display: block;
+                opacity: 1;
+                transform: none;
+            }
+            
+            .dest-card h3 { font-size: 1.5rem; margin-bottom: 2px; }
+            .dest-tagline { font-size: 0.8rem; margin-bottom: 10px; }
+            
+            /* Limit description text on mobile so it doesn't take over image */
+            .dest-pros {
+                font-size: 0.85rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                margin-bottom: 15px;
+            }
+            
+            .btn-white-outline {
+                padding: 10px 25px;
+                font-size: 0.85rem;
+            }
 
             /* Mobile Footer - Updated to Grid Layout */
             .footer-grid { 
@@ -697,7 +742,7 @@
         @media (max-width: 480px) {
             .section-padding { padding: 60px 0; }
             /* Fallback to 1 column if 2 is too tight */
-            .dest-grid { grid-template-columns: repeat(2, 1fr); }
+            .dest-grid { grid-template-columns: repeat(1, 1fr); }
         }
     </style>
 </head>
@@ -1018,6 +1063,7 @@
                     firstImage.classList.add('active');
                 }
             }
+
         });
     </script>
 </body>
