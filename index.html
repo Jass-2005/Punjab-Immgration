@@ -512,7 +512,7 @@
             gap: 20px; 
         }
         .service-card { 
-            height: 260px; 
+            height: 400px; 
             border-radius: 15px; 
             box-shadow: var(--shadow); 
             transition: 0.5s ease; 
@@ -1052,7 +1052,7 @@
         footer { 
             background: var(--footer-bg); 
             color: var(--footer-text); 
-            padding: 80px 0 30px; 
+            padding: 80px 0 10px; /* Reduced bottom padding */
             position: relative;
             z-index: 5;
         }
@@ -1196,7 +1196,7 @@
         }
 
         .footer-bottom { 
-            padding: 25px 0; 
+            padding: 15px 0; /* Reduced padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1848,7 +1848,7 @@
                 </div>
                 
             </div>
-            <div style="text-align: center; padding: 20px; font-family: sans-serif;">
+            <div style="text-align: center; padding: 10px 0; font-family: sans-serif;">
     <h4 style="margin: 0; color: white; font-weight: normal;">
         Built by <a href="https://yenoh.space/" style="color: #F3CF55; text-decoration: underline;">Yenoh</a>
     </h4>
@@ -2096,7 +2096,7 @@
     });
 
   /* OPTIONAL: If you want the card images to always match the active hero slide,
-      enable this SYNC block. It updates every time the slideshow changes. */
+     enable this SYNC block. It updates every time the slideshow changes. */
   (function syncCardsToSlides() {
     const slides = Array.from(document.querySelectorAll('.hero-slideshow .hs-slide'));
     if (!slides.length) return;
